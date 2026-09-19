@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #070a0f;
+    color: #f8fafc;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Bespoke Grid Background Overlay */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Glassmorphic Cards */
+.glass-card {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+}
+
+/* ========================================================= */
+/* GLOBAL RULE: ALL WHITE BACKGROUND ELEMENTS HOVER YELLOW   */
+/* ========================================================= */
+.bg-white,
+[class*="bg-white"] {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+/* Any button, link, badge, pill, or interactive element with white background turns vibrant yellow on hover */
+button.bg-white:hover,
+a.bg-white:hover,
+[role="button"].bg-white:hover,
+.cursor-pointer.bg-white:hover,
+.bg-white:hover:not(input:not([type="button"]):not([type="submit"])):not(textarea):not(select):not(pre):not(code),
+[class*="bg-white"]:is(button, a, [role="button"], .cursor-pointer):hover,
+[class*="bg-white"][class*="hover:"]:hover:not(input:not([type="button"]):not([type="submit"])):not(textarea):not(select):not(pre):not(code) {
+  background-color: #fbbf24 !important; /* amber-400 vibrant yellow */
+  color: #000000 !important;
+  border-color: #f59e0b !important;
+}
+
+/* Ensure text, icons, and SVG children inside white buttons stay deep black for peak contrast on yellow */
+button.bg-white:hover *,
+a.bg-white:hover *,
+[role="button"].bg-white:hover *,
+.cursor-pointer.bg-white:hover *,
+[class*="bg-white"]:is(button, a, [role="button"]):hover * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+/* Warm radiant yellow glow on hovered white buttons */
+button.bg-white:hover,
+a.bg-white:hover,
+[role="button"].bg-white:hover,
+[class*="bg-white"]:is(button, a, [role="button"]):hover {
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.7) !important;
+}
+
+/* Custom Editorial Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ========================================================= */
+/* PERFECT A4 PRINT & PDF STYLESHEET                         */
+/* Isolates document canvas with zero clipping or overflow   */
+/* ========================================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
+  html, body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Completely hide all site navigation, headers, footers, toolbars and non-printable items */
+  header, footer, nav, aside, .no-print, .sticky, button, .lucide, [role="dialog"], audio, iframe#isolated-document-print-frame {
+    display: none !important;
+  }
+
+  body:has(#printable-document-container) {
+    background: #ffffff !important;
+  }
+
+  body:has(#printable-document-container) #root {
+    display: block !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  body:has(#printable-document-container) main {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+  }
+
+  body:has(#printable-document-container) .xl\:col-span-5 {
+    display: none !important;
+  }
+
+  body:has(#printable-document-container) .xl\:col-span-7 {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #printable-document-container {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .printable-document {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .printable-document * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-sizing: border-box !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Prevent awkward page breaks in clauses and dual signatures */
+  .agreement-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 14px !important;
+  }
+
+  .signature-block {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 20px !important;
+  }
+
+  /* Strict clean print guarantee for Admin Document Studio */
+  body:has(#printable-document) {
+    background: #ffffff !important;
+  }
+
+  body:has(#printable-document) aside,
+  body:has(#printable-document) header,
+  body:has(#printable-document) nav,
+  body:has(#printable-document) footer,
+  body:has(#printable-document) .print\:hidden {
+    display: none !important;
+  }
+
+  body:has(#printable-document) main {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  #printable-document {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
