@@ -154,21 +154,21 @@ export const PortfolioPage: React.FC = () => {
                 Video Production & Cinema Portfolios
               </h2>
               <p className="text-zinc-400 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                Explore our dual production ecosystem: <span className="text-pink-400 font-bold">DAPFLIX</span> (viral social reels & kinetic editing) and <span className="text-red-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events).
+                Explore our dual production ecosystem: <span className="text-red-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events) and <span className="text-pink-400 font-bold">DAPFLIX</span> (viral social reels & kinetic editing).
               </p>
             </div>
 
             {/* Studio Selection Switcher */}
             <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl flex-wrap">
               <button
-                onClick={() => setSelectedStudio('BOTH')}
+                onClick={() => setSelectedStudio('EKRAAHEE')}
                 className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
-                  selectedStudio === 'BOTH'
-                    ? 'bg-white text-black shadow-lg scale-105'
+                  selectedStudio === 'EKRAAHEE'
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black scale-105'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5" /> Both Studios
+                <Youtube className="w-3.5 h-3.5" /> 1. Ekraahee YouTube Cinema
               </button>
 
               <button
@@ -179,58 +179,32 @@ export const PortfolioPage: React.FC = () => {
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Instagram className="w-3.5 h-3.5" /> DAPFLIX Reels
+                <Instagram className="w-3.5 h-3.5" /> 2. DAPFLIX Reels
               </button>
 
               <button
-                onClick={() => setSelectedStudio('EKRAAHEE')}
+                onClick={() => setSelectedStudio('BOTH')}
                 className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
-                  selectedStudio === 'EKRAAHEE'
-                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black scale-105'
+                  selectedStudio === 'BOTH'
+                    ? 'bg-white text-black shadow-lg scale-105'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Youtube className="w-3.5 h-3.5" /> Ekraahee YouTube Cinema
+                <Sparkles className="w-3.5 h-3.5" /> Both Studios
               </button>
             </div>
           </div>
 
           {/* Render The Chosen Interactive Player(s) */}
           <div className="space-y-10">
-            {/* 1. DAPFLIX Interactive Reel Console */}
-            {(selectedStudio === 'DAPFLIX' || selectedStudio === 'BOTH') && (
-              <div className="space-y-3">
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400">
-                      Studio 01: DAPFLIX — Viral Social Reels & Visual Timeline Console
-                    </span>
-                  </div>
-                  <a
-                    href="https://www.instagram.com/dapflix/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-zinc-400 hover:text-pink-400 flex items-center gap-1 transition-colors"
-                  >
-                    @dapflix on Instagram ↗
-                  </a>
-                </div>
-
-                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
-                  <DapflixReelsShowcase hideHeader={true} />
-                </div>
-              </div>
-            )}
-
-            {/* 2. Ekraahee Films YouTube Cinema Stage */}
+            {/* 1. Ekraahee Films YouTube Cinema Stage (FIRST) */}
             {(selectedStudio === 'EKRAAHEE' || selectedStudio === 'BOTH') && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-red-400">
-                      Studio 02: Ekraahee Films — 4K YouTube Commercial Cinema Showcase
+                      Studio 01: Ekraahee Films — 4K YouTube Commercial Cinema Showcase
                     </span>
                   </div>
                   <a
@@ -245,6 +219,32 @@ export const PortfolioPage: React.FC = () => {
 
                 <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
                   <EkraaheeCinemaSlider hideHeader={true} showFullLink={true} />
+                </div>
+              </div>
+            )}
+
+            {/* 2. DAPFLIX Interactive Reel Console (SECOND) */}
+            {(selectedStudio === 'DAPFLIX' || selectedStudio === 'BOTH') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400">
+                      Studio 02: DAPFLIX — Viral Social Reels & Visual Timeline Console
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.instagram.com/dapflix/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-zinc-400 hover:text-pink-400 flex items-center gap-1 transition-colors"
+                  >
+                    @dapflix on Instagram ↗
+                  </a>
+                </div>
+
+                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+                  <DapflixReelsShowcase hideHeader={true} />
                 </div>
               </div>
             )}
