@@ -254,38 +254,95 @@ export const PortfolioPage: React.FC = () => {
 
       {/* 4. NEWS WEBSITES SPOTLIGHT (When News filter is active) */}
       {filter === 'NEWS' && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-zinc-900/90 border border-red-500/30 backdrop-blur space-y-4 shadow-2xl">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
-            <Newspaper className="w-4 h-4" /> Featured Regional Media & News Portals
-          </div>
-          <p className="text-zinc-300 text-sm max-w-3xl leading-relaxed">
-            Velametric engineers high-throughput news publishing platforms, automated editorial CMS workflows, and AMP-accelerated mobile portals delivering breaking news for millions of daily readers across Uttarakhand and North India:
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <a
-              href="https://lokjanexpress.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
-            >
-              <Globe className="w-4 h-4 text-red-500" /> 1. lokjanexpress.com ↗
-            </a>
-            <a
-              href="https://gangakhabar.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
-            >
-              <Globe className="w-4 h-4 text-red-500" /> 2. gangakhabar.com ↗
-            </a>
-            <a
-              href="https://52garhsamachar.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
-            >
-              <Globe className="w-4 h-4 text-red-500" /> 3. 52garhsamachar.com ↗
-            </a>
+        <div className="relative rounded-3xl bg-gradient-to-b from-zinc-900 via-zinc-950 to-black border border-red-500/30 overflow-hidden shadow-2xl backdrop-blur p-6 sm:p-10 space-y-8">
+          {/* Subtle Ambient Red Glow */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Left Column: Editorial Info & Live Links */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-red-950/80 text-red-400 border border-red-800/50 backdrop-blur">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Live Regional News Networks
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl font-black text-white font-display uppercase tracking-tight leading-tight">
+                High-Volume Digital News Portals
+              </h2>
+
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                Velametric engineers high-throughput digital journalism platforms, automated editorial CMS workflows, AMP-accelerated mobile portals, and interactive digital e-papers serving millions of daily readers across Uttarakhand and North India.
+              </p>
+
+              {/* High-Impact Stat Chips */}
+              <div className="grid grid-cols-3 gap-3 pt-1">
+                <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
+                  <div className="text-lg sm:text-2xl font-black text-red-500 font-mono">9.8M+</div>
+                  <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">Reader Surges</div>
+                </div>
+                <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
+                  <div className="text-lg sm:text-2xl font-black text-white font-mono">&lt;0.8s</div>
+                  <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">AMP Mobile Speed</div>
+                </div>
+                <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
+                  <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">99.99%</div>
+                  <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">Live Uptime</div>
+                </div>
+              </div>
+
+              {/* 3 Live Client Portal Links */}
+              <div className="space-y-2.5 pt-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-red-500" /> Live Production Media Deployments:
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  <a
+                    href="https://lokjanexpress.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-red-500" /> 1. lokjanexpress.com ↗
+                  </a>
+                  <a
+                    href="https://gangakhabar.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-red-500" /> 2. gangakhabar.com ↗
+                  </a>
+                  <a
+                    href="https://52garhsamachar.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-red-500" /> 3. 52garhsamachar.com ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: High-Tech Featured Image Mockup Display */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative rounded-2xl overflow-hidden border border-zinc-700/80 shadow-[0_0_50px_rgba(239,68,68,0.25)] group">
+                <img
+                  src="/images/services/news_portal_featured.jpg"
+                  alt="Live Breaking News Media Portal & Editorial CMS"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                
+                {/* Live Floating Status Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-xl bg-zinc-950/90 border border-zinc-800 backdrop-blur-md">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="text-xs font-mono font-bold text-white uppercase">Real-Time Editorial Engine</span>
+                  </div>
+                  <span className="text-[11px] font-mono text-amber-400 font-bold">Cloudflare Edge CDN</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
