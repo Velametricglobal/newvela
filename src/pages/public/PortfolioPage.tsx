@@ -20,7 +20,14 @@ import {
   Video, 
   Clapperboard, 
   Tv,
-  Youtube
+  Youtube,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  Award,
+  Users,
+  Tag
 } from 'lucide-react';
 
 const getYouTubeId = (url?: string): string | null => {
@@ -29,11 +36,71 @@ const getYouTubeId = (url?: string): string | null => {
   return match ? match[1] : null;
 };
 
+export interface EventGalleryPhoto {
+  id: string;
+  src: string;
+  title: string;
+  category: string;
+  bannerText: string;
+  caption: string;
+  highlights: string;
+}
+
+export const EVENT_GALLERY_PHOTOS: EventGalleryPhoto[] = [
+  {
+    id: 'eg-1',
+    src: '/images/events/corruption_free_doon_trophies.jpg',
+    title: 'Golden Globe Championship Trophies & Awards',
+    category: 'Podium Honors & Felicitation',
+    bannerText: 'PLAQUE: "OK INDIA — CORRUPTION FREE DOON — DATE: 25 DECEMBER"',
+    caption: 'Bespoke Golden Globe trophies adorned with red ribbons, polished gold finish, and engraved presentation plaques honoring marathon champions and civic leaders.',
+    highlights: '40+ Golden Globe Awards • Official OK India Media Plaque'
+  },
+  {
+    id: 'eg-2',
+    src: '/images/events/corruption_free_doon_marathon_start.jpg',
+    title: 'Marathon Starting Line & Runners Assembly',
+    category: 'Mega Race Logistics',
+    bannerText: 'CHEST BIBS: "OK INDIA PRESENTS — CORRUPTION FREE DOON"',
+    caption: 'Over 2,500 youth athletes, university students, and community marathoners lined up with official printed chest numbers at the starting grid.',
+    highlights: '2,500+ Athletes • State-Level Marathon Coordination'
+  },
+  {
+    id: 'eg-3',
+    src: '/images/events/corruption_free_doon_folk_dance.jpg',
+    title: 'Garhwali Traditional Folk Dance Arena',
+    category: 'Uttarakhand Cultural Heritage',
+    bannerText: 'BANNER: "WELCOME OK INDIA HALF MARATHON CORRUPTION FREE DOON"',
+    caption: 'Vibrant cultural ensemble in authentic Garhwali attire (yellow kurtas, red pahadi topis, pink-blue dresses, and traditional silver jewelry) performing for the stadium audience.',
+    highlights: 'Live Cultural Heritage • Authentic Pahadi Folk Choreography'
+  },
+  {
+    id: 'eg-4',
+    src: '/images/events/corruption_free_doon_vip_arena.jpg',
+    title: 'Stadium VIP Pavilion & Civic Dignitary Dais',
+    category: 'Civic Protocol & Crowd Operations',
+    bannerText: 'SEATING AREA: "CORRUPTION FREE DOON STADIUM ASSEMBLY"',
+    caption: 'Prominent civic figures, coaches, community leaders, and hundreds of runners seated across the field carpet during the formal event inauguration and civic integrity address.',
+    highlights: 'VIP Protocol Seating • Grandfield Assembly'
+  },
+  {
+    id: 'eg-5',
+    src: '/images/events/corruption_free_doon_organizers_troupe.jpg',
+    title: 'Cultural Troupe & Production Team Felicitation',
+    category: 'Organizing Committee & Artists',
+    bannerText: 'STAGE CREW: "OK INDIA EVENT COMMITTEE & FOLK ARTISTS"',
+    caption: 'Event organizers, logistics leads, and the traditional Garhwali cultural dance troupe gathered together on the field following the grand ceremony.',
+    highlights: 'Folk Artists & Organizers • Complete Event Execution'
+  }
+];
+
 export const PortfolioPage: React.FC = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
   const [filter, setFilter] = useState<'ALL' | 'VIDEO' | 'NEWS' | 'CRM' | 'EVENTS'>('ALL');
   const [activeReelModal, setActiveReelModal] = useState<VideoReel | null>(null);
   const [selectedStudio, setSelectedStudio] = useState<'BOTH' | 'DAPFLIX' | 'EKRAAHEE'>('BOTH');
+  const [activeEventPhotoIndex, setActiveEventPhotoIndex] = useState<number>(0);
+  const [eventPhotoModal, setEventPhotoModal] = useState<EventGalleryPhoto | null>(null);
 
   useEffect(() => {
     const loadProjects = () => {
@@ -347,6 +414,140 @@ export const PortfolioPage: React.FC = () => {
         </div>
       )}
 
+      {/* 4C. ON-GROUND EVENT PHOTO GALLERY SPOTLIGHT (Active when Events tab is selected) */}
+      {filter === 'EVENTS' && (
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-900 border border-amber-500/30 shadow-[0_0_60px_rgba(245,158,11,0.12)] space-y-6 animate-in fade-in duration-500">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-mono font-extrabold uppercase tracking-wider">
+                <Camera className="w-3.5 h-3.5" /> Live On-Ground Event Photo Gallery
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
+                Event Production Archive & On-Ground Documentation
+              </h3>
+              <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl">
+                Captured live from the <strong className="text-amber-300">OK India Corruption Free Doon Half Marathon & State Awards</strong> — showcasing our turnkey execution across marathon logistics, cultural stage choreography, and dignitary felicitation.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 self-start md:self-auto">
+              <span className="text-xs font-mono text-zinc-400 mr-2">
+                {activeEventPhotoIndex + 1} / {EVENT_GALLERY_PHOTOS.length}
+              </span>
+              <button
+                onClick={() => setActiveEventPhotoIndex((prev) => (prev > 0 ? prev - 1 : EVENT_GALLERY_PHOTOS.length - 1))}
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-all border border-zinc-700"
+                title="Previous Photo"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setActiveEventPhotoIndex((prev) => (prev < EVENT_GALLERY_PHOTOS.length - 1 ? prev + 1 : 0))}
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-all border border-zinc-700"
+                title="Next Photo"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Featured Photo Spotlight */}
+          {(() => {
+            const activePhoto = EVENT_GALLERY_PHOTOS[activeEventPhotoIndex];
+            return (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                {/* Main Visual Frame */}
+                <div className="lg:col-span-8 relative group rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-950 shadow-2xl">
+                  <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden relative cursor-pointer" onClick={() => setEventPhotoModal(activePhoto)}>
+                    <img
+                      src={activePhoto.src}
+                      alt={activePhoto.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+
+                    {/* Click to Enlarge Badge */}
+                    <div className="absolute top-4 right-4 z-10">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEventPhotoModal(activePhoto);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 hover:bg-amber-400 hover:text-black text-white text-xs font-mono font-bold backdrop-blur-md border border-white/20 transition-all shadow-lg"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" /> Fullscreen ↗
+                      </button>
+                    </div>
+
+                    {/* Banner readout bar on image bottom */}
+                    <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-zinc-950/90 border border-zinc-800/90 backdrop-blur-md">
+                      <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold text-amber-400">
+                        <Tag className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span className="truncate">{activePhoto.bannerText}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Photo Information & Breakdown */}
+                <div className="lg:col-span-4 space-y-4">
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-widest block">
+                      {activePhoto.category}
+                    </span>
+                    <h4 className="text-xl font-bold text-white font-display leading-tight">
+                      {activePhoto.title}
+                    </h4>
+                    <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed">
+                      {activePhoto.caption}
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-1.5">
+                    <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                      Event Highlights
+                    </div>
+                    <div className="text-xs font-bold text-zinc-200">
+                      {activePhoto.highlights}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setEventPhotoModal(activePhoto)}
+                    className="w-full py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-amber-400/20"
+                  >
+                    <Maximize2 className="w-4 h-4" /> View High-Res Image
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Thumbnail Strip (5 images) */}
+          <div className="grid grid-cols-5 gap-2 sm:gap-3 pt-2">
+            {EVENT_GALLERY_PHOTOS.map((photo, idx) => {
+              const isCurrent = idx === activeEventPhotoIndex;
+              return (
+                <button
+                  key={photo.id}
+                  onClick={() => setActiveEventPhotoIndex(idx)}
+                  className={`relative aspect-[16/10] rounded-xl overflow-hidden border-2 transition-all text-left group ${
+                    isCurrent ? 'border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.4)] scale-102' : 'border-zinc-800 opacity-60 hover:opacity-100 hover:border-zinc-600'
+                  }`}
+                >
+                  <img src={photo.src} alt={photo.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                  <span className="hidden md:block absolute bottom-1.5 left-2 right-2 text-[9px] font-bold text-white truncate font-mono">
+                    {idx + 1}. {photo.title.split(' ')[0]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* 5. WORK SHOWCASE CARDS GRID */}
       <div className="space-y-6">
         <div className="flex justify-between items-center px-1">
@@ -487,6 +688,45 @@ export const PortfolioPage: React.FC = () => {
                       </div>
                     )}
 
+                    {/* Embedded Event Photo Gallery Strip */}
+                    {isEvent && proj.gallery && proj.gallery.length > 0 && (
+                      <div className="pt-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center justify-between font-mono">
+                          <span className="flex items-center gap-1.5 text-amber-400">
+                            <Camera className="w-3.5 h-3.5" />
+                            On-Ground Photos ({proj.gallery.length})
+                          </span>
+                          <span className="text-[9px] text-zinc-500 font-mono">Click to enlarge</span>
+                        </div>
+                        <div className="grid grid-cols-4 gap-1.5">
+                          {proj.gallery.slice(0, 4).map((imgUrl, gIdx) => (
+                            <div
+                              key={gIdx}
+                              onClick={() => {
+                                const matched = EVENT_GALLERY_PHOTOS.find(p => p.src === imgUrl) || {
+                                  id: `custom-${gIdx}`,
+                                  src: imgUrl,
+                                  title: proj.title || 'Event Gallery Showcase',
+                                  category: 'On-Ground Event Documentation',
+                                  bannerText: 'OK INDIA EVENT ARCHIVE',
+                                  caption: proj.description || 'On-ground live event documentation.',
+                                  highlights: proj.client || 'Live Event Execution'
+                                };
+                                setEventPhotoModal(matched);
+                              }}
+                              className="aspect-square rounded-lg overflow-hidden border border-zinc-800 hover:border-amber-400 cursor-pointer relative group/thumb transition-all bg-zinc-950 shadow-md"
+                              title="Click to view photo"
+                            >
+                              <img src={imgUrl} alt={`${proj.title} photo ${gIdx + 1}`} className="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-300" />
+                              <div className="absolute inset-0 bg-black/30 group-hover/thumb:bg-black/0 flex items-center justify-center transition-colors">
+                                <Maximize2 className="w-3 h-3 text-white/70 group-hover/thumb:text-amber-400 opacity-0 group-hover/thumb:opacity-100 transition-opacity" />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Services / Tags for non-reel or secondary display */}
                     {(!hasReels || isNews || !isVideo) && proj.services_used && proj.services_used.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 pt-2">
@@ -541,6 +781,25 @@ export const PortfolioPage: React.FC = () => {
                     >
                       <Globe className="w-4 h-4" /> Visit Live News Website <ExternalLink className="w-3.5 h-3.5" />
                     </a>
+                  ) : isEvent && proj.gallery && proj.gallery.length > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const firstMatched = EVENT_GALLERY_PHOTOS.find(p => p.src === proj.gallery![0]) || {
+                          id: 'event-modal-first',
+                          src: proj.gallery![0],
+                          title: proj.title || 'Event Gallery Showcase',
+                          category: 'Event Documentation',
+                          bannerText: 'OK INDIA EVENT BANNER',
+                          caption: proj.description || 'Live on-ground event documentation.',
+                          highlights: proj.client || 'Live Event Execution'
+                        };
+                        setEventPhotoModal(firstMatched);
+                      }}
+                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-extrabold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-xl shadow-amber-500/20"
+                    >
+                      <Camera className="w-4 h-4" /> View On-Ground Photos ({proj.gallery.length}) ↗
+                    </button>
                   ) : isEvent && proj.instagram_url ? (
                     <a
                       href={proj.instagram_url}
@@ -640,6 +899,62 @@ export const PortfolioPage: React.FC = () => {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* 6B. EVENT ON-GROUND PHOTO LIGHTBOX MODAL */}
+      {eventPhotoModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setEventPhotoModal(null)}
+        >
+          <div
+            className="w-full max-w-5xl bg-zinc-900 border border-zinc-700/80 rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.9)] flex flex-col max-h-[92vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Top Bar */}
+            <div className="p-4 sm:p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/90">
+              <div>
+                <span className="text-[10px] font-extrabold text-amber-400 uppercase tracking-widest block font-mono">
+                  {eventPhotoModal.category}
+                </span>
+                <h3 className="text-base sm:text-lg font-bold text-white font-display">
+                  {eventPhotoModal.title}
+                </h3>
+              </div>
+              <button
+                onClick={() => setEventPhotoModal(null)}
+                className="p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800 transition-all"
+                title="Close Lightbox"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* High-Res Image Display */}
+            <div className="relative flex-1 bg-black flex items-center justify-center overflow-hidden min-h-[300px] max-h-[62vh] p-2">
+              <img
+                src={eventPhotoModal.src}
+                alt={eventPhotoModal.title}
+                className="max-h-[60vh] w-auto max-w-full object-contain mx-auto rounded-lg shadow-2xl"
+              />
+            </div>
+
+            {/* Modal Bottom Metadata & Banner Analysis */}
+            <div className="p-4 sm:p-5 bg-zinc-950 border-t border-zinc-800/80 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-mono font-bold">
+                  <Tag className="w-3.5 h-3.5" /> {eventPhotoModal.bannerText}
+                </div>
+                <span className="text-xs font-mono text-zinc-400 font-bold">
+                  {eventPhotoModal.highlights}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                {eventPhotoModal.caption}
+              </p>
+            </div>
           </div>
         </div>
       )}
