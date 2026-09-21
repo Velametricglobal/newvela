@@ -331,16 +331,16 @@ let localProjects: PortfolioProject[] = [
   // 4. EVENTS
   {
     id: 'proj-event-cfd-marathon',
-    title: 'OK India Half Marathon — Corruption Free Doon (Athletics, Cultural Stage & State Awards)',
-    slug: 'ok-india-half-marathon-corruption-free-doon',
+    title: 'Drug-Free & Corruption-Free Uttarakhand Campaign — 14-Kilometer Unity Marathon',
+    slug: 'drug-free-corruption-free-uttarakhand-marathon',
     category: 'events',
     project_type: 'events',
-    client: 'OK India News Network & Dehradun Civic Forum',
-    live_url: '/request-quote',
-    description: 'Flagship state-level half marathon and civic awareness movement in Dehradun. Turnkey execution covered starting grid wave coordination for 2,500+ runners wearing printed OK India bibs, stadium VIP dais protocol, authentic Uttarakhand Garhwali cultural folk dance welcome ceremony, Golden Globe championship awards, and post-ceremony committee felicitation.',
-    challenge: 'Coordinating start-line wave releases, route marshaling, athlete bib tracking, stadium VIP protocol seating, live mountain folk dance audio, and broadcast media coverage for over 2,500 runners.',
-    solution: 'Engineered an integrated turnkey race and event management system: branded athlete chest bibs, high-output stadium PA acoustics, Garhwali cultural ensemble choreography, bespoke Golden Globe presentation trophies, and regional news broadcast integration.',
-    results: '2,500+ registered athletes, 100% incident-free race execution, 40+ Golden Globe awards presented, statewide media broadcast on OK India, and massive youth engagement.',
+    client: 'OK India Media Partner & Wellmetrics',
+    live_url: '/portfolio/drug-free-corruption-free-uttarakhand-marathon',
+    description: 'On December 25, 2018, OK India Media Partner and Wellmetrics successfully hosted a landmark community-driven event dedicated to fostering social change and youth empowerment in Uttarakhand. Anchored by the powerful vision of a Drug-Free and Corruption-Free Uttarakhand, the initiative brought together community members, athletes, artists, and leaders through a dynamic blend of sports, cultural showcases, and civic recognition.',
+    challenge: 'A headline attraction of the event was a high-energy 14 km marathon designed to promote health, physical endurance, and active community participation. Mobilizing hundreds of runners of all ages across Dehradun against substance abuse required comprehensive race coordination, starting wave releases, checkpoint safety, and VIP protocol.',
+    solution: 'Wellmetrics and OK India orchestrated a multi-dimensional civic platform: official printed chest bibs, starting grid logistics, line-array audio reinforcement, authentic Garhwali traditional folk dances celebrating regional pride, and a formal awards recognition ceremony featuring bespoke Golden Globe championship trophies.',
+    results: 'Hundreds of runners united under the banner of a healthier, cleaner lifestyle; 40+ Golden Globe championship awards and certificates presented to top athletes and social champions; high-impact public pledges eradicating drug dependency and rooting out corruption.',
     featured_image: '/images/events/corruption_free_doon_marathon_start.jpg',
     gallery: [
       '/images/events/corruption_free_doon_marathon_start.jpg',
@@ -350,14 +350,25 @@ let localProjects: PortfolioProject[] = [
       '/images/events/corruption_free_doon_organizers_troupe.jpg'
     ],
     videos: [],
-    completion_date: '2026-09-14',
-    testimonial_quote: 'From the starting line wave to the Garhwali cultural performance and Golden Globe awards, the OK India Half Marathon set a new benchmark for state event production in Uttarakhand.',
-    testimonial_author: 'Organizing Secretary, Corruption Free Doon Committee',
+    completion_date: '2018-12-25',
+    testimonial_quote: 'By combining athletic endurance with cultural expression, OK India Media Partner and Wellmetrics created an unforgettable platform that continues to inspire community action and positive advocacy in the region.',
+    testimonial_author: 'Organizing Committee, OK India & Wellmetrics Campaign',
     is_featured: true,
     status: 'PUBLISHED',
-    services_used: ['Mega Half Marathon Operations', 'Athlete Bib Tracking Logistics', 'Cultural Stage Choreography', 'Golden Globe Trophy Fabrication', 'VIP Protocol Management'],
-    technologies: ['Digital Race Coordination', 'High-Output Line-Array PA', 'Precision Metal Trophy Casting', 'Broadcast Photojournalism'],
-    industry: 'Mega Sports, Culture & Civic Events'
+    services_used: [
+      '14-Kilometer Unity Marathon Operations',
+      'Traditional Cultural Showcase & Garhwali Folk Dance',
+      'Awards & Recognition Ceremony (Golden Globe Trophies)',
+      'Social Advocacy Campaign & Public Pledges',
+      'Media Broadcast & Press Syndication'
+    ],
+    technologies: [
+      'Digital Race Coordination',
+      'High-Output Line-Array PA',
+      'Precision Metal Trophy Casting',
+      'Broadcast Media Production'
+    ],
+    industry: 'Sports, Culture & Civic Social Change'
   },
   {
     id: 'proj-event-destiny',
@@ -543,6 +554,46 @@ let localCaseStudies: CaseStudy[] = [
         type: 'searches'
       }
     ]
+  },
+  {
+    id: 'cs-drug-free-corruption-free-uttarakhand',
+    title: 'Drug-Free & Corruption-Free Uttarakhand Campaign — 14-Kilometer Unity Marathon',
+    slug: 'drug-free-corruption-free-uttarakhand-marathon',
+    client: 'OK India Media Partner & Wellmetrics',
+    challenge: 'Mobilizing hundreds of runners of all ages across Uttarakhand under the powerful vision of "Drug-Free Uttarakhand" and "Corruption-Free Uttarakhand", coordinating route marshaling, wave releases, and starting grid safety cordons for a high-energy 14-kilometer marathon.',
+    solution: 'Wellmetrics and OK India Media Partner hosted a landmark community-driven event combining the 14 km Unity Marathon with authentic traditional Garhwali cultural showcases, live stadium audio reinforcement, and a prestigious awards recognition ceremony honoring athletes and social change-makers.',
+    results: 'Hundreds of runners united under the banner of a healthier, cleaner lifestyle; 40+ Golden Globe championship trophies and certificates awarded; interactive anti-drug and anti-corruption pledges creating an enduring platform that continues to inspire positive community action.',
+    featured_image: '/images/events/corruption_free_doon_marathon_start.jpg',
+    testimonial_quote: 'By combining athletic endurance with cultural expression, OK India Media Partner and Wellmetrics created an unforgettable platform that continues to inspire community action and positive advocacy in the region.',
+    testimonial_author: 'Organizing Committee, OK India & Wellmetrics',
+    is_featured: true,
+    status: 'PUBLISHED',
+    metrics: [
+      { id: 'm-dfu-1', case_study_id: 'cs-drug-free-corruption-free-uttarakhand', value: '14', prefix: '', suffix: ' KM', label: 'Unity Marathon Distance' },
+      { id: 'm-dfu-2', case_study_id: 'cs-drug-free-corruption-free-uttarakhand', value: '2,500', prefix: '', suffix: '+', label: 'Athletes & Attendees' },
+      { id: 'm-dfu-3', case_study_id: 'cs-drug-free-corruption-free-uttarakhand', value: '40', prefix: '', suffix: '+', label: 'Golden Globe Trophies' },
+      { id: 'm-dfu-4', case_study_id: 'cs-drug-free-corruption-free-uttarakhand', value: '100', prefix: '', suffix: '%', label: 'Civic Pledges Signed' }
+    ],
+    charts: [
+      {
+        title: 'Starting Grid & Marathon Assembly',
+        subtitle: '14-Kilometer Unity Marathon • Chest Bibs "OK India Presents — Corruption Free Doon"',
+        image_url: '/images/events/corruption_free_doon_marathon_start.jpg',
+        type: 'searches'
+      },
+      {
+        title: 'Golden Globe Championship Trophies',
+        subtitle: 'Engraved Date: December 25, 2018 • Honoring Top Athletes and Civic Champions',
+        image_url: '/images/events/corruption_free_doon_trophies.jpg',
+        type: 'interactions'
+      },
+      {
+        title: 'Traditional Garhwali Cultural Showcase',
+        subtitle: 'Authentic Folk Dancers & Traditional Pahadi Attire in Front of Event Banner',
+        image_url: '/images/events/corruption_free_doon_folk_dance.jpg',
+        type: 'profile'
+      }
+    ]
   }
 ];
 
@@ -604,6 +655,15 @@ export const portfolioService = {
   async getProjectBySlug(slug: string): Promise<PortfolioProject | null> {
     const projects = await this.getProjects();
     let p = projects.find(item => item.slug === slug);
+    if (!p) {
+      if (
+        slug === 'drug-free-corruption-free-uttarakhand-marathon' ||
+        slug === 'corruption-free-doon-half-marathon' ||
+        slug === 'ok-india-half-marathon-corruption-free-doon'
+      ) {
+        p = projects.find(item => item.id === 'proj-event-cfd-marathon');
+      }
+    }
     if (!p) {
       p = localProjects.find(item => item.slug === slug);
     }

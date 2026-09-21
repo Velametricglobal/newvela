@@ -49,48 +49,48 @@ export interface EventGalleryPhoto {
 export const EVENT_GALLERY_PHOTOS: EventGalleryPhoto[] = [
   {
     id: 'eg-1',
-    src: '/images/events/corruption_free_doon_trophies.jpg',
-    title: 'Golden Globe Championship Trophies & Awards',
-    category: 'Podium Honors & Felicitation',
-    bannerText: 'PLAQUE: "OK INDIA — CORRUPTION FREE DOON — DATE: 25 DECEMBER"',
-    caption: 'Bespoke Golden Globe trophies adorned with red ribbons, polished gold finish, and engraved presentation plaques honoring marathon champions and civic leaders.',
-    highlights: '40+ Golden Globe Awards • Official OK India Media Plaque'
+    src: '/images/events/corruption_free_doon_marathon_start.jpg',
+    title: 'The 14-Kilometer Unity Marathon Starting Grid',
+    category: 'December 25, 2018 • Athletics & Youth Endurance',
+    bannerText: 'CHEST BIBS: "OK INDIA PRESENTS — CORRUPTION FREE DOON"',
+    caption: 'A headline attraction: Hundreds of runners of all ages united under the banner of a healthier, cleaner lifestyle, turning the 14 km marathon into a moving symbol of collective perseverance against substance abuse.',
+    highlights: 'Hundreds of Athletes • 14 KM Unity Marathon'
   },
   {
     id: 'eg-2',
-    src: '/images/events/corruption_free_doon_marathon_start.jpg',
-    title: 'Marathon Starting Line & Runners Assembly',
-    category: 'Mega Race Logistics',
-    bannerText: 'CHEST BIBS: "OK INDIA PRESENTS — CORRUPTION FREE DOON"',
-    caption: 'Over 2,500 youth athletes, university students, and community marathoners lined up with official printed chest numbers at the starting grid.',
-    highlights: '2,500+ Athletes • State-Level Marathon Coordination'
+    src: '/images/events/corruption_free_doon_trophies.jpg',
+    title: 'Awards & Recognition Ceremony — Golden Globe Trophies',
+    category: 'December 25, 2018 • Honors & Recognition',
+    bannerText: 'PLAQUE: "OK INDIA — CORRUPTION FREE DOON — DATE: 25 DECEMBER"',
+    caption: 'Bespoke Golden Globe trophies and certificates distributed to 14 km marathon winners, community champions, and individuals making exceptional contributions toward social welfare and positive development.',
+    highlights: '40+ Golden Globe Awards • Official OK India & Wellmetrics Plaque'
   },
   {
     id: 'eg-3',
     src: '/images/events/corruption_free_doon_folk_dance.jpg',
-    title: 'Garhwali Traditional Folk Dance Arena',
-    category: 'Uttarakhand Cultural Heritage',
+    title: 'Cultural Showcase & Garhwali Folk Performances',
+    category: 'December 25, 2018 • Uttarakhand Cultural Heritage',
     bannerText: 'BANNER: "WELCOME OK INDIA HALF MARATHON CORRUPTION FREE DOON"',
-    caption: 'Vibrant cultural ensemble in authentic Garhwali attire (yellow kurtas, red pahadi topis, pink-blue dresses, and traditional silver jewelry) performing for the stadium audience.',
-    highlights: 'Live Cultural Heritage • Authentic Pahadi Folk Choreography'
+    caption: 'Celebrating the rich heritage of the region through vibrant traditional Garhwali folk dances, music, and theatrical acts, reinforcing local pride and unity with socially impactful messages.',
+    highlights: 'Authentic Pahadi Attire • Cultural Heritage Choreography'
   },
   {
     id: 'eg-4',
     src: '/images/events/corruption_free_doon_vip_arena.jpg',
-    title: 'Stadium VIP Pavilion & Civic Dignitary Dais',
-    category: 'Civic Protocol & Crowd Operations',
-    bannerText: 'SEATING AREA: "CORRUPTION FREE DOON STADIUM ASSEMBLY"',
-    caption: 'Prominent civic figures, coaches, community leaders, and hundreds of runners seated across the field carpet during the formal event inauguration and civic integrity address.',
-    highlights: 'VIP Protocol Seating • Grandfield Assembly'
+    title: 'Social Advocacy Assembly & VIP Stadium Pavilion',
+    category: 'December 25, 2018 • Civic Engagement & Dignitaries',
+    bannerText: 'SEATING AREA: "CORRUPTION FREE DOON CIVIC PLEDGE ASSEMBLY"',
+    caption: 'Interactive advocacy sessions and displays emphasizing the core mission: eradicating drug dependency and rooting out corruption. Attendees pledged support for a transparent, progressive Uttarakhand.',
+    highlights: 'Public Anti-Drug Pledges • VIP Protocol & Assembly'
   },
   {
     id: 'eg-5',
     src: '/images/events/corruption_free_doon_organizers_troupe.jpg',
-    title: 'Cultural Troupe & Production Team Felicitation',
-    category: 'Organizing Committee & Artists',
-    bannerText: 'STAGE CREW: "OK INDIA EVENT COMMITTEE & FOLK ARTISTS"',
-    caption: 'Event organizers, logistics leads, and the traditional Garhwali cultural dance troupe gathered together on the field following the grand ceremony.',
-    highlights: 'Folk Artists & Organizers • Complete Event Execution'
+    title: 'Organizing Committee & Cultural Troupe Felicitation',
+    category: 'December 25, 2018 • Campaign Leadership',
+    bannerText: 'COMMITTEE: "OK INDIA MEDIA PARTNER & WELLMETRICS"',
+    caption: 'OK India Media Partner and Wellmetrics organizing team, logistics leads, and traditional Garhwali cultural troupe gathered together on the field following the conclusion of the landmark campaign.',
+    highlights: 'OK India & Wellmetrics Team • Complete Turnkey Execution'
   }
 ];
 
@@ -424,10 +424,10 @@ export const PortfolioPage: React.FC = () => {
                 <Camera className="w-3.5 h-3.5" /> Live On-Ground Event Photo Gallery
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
-                OK India Half Marathon — On-Ground Event Production Gallery
+                Drug-Free & Corruption-Free Uttarakhand Campaign — On-Ground Gallery
               </h3>
               <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl">
-                All photographs below were captured live from our flagship mega event: <strong className="text-amber-300">OK India Half Marathon (Corruption Free Doon)</strong> — encompassing starting grid wave releases for 2,500+ runners, authentic Garhwali cultural dance performance, stadium VIP dais, and Golden Globe awards felicitation.
+                Held on <strong className="text-white">December 25, 2018</strong> by <strong className="text-amber-300">OK India Media Partner & Wellmetrics</strong>. Centered on the 14-Kilometer Unity Marathon, traditional Garhwali cultural showcases, Golden Globe awards ceremony, and youth social advocacy pledges.
               </p>
             </div>
 
