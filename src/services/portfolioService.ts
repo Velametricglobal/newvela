@@ -75,308 +75,75 @@ let localProjects: PortfolioProject[] = [
     industry: 'Retail & E-Commerce'
   },
 
-  // 2. PRODUCTION & EVENT PARTNERS
+  // 2. ENTERPRISE FINTECH, HEALTHCARE & MEDIA WEB PLATFORMS
   {
-    id: 'proj-prod-1',
-    title: 'Destiny Productions — Commercials & Event Cinema',
-    slug: 'destiny-productions-showcase',
-    client: 'Destiny Productions',
-    project_type: 'video_production',
-    instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-    production_partner: {
-      name: 'Destiny Productions',
-      instagram_handle: '@destiny_in_productions',
-      instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-      tagline: 'High-Energy Commercials & Mega Event Cinema',
-      role: 'Official Production Partner'
-    },
-    description: 'Cinematic brand commercial films, high-octane event coverage, and multi-camera live production engineered in partnership with Destiny Productions.',
-    challenge: 'Delivering broadcast-grade 4K video coverage and viral reel edits for high-profile arena events under tight timelines.',
-    solution: 'Utilized multi-angle RED camera setups, aerial drone cinematography, and same-day Instagram reel edit turnarounds.',
-    results: 'Over 2.4 Million cumulative Instagram views and 85,000+ engagements across official event release campaigns.',
-    featured_image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80'
-    ],
-    videos: ['https://www.instagram.com/destiny_in_productions/?hl=en'],
-    completion_date: '2026-08-15',
-    testimonial_quote: 'Collaborating with Velametric allowed us to integrate digital landing pages with our live event cinema coverage seamlessly.',
-    testimonial_author: 'Creative Director, Destiny Productions',
+    id: 'proj-velametric-4',
+    title: 'FinTech Subsidy & Debt Advisory Portal',
+    slug: 'fintech-subsidy-debt-advisory',
+    client: 'Apex Financial Advisory',
+    live_url: '/request-quote',
+    project_type: 'web_app',
+    description: 'An automated financial consultancy portal with instant government subsidy eligibility calculations, DPR documentation generator, and multi-bank loan application tracking.',
+    challenge: 'Long manual lead evaluation cycles for corporate subsidy applications and lack of secure document exchange with banking syndicates.',
+    solution: 'Engineered an automated subsidy eligibility wizard with real-time DPR document generation and encrypted client audit vaults.',
+    results: 'Accelerated loan application approval times by 55% and facilitated over ₹45 Crores in subsidized capital approvals.',
+    featured_image: '/images/services/service_govt_subsidy.jpg',
+    gallery: ['/images/services/service_govt_subsidy.jpg', '/images/services/service_business_loans.jpg'],
+    videos: [],
+    completion_date: '2026-08-25',
+    testimonial_quote: 'The automated DPR and subsidy calculation portal revolutionized our client onboarding and bank syndication pipelines.',
+    testimonial_author: 'Senior Partner, Apex Financial Advisory',
     is_featured: true,
     status: 'PUBLISHED',
-    services_used: ['Video Production', 'Event Cinema', 'Instagram Reels'],
-    technologies: ['RED Cinema Camera', 'Drone Aerials', 'DaVinci Resolve'],
-    industry: 'Media & Event Production',
-    video_reels: [
-      {
-        id: 'reel-d1',
-        title: 'Arena Live Event Aftermovie 2026',
-        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Destiny Productions',
-        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        views_count: '850K',
-        duration: '0:58'
-      },
-      {
-        id: 'reel-d2',
-        title: 'Luxury Brand Commercial Campaign',
-        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Destiny Productions',
-        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        views_count: '1.2M',
-        duration: '0:45'
-      }
-    ]
+    services_used: ['FinTech Portal', 'Subsidy Engine', 'DPR Document Generator'],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL Engine'],
+    industry: 'Finance & Banking'
   },
   {
-    id: 'proj-prod-2',
-    title: 'Dapflix — Music Videos & Viral Instagram Reels',
-    slug: 'dapflix-production-showcase',
-    client: 'Dapflix',
-    project_type: 'video_production',
-    instagram_url: 'https://www.instagram.com/dapflix/?hl=en',
-    production_partner: {
-      name: 'Dapflix',
-      instagram_handle: '@dapflix',
-      instagram_url: 'https://www.instagram.com/dapflix/?hl=en',
-      tagline: 'Cinematic Music Videos & Vertical Reel Storytelling',
-      role: 'Official Production Partner'
-    },
-    description: 'Dynamic music videos, trendy vertical short-form Instagram reels, and youth culture visual storytelling produced by Dapflix.',
-    challenge: 'Optimizing visual pacing and color palette dynamics for maximum organic retention on Instagram and TikTok algorithms.',
-    solution: 'Designed ultra-punchy 9:16 vertical video edits with custom sound design, fast-paced transitions, and stylized LUT color grades.',
-    results: 'Reached #1 trending sound ranking on social platforms with over 4.8 Million aggregate reel plays.',
-    featured_image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'
-    ],
-    videos: ['https://www.instagram.com/dapflix/?hl=en'],
-    completion_date: '2026-08-18',
-    testimonial_quote: 'Dapflix and Velametric create the ultimate combination of high-impact visual media and digital conversion tools.',
-    testimonial_author: 'Lead Director, Dapflix',
+    id: 'proj-velametric-5',
+    title: 'Doon Healthcare & Telemedicine Hub',
+    slug: 'doon-healthcare-telemedicine-hub',
+    client: 'Doon Home Care Services (DHCS)',
+    live_url: '/case-studies/doon-home-care-services-dehradun',
+    project_type: 'web_app',
+    description: 'A comprehensive patient intake system, automated caregiver assignment dashboard, and 24/7 urgent emergency medical dispatch portal.',
+    challenge: 'High inbound patient emergency calls with manual paper-based caregiver scheduling and lack of live patient vitals tracking.',
+    solution: 'Designed a cloud-native healthcare portal with immediate Google profile synchronization, live nurse dispatching, and patient records.',
+    results: 'Scaled patient inquiry volume from 2-3 per month to over 200+ monthly high-intent inquiries with 100% caregiver dispatch compliance.',
+    featured_image: '/images/blog/dhcs_healthcare_hero.jpg',
+    gallery: ['/images/blog/dhcs_healthcare_hero.jpg', '/images/blog/dhcs_home_icu_setup.jpg'],
+    videos: [],
+    completion_date: '2026-09-01',
+    testimonial_quote: 'Velametric built the digital foundation that turned our local service into Uttarakhand’s premier home healthcare provider.',
+    testimonial_author: 'Director of Healthcare, Doon Home Care Services',
     is_featured: true,
     status: 'PUBLISHED',
-    services_used: ['Music Videos', 'Viral Instagram Reels', 'Color Grading'],
-    technologies: ['Sony FX6', 'Anamorphic Lenses', 'After Effects'],
-    industry: 'Entertainment & Music Production',
-    video_reels: [
-      {
-        id: 'reel-dp1',
-        title: 'Official Music Video Teaser Reel',
-        video_url: 'https://www.instagram.com/dapflix/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Dapflix',
-        instagram_url: 'https://www.instagram.com/dapflix/?hl=en',
-        views_count: '2.1M',
-        duration: '0:30'
-      },
-      {
-        id: 'reel-dp2',
-        title: 'Urban Fashion Viral Reel Cut',
-        video_url: 'https://www.instagram.com/dapflix/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Dapflix',
-        instagram_url: 'https://www.instagram.com/dapflix/?hl=en',
-        views_count: '1.7M',
-        duration: '0:22'
-      }
-    ]
+    services_used: ['Healthcare Portal', 'Patient CRM', 'Staff Dispatch Engine'],
+    technologies: ['React', 'Supabase Realtime', 'Tailwind CSS'],
+    industry: 'Healthcare & Telemedicine'
   },
   {
-    id: 'proj-prod-3',
-    title: 'Ekraahee Films — Commercial Video & Cinema Production Showcase',
-    slug: 'ekraaheefilms-production-showcase',
-    client: 'Ekraahee Films',
-    project_type: 'video_production',
-    instagram_url: 'https://www.instagram.com/ekraaheefilms/?hl=en#',
-    production_partner: {
-      name: 'Ekraahee Films',
-      logo: '/images/partners/ekraahee_films_logo.png',
-      website: 'https://ekraaheefilms.com/',
-      youtube_channel: 'https://www.youtube.com/@EkRaaheefilms',
-      instagram_handle: '@ekraaheefilms',
-      instagram_url: 'https://www.instagram.com/ekraaheefilms/?hl=en#',
-      tagline: 'Broadcast Cinema, Luxury Commercials & Event Production',
-      role: 'Official Production Partner'
-    },
-    description: 'High-impact commercial films, luxury retail launches, multi-camera studio podcasts, live arena events, and high-converting performance UGC produced by Ekraahee Films.',
-    challenge: 'Producing broadcast-grade 4K cinematography, multi-camera event switching, and rapid-turnaround commercial TVCs across diverse brand verticals.',
-    solution: 'Engineered custom cinema production workflows utilizing Arri/RED cinema camera packages, synchronized studio lighting, multi-cam live switching, and high-speed phantom fluid optics.',
-    results: 'Delivered over 100M+ collective organic video impressions, 450%+ ROAS on commercial ad campaigns, and top industry awards coverage.',
-    featured_image: 'https://i.ytimg.com/vi/WPKQbHTa2pc/maxresdefault.jpg',
-    gallery: [
-      'https://i.ytimg.com/vi/wVPxaWhOwjA/maxresdefault.jpg',
-      'https://i.ytimg.com/vi/8qYlKs-dRVc/maxresdefault.jpg',
-      'https://i.ytimg.com/vi/SaQQgPmnAVU/hqdefault.jpg',
-      'https://i.ytimg.com/vi/RQWwFpQfQig/hqdefault.jpg'
-    ],
-    videos: [
-      'https://www.youtube.com/watch?v=WPKQbHTa2pc',
-      'https://www.youtube.com/watch?v=wVPxaWhOwjA',
-      'https://www.youtube.com/watch?v=8qYlKs-dRVc',
-      'https://youtu.be/SaQQgPmnAVU',
-      'https://youtu.be/RQWwFpQfQig'
-    ],
-    completion_date: '2026-09-15',
-    testimonial_quote: 'Partnering with Ekraahee Films elevates every single visual asset to international broadcast standards. From concept to color grade, the execution is world-class.',
-    testimonial_author: 'Director of Brand Cinema, Velametric Global',
+    id: 'proj-velametric-6',
+    title: 'Digital Media & Multi-Channel News CMS',
+    slug: 'news-media-publishing-cms',
+    client: 'National News Wire Network',
+    live_url: '/request-quote',
+    project_type: 'web_app',
+    description: 'A high-traffic news publishing portal with automated RNI compliance archiving, live breaking news tickers, and targeted advertisement slot monetization.',
+    challenge: 'Massive concurrent reader spikes during regional elections causing high server latencies and unoptimized ad yields.',
+    solution: 'Architected a decoupled headless editorial CMS with edge-cached SSR rendering, dynamic paywall gating, and automated syndication feeds.',
+    results: 'Handled over 1.8M concurrent readers with sub-500ms global latency and increased programmatic ad yield by 84%.',
+    featured_image: '/images/services/service_media_pr.jpg',
+    gallery: ['/images/services/service_media_pr.jpg', '/images/services/service_video_prod.jpg'],
+    videos: [],
+    completion_date: '2026-09-10',
+    testimonial_quote: 'The news CMS architecture effortlessly handles million-reader surges while keeping our editorial newsroom fast and synchronized.',
+    testimonial_author: 'Editor-in-Chief, National News Wire',
     is_featured: true,
     status: 'PUBLISHED',
-    services_used: ['Commercial TVCs', 'Multi-Cam Podcasts', 'Live Arena Coverage', 'High-Speed Product Shoots', 'Performance UGC'],
-    technologies: ['Arri Alexa LF', 'RED V-Raptor', 'Sony FX9', 'DaVinci Resolve Studio', 'DJI Ronin 4D'],
-    industry: 'Commercial Cinema & Broadcast Media',
-    video_reels: [
-      {
-        id: 'reel-ef1',
-        title: 'Pottery Barn Flagship Store Launch',
-        video_url: 'https://www.youtube.com/watch?v=WPKQbHTa2pc',
-        thumbnail_url: 'https://i.ytimg.com/vi/WPKQbHTa2pc/hqdefault.jpg',
-        partner_name: 'Ekraahee Films',
-        category: 'Luxury Retail Launch',
-        views_count: '1.2M+',
-        duration: '0:42'
-      },
-      {
-        id: 'reel-ef2',
-        title: 'Podcast with Qualcomm for 91mobiles',
-        video_url: 'https://www.youtube.com/watch?v=wVPxaWhOwjA',
-        thumbnail_url: 'https://i.ytimg.com/vi/wVPxaWhOwjA/hqdefault.jpg',
-        partner_name: 'Ekraahee Films',
-        category: 'Studio Tech Talk',
-        views_count: '850K+',
-        duration: '1:15'
-      },
-      {
-        id: 'reel-ef3',
-        title: 'IGA Awards 2025 for 91mobiles',
-        video_url: 'https://www.youtube.com/watch?v=8qYlKs-dRVc',
-        thumbnail_url: 'https://i.ytimg.com/vi/8qYlKs-dRVc/hqdefault.jpg',
-        partner_name: 'Ekraahee Films',
-        category: 'Arena Stage Event',
-        views_count: '1.5M+',
-        duration: '0:58'
-      },
-      {
-        id: 'reel-ef4',
-        title: 'Kinza Lemon Soda Drink Commercial',
-        video_url: 'https://youtu.be/SaQQgPmnAVU',
-        thumbnail_url: 'https://i.ytimg.com/vi/SaQQgPmnAVU/hqdefault.jpg',
-        partner_name: 'Ekraahee Films',
-        category: 'Beverage TVC',
-        views_count: '2.1M+',
-        duration: '0:30'
-      },
-      {
-        id: 'reel-ef5',
-        title: 'Bharat Loan Performance UGC Video Ad',
-        video_url: 'https://youtu.be/RQWwFpQfQig',
-        thumbnail_url: 'https://i.ytimg.com/vi/RQWwFpQfQig/hqdefault.jpg',
-        partner_name: 'Ekraahee Films',
-        category: 'FinTech Growth UGC',
-        views_count: '3.4M+',
-        duration: '0:45'
-      }
-    ]
-  },
-  // 4. VIDEO PRODUCTION SHOWCASE: DAPFLIX FILMS & PRODUCTION HOUSE
-  {
-    id: 'proj-prod-4',
-    title: 'DAPFLIX Films & Production House — Commercials, Music Videos & 4K Drone Cinema',
-    slug: 'dapflix-production-showcase',
-    client: 'DAPFLIX Films',
-    production_partner: 'Dapflix',
-    live_url: 'https://dapflix.com/portfolio/',
-    project_type: 'video_production',
-    description: 'At DAPFLIX we bring ideas to life through powerful storytelling and high-quality cinematography. Specializing in commercial films, brand storytelling, corporate videos, social media content, and cinematic 4K aerial productions.',
-    challenge: 'Producing high-concept television commercials, mountain tourism documentaries, and viral social campaigns requiring high-altitude drone maneuvers, fast-paced cinema editing, and rapid turnaround.',
-    solution: 'Deploying certified 4K cine-drones, Arri/Sony FX cine-rigs, studio colorists, and post-production VFX teams to craft captivating brand stories that engage audiences and drive conversions.',
-    results: 'Delivered over 1,850+ creative video deliverables, 130+ TVC visuals, 58+ music videos, and 10 short films with multi-million audience reach.',
-    featured_image: 'https://dapflix.com/wp-content/uploads/2025/02/IMG_3337.jpg',
-    gallery: [
-      'https://dapflix.com/wp-content/uploads/2025/02/IMG_3337.jpg',
-      'https://dapflix.com/wp-content/uploads/2025/02/counter-img1.jpg',
-      'https://dapflix.com/wp-content/uploads/2025/02/counter-img2.jpg',
-      'https://dapflix.com/wp-content/uploads/2025/02/counter-img3.jpg'
-    ],
-    videos: [
-      'https://dapflix.com/wp-content/uploads/2025/02/DAPFLIX-FILMS-CAFE-ON-THE-WAVES-UKI.mp4',
-      'https://dapflix.com/wp-content/uploads/2025/03/UTTARKASHI-x-DAPFLIX-2.mp4',
-      'https://dapflix.com/wp-content/uploads/2025/02/33.mp4',
-      'https://dapflix.com/wp-content/uploads/2025/03/AQN6qG8rwAJbhnu2yYkyKThtZcu00393c2jRDpiOpM3lwGtAM3n6jqxc8soOiE9xTMHhCPDToZo849qCOASX3UIj9_xb-K2TAxunY0s.mp4'
-    ],
-    instagram_url: 'https://www.instagram.com/dapflix/',
-    completion_date: '2026-08-15',
-    is_featured: true,
-    status: 'PUBLISHED',
-    services_used: [
-      'Commercial Films',
-      'Brand Storytelling',
-      '4K Aerial Drone Cinematography',
-      'Music Videos & TVC Visuals',
-      'Post-Production & VFX'
-    ],
-    technologies: ['Sony FX Cinema', 'DJI 4K Cine-Drones', 'DaVinci Resolve Studio', 'Adobe Premiere Pro', 'Sound Design'],
-    industry: 'Commercial Films & Aerial Cinematography',
-    testimonial_quote: 'DAPFLIX brings unmatched cinematic vision and work ethic. From remote mountain drone sequences to high-energy commercial cuts, their films captivate audiences every single time.',
-    testimonial_author: 'Kartavya Festival Committee & Brand Marketing Leads',
-    video_reels: [
-      {
-        id: 'reel-dp1',
-        title: 'Cafe On The Waves, UKI — Commercial Brand Film',
-        video_url: 'https://dapflix.com/wp-content/uploads/2025/02/DAPFLIX-FILMS-CAFE-ON-THE-WAVES-UKI.mp4',
-        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/IMG_3337.jpg',
-        partner_name: 'Dapflix',
-        category: 'Hospitality Commercial',
-        views_count: '450K+',
-        duration: '02:14'
-      },
-      {
-        id: 'reel-dp2',
-        title: 'Uttarkashi × Dapflix — Aerial Drone & Tourism Cinema',
-        video_url: 'https://dapflix.com/wp-content/uploads/2025/03/UTTARKASHI-x-DAPFLIX-2.mp4',
-        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img3.jpg',
-        partner_name: 'Dapflix',
-        category: 'Tourism & Aerial Cinema',
-        views_count: '820K+',
-        duration: '01:48'
-      },
-      {
-        id: 'reel-dp3',
-        title: 'Urban Fashion & Music Visual Reel (Dapflix Cut 33)',
-        video_url: 'https://dapflix.com/wp-content/uploads/2025/02/33.mp4',
-        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img2.jpg',
-        partner_name: 'Dapflix',
-        category: 'Music Video & TVC',
-        views_count: '640K+',
-        duration: '00:45'
-      },
-      {
-        id: 'reel-dp4',
-        title: 'Mansi & Swapnil — Retro Love Wedding Reel',
-        video_url: 'https://dapflix.com/wp-content/uploads/2025/03/AQN6qG8rwAJbhnu2yYkyKThtZcu00393c2jRDpiOpM3lwGtAM3n6jqxc8soOiE9xTMHhCPDToZo849qCOASX3UIj9_xb-K2TAxunY0s.mp4',
-        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img4.jpg',
-        partner_name: 'Dapflix',
-        category: 'Instagram Wedding Reel',
-        instagram_url: 'https://www.instagram.com/reel/DbDsHASSajx/',
-        views_count: '48.5K',
-        duration: '00:40'
-      },
-      {
-        id: 'reel-dp5',
-        title: 'Uttarkashi Himalayan Monsoon Mist 4K Drone Reel',
-        video_url: 'https://dapflix.com/wp-content/uploads/2025/03/UTTARKASHI-x-DAPFLIX-2.mp4',
-        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img3.jpg',
-        partner_name: 'Dapflix',
-        category: 'Instagram Drone Reel',
-        instagram_url: 'https://www.instagram.com/reel/DWRGOupkosz/',
-        views_count: '125K',
-        duration: '00:55'
-      }
-    ]
+    services_used: ['News CMS', 'Editorial Workflow', 'Ad Monetization Engine'],
+    technologies: ['React', 'Next.js Edge Runtime', 'PostgreSQL'],
+    industry: 'Media & Publishing'
   }
 ];
 
