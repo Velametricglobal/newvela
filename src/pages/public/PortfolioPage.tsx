@@ -424,10 +424,10 @@ export const PortfolioPage: React.FC = () => {
                 <Camera className="w-3.5 h-3.5" /> Live On-Ground Event Photo Gallery
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
-                Event Production Archive & On-Ground Documentation
+                OK India Half Marathon — On-Ground Event Production Gallery
               </h3>
               <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl">
-                Captured live from the <strong className="text-amber-300">OK India Corruption Free Doon Half Marathon & State Awards</strong> — showcasing our turnkey execution across marathon logistics, cultural stage choreography, and dignitary felicitation.
+                All photographs below were captured live from our flagship mega event: <strong className="text-amber-300">OK India Half Marathon (Corruption Free Doon)</strong> — encompassing starting grid wave releases for 2,500+ runners, authentic Garhwali cultural dance performance, stadium VIP dais, and Golden Globe awards felicitation.
               </p>
             </div>
 
