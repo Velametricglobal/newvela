@@ -16,10 +16,11 @@ import {
   Layers,
   Play,
   X,
-  Instagram,
-  Video,
-  Clapperboard,
-  Tv
+  Instagram, 
+  Video, 
+  Clapperboard, 
+  Tv,
+  Youtube
 } from 'lucide-react';
 
 const getYouTubeId = (url?: string): string | null => {
@@ -32,7 +33,7 @@ export const PortfolioPage: React.FC = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
   const [filter, setFilter] = useState<'ALL' | 'VIDEO' | 'NEWS' | 'CRM' | 'EVENTS'>('ALL');
   const [activeReelModal, setActiveReelModal] = useState<VideoReel | null>(null);
-  const [selectedStudio, setSelectedStudio] = useState<'DAPFLIX' | 'EKRAAHEE'>('DAPFLIX');
+  const [selectedStudio, setSelectedStudio] = useState<'BOTH' | 'DAPFLIX' | 'EKRAAHEE'>('BOTH');
 
   useEffect(() => {
     const loadProjects = () => {
@@ -141,31 +142,38 @@ export const PortfolioPage: React.FC = () => {
         </button>
       </div>
 
-      {/* 3. DYNAMIC CINEMA & REELS CONSOLE PLAYER (When Video or All is active) */}
+      {/* 3. DYNAMIC CINEMA & REELS CONSOLE PLAYERS (When Video or All is active) */}
       {(filter === 'VIDEO' || filter === 'ALL') && (
-        <div className="space-y-6 pt-4">
+        <div className="space-y-8 pt-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest mb-1.5">
-                <Clapperboard className="w-4 h-4" /> Official Cinema Production OS
+                <Clapperboard className="w-4 h-4" /> Official Cinema & Video Production Studios
               </div>
               <h2 className="text-2xl sm:text-4xl font-black text-white font-display uppercase tracking-tight">
-                {selectedStudio === 'DAPFLIX' 
-                  ? 'DAPFLIX Instagram Reels & Video Slider' 
-                  : 'Ekraahee Films Commercial Cinema Stage'}
+                Video Production & Cinema Portfolios
               </h2>
-              <p className="text-zinc-400 text-xs sm:text-sm mt-1">
-                {selectedStudio === 'DAPFLIX'
-                  ? 'Interactive rotatable smartphone & landscape cinema slider with active reel metrics, audio playback, and direct social engagement.'
-                  : 'Broadcast-grade Arri/RED 4K master quality TV commercials, luxury retail launches, and studio tech interviews.'}
+              <p className="text-zinc-400 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+                Explore our dual production ecosystem: <span className="text-pink-400 font-bold">DAPFLIX</span> (viral social reels & kinetic editing) and <span className="text-red-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events).
               </p>
             </div>
 
             {/* Studio Selection Switcher */}
-            <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl">
+            <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl flex-wrap">
+              <button
+                onClick={() => setSelectedStudio('BOTH')}
+                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                  selectedStudio === 'BOTH'
+                    ? 'bg-white text-black shadow-lg scale-105'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" /> Both Studios
+              </button>
+
               <button
                 onClick={() => setSelectedStudio('DAPFLIX')}
-                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
+                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
                   selectedStudio === 'DAPFLIX'
                     ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-lg shadow-pink-500/20 scale-105'
                     : 'text-zinc-400 hover:text-white'
@@ -176,23 +184,69 @@ export const PortfolioPage: React.FC = () => {
 
               <button
                 onClick={() => setSelectedStudio('EKRAAHEE')}
-                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
+                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
                   selectedStudio === 'EKRAAHEE'
-                    ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20 font-black scale-105'
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black scale-105'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Tv className="w-3.5 h-3.5" /> Ekraahee Cinema
+                <Youtube className="w-3.5 h-3.5" /> Ekraahee YouTube Cinema
               </button>
             </div>
           </div>
 
-          {/* Render The Chosen Interactive Player */}
-          <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
-            {selectedStudio === 'DAPFLIX' ? (
-              <DapflixReelsShowcase hideHeader={true} />
-            ) : (
-              <EkraaheeCinemaSlider hideHeader={true} showFullLink={false} />
+          {/* Render The Chosen Interactive Player(s) */}
+          <div className="space-y-10">
+            {/* 1. DAPFLIX Interactive Reel Console */}
+            {(selectedStudio === 'DAPFLIX' || selectedStudio === 'BOTH') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400">
+                      Studio 01: DAPFLIX — Viral Social Reels & Visual Timeline Console
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.instagram.com/dapflix/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-zinc-400 hover:text-pink-400 flex items-center gap-1 transition-colors"
+                  >
+                    @dapflix on Instagram ↗
+                  </a>
+                </div>
+
+                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+                  <DapflixReelsShowcase hideHeader={true} />
+                </div>
+              </div>
+            )}
+
+            {/* 2. Ekraahee Films YouTube Cinema Stage */}
+            {(selectedStudio === 'EKRAAHEE' || selectedStudio === 'BOTH') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-red-400">
+                      Studio 02: Ekraahee Films — 4K YouTube Commercial Cinema Showcase
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.youtube.com/@EkRaaheefilms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
+                  >
+                    <Youtube className="w-3.5 h-3.5" /> @EkRaaheefilms on YouTube ↗
+                  </a>
+                </div>
+
+                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+                  <EkraaheeCinemaSlider hideHeader={true} showFullLink={true} />
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -338,8 +392,16 @@ export const PortfolioPage: React.FC = () => {
                     {/* Embedded Reels Strip */}
                     {hasReels && (
                       <div className="pt-2">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center gap-1.5 font-mono">
-                          <Film className="w-3.5 h-3.5 text-amber-400" /> Featured Video Reels
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center justify-between font-mono">
+                          <span className="flex items-center gap-1.5">
+                            <Film className="w-3.5 h-3.5 text-amber-400" />
+                            {proj.client === 'Ekraahee Films' ? 'YouTube Client Films (Click to Play)' : 'Featured Video Reels'}
+                          </span>
+                          {proj.client === 'Ekraahee Films' && (
+                            <span className="text-[9px] font-bold text-red-400 flex items-center gap-1 font-mono">
+                              <Youtube className="w-3 h-3" /> YouTube 4K
+                            </span>
+                          )}
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           {proj.video_reels!.map((reel) => (
@@ -383,7 +445,28 @@ export const PortfolioPage: React.FC = () => {
 
                 {/* Card Footer Actions */}
                 <div className="p-6 pt-0 space-y-3">
-                  {isVideo && proj.instagram_url ? (
+                  {isVideo && (proj.client === 'Ekraahee Films' || proj.youtube_url) ? (
+                    <div className="space-y-2">
+                      <a
+                        href={proj.youtube_url || "https://www.youtube.com/@EkRaaheefilms"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-red-600 hover:bg-red-500 text-white font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-red-600/25"
+                      >
+                        <Youtube className="w-4 h-4" /> Watch on YouTube (@EkRaaheefilms) ↗
+                      </a>
+                      {proj.instagram_url && (
+                        <a
+                          href={proj.instagram_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-zinc-950 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 text-[11px] font-bold tracking-wider transition-all"
+                        >
+                          <Instagram className="w-3.5 h-3.5 text-pink-400" /> Ekraahee on Instagram ↗
+                        </a>
+                      )}
+                    </div>
+                  ) : isVideo && proj.instagram_url ? (
                     <a
                       href={proj.instagram_url}
                       target="_blank"

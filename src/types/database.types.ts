@@ -523,6 +523,7 @@ export interface PortfolioProject {
   video_reels?: VideoReel[];
   videos?: string[];
   instagram_url?: string;
+  youtube_url?: string;
   testimonial_author?: string;
   testimonial_quote?: string;
   completion_date?: string;

@@ -30,6 +30,7 @@ let localProjects: PortfolioProject[] = [
     technologies: ['Arri Alexa Mini LF', 'RED V-Raptor 8K', 'Cooke Anamorphic Lenses'],
     industry: 'Cinema & Commercial Video',
     instagram_url: 'https://www.instagram.com/ekraaheefilms/',
+    youtube_url: 'https://www.youtube.com/@EkRaaheefilms',
     video_reels: [
       {
         id: 'reel-ef1',
@@ -533,6 +534,7 @@ export const portfolioService = {
               client: p.client_name || localMatch?.client || 'Velametric Client',
               live_url: p.project_url || localMatch?.live_url || '',
               project_type: localMatch?.project_type || p.category || 'web_app',
+              category: localMatch?.category || p.category || 'crm_saas',
               production_partner: localMatch?.production_partner,
               video_reels: localMatch?.video_reels || [],
               description: p.short_description || p.description || localMatch?.description || '',
@@ -543,6 +545,7 @@ export const portfolioService = {
               gallery: Array.isArray(p.gallery_images) ? p.gallery_images : (localMatch?.gallery || (p.featured_image ? [p.featured_image] : [])),
               videos: p.video_url ? [p.video_url] : (localMatch?.videos || []),
               instagram_url: localMatch?.instagram_url,
+              youtube_url: localMatch?.youtube_url || (localMatch?.client === 'Ekraahee Films' ? 'https://www.youtube.com/@EkRaaheefilms' : undefined),
               completion_date: p.created_at ? p.created_at.split('T')[0] : (localMatch?.completion_date || '2026-08-01'),
               is_featured: p.is_featured ?? (localMatch?.is_featured ?? true),
               status: p.status === 'completed' ? 'PUBLISHED' : (p.status || 'PUBLISHED'),
