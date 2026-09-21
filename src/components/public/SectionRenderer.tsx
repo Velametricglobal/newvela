@@ -403,49 +403,77 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
   }
 
   // 4. FEATURED PORTFOLIO / OUR WORK
-  // 4. FEATURED PORTFOLIO / SAAS PRODUCTS & SOFTWARE SOLUTIONS
   if (section.section_type === 'portfolio' || section.id.includes('portfolio') || section.name.toLowerCase().includes('portfolio') || section.name.toLowerCase().includes('work')) {
-    const headerCtaText = content.header_cta_text || 'Explore All SaaS Solutions';
-    const headerCtaUrl = content.header_cta_url || '/services?cat=cat-saas';
+    const headerCtaText = content.header_cta_text || 'View All Work (4 Categories)';
+    const headerCtaUrl = content.header_cta_url || '/portfolio';
     const headerOpenNewTab = content.header_cta_open_new_tab || false;
 
     const portfolioCards = (projects && projects.length > 0)
-      ? projects.slice(0, 3).map(p => ({
-          title: p.title,
-          client: p.client || 'Proprietary SaaS',
-          description: p.description || 'Enterprise-grade cloud platform engineered for real-time scale and conversions.',
-          image: p.featured_image || '/images/services/saas_property_crm.jpg',
-          live_url: p.live_url || `/portfolio/${p.slug}`,
-          button_text: p.live_url ? 'VISIT LIVE DEMO' : 'VIEW PLATFORM',
-          open_new_tab: !!p.live_url
-        }))
+      ? [
+          projects.find(p => p.category === 'video_production') || projects[0],
+          projects.find(p => p.category === 'news_website') || projects[1],
+          projects.find(p => p.category === 'crm_saas') || projects[2],
+          projects.find(p => p.category === 'events') || projects[3]
+        ].filter(Boolean).map(p => {
+          const isNews = p.category === 'news_website';
+          const isVideo = p.category === 'video_production';
+          const isEvent = p.category === 'events';
+          return {
+            title: p.title,
+            client: p.client || 'Client Deliverable',
+            description: p.description || 'Production-grade enterprise platform engineered for scale and conversions.',
+            image: p.featured_image || '/images/services/saas_property_crm.jpg',
+            live_url: p.live_url || `/portfolio/${p.slug}`,
+            badge_text: isNews ? 'NEWS PORTAL ↗' : isVideo ? 'VIDEO CINEMA ↗' : isEvent ? 'ARENA EVENTS ↗' : 'LIVE DEMO ↗',
+            badge_class: isNews ? 'bg-red-500 text-white' : isVideo ? 'bg-purple-500 text-white' : isEvent ? 'bg-amber-400 text-black' : 'bg-emerald-400 text-black',
+            button_text: isNews ? 'VISIT NEWS SITE' : isVideo ? 'WATCH SHOWCASE' : isEvent ? 'EXPLORE EVENT' : 'VISIT LIVE DEMO',
+            open_new_tab: !!p.live_url && p.live_url.startsWith('http')
+          };
+        })
       : [
           {
-            title: content.card1_title || 'Real Estate & Property Dealer CRM Platform',
-            client: content.card1_client || 'PropTech SaaS Solution',
+            title: 'Ekraahee Films — Commercial Video & Cinema Production Showcase',
+            client: 'Ekraahee Films',
+            description: 'Broadcast-grade TV commercial films, luxury retail launches, multi-camera studio podcasts, and Arri/RED master color grading.',
+            image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+            live_url: 'https://www.instagram.com/ekraaheefilms/',
+            badge_text: 'VIDEO CINEMA ↗',
+            badge_class: 'bg-purple-500 text-white',
+            button_text: 'WATCH SHOWCASE',
+            open_new_tab: true
+          },
+          {
+            title: 'Lokjan Express — Leading Digital News & Current Affairs Network',
+            client: 'Lokjan Express Media Network',
+            description: 'High-speed Hindi digital news portal featuring instant breaking news tickers, automated editorial workflow, and AMP acceleration.',
+            image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+            live_url: 'https://lokjanexpress.com/',
+            badge_text: 'NEWS PORTAL ↗',
+            badge_class: 'bg-red-500 text-white',
+            button_text: 'VISIT NEWS SITE',
+            open_new_tab: true
+          },
+          {
+            title: 'Real Estate & Property Dealer CRM Platform',
+            client: 'PropTech SaaS Solution',
             description: 'Interactive 3D property listings, automated 99acres lead auto-routing, and split commission broker payouts.',
-            image: content.card1_image || '/images/services/saas_property_crm.jpg',
-            live_url: content.card1_url || 'https://navajowhite-ant-953565.hostingersite.com/',
-            button_text: content.card1_button_text || 'VISIT LIVE DEMO',
-            open_new_tab: content.card1_open_new_tab !== false
+            image: '/images/services/saas_property_crm.jpg',
+            live_url: 'https://navajowhite-ant-953565.hostingersite.com/',
+            badge_text: 'CRM & SAAS ↗',
+            badge_class: 'bg-emerald-400 text-black',
+            button_text: 'VISIT LIVE DEMO',
+            open_new_tab: true
           },
           {
-            title: content.card2_title || 'Education Institute ERP & LMS Platform',
-            client: content.card2_client || 'EdTech Cloud ERP',
-            description: 'Automated fee collection via UPI/WhatsApp, biometric RFID attendance, and online exam proctoring.',
-            image: content.card2_image || '/images/services/saas_education_institute.jpg',
-            live_url: content.card2_url || 'https://sienna-chimpanzee-129344.hostingersite.com/',
-            button_text: content.card2_button_text || 'VISIT LIVE DEMO',
-            open_new_tab: content.card2_open_new_tab !== false
-          },
-          {
-            title: content.card3_title || 'Modern D2C E-Commerce & Retail CRM',
-            client: content.card3_client || 'Retail Commerce SaaS',
-            description: 'Headless high-speed storefront, 1-click checkout, automated Shiprocket shipping sync, and cart recovery.',
-            image: content.card3_image || '/images/services/saas_ecommerce_website.jpg',
-            live_url: content.card3_url || 'https://mediumvioletred-viper-351367.hostingersite.com/',
-            button_text: content.card3_button_text || 'VISIT LIVE DEMO',
-            open_new_tab: content.card3_open_new_tab !== false
+            title: 'Destiny Productions — Arena Event Cinema & Live Concert Coverage',
+            client: 'Destiny Productions',
+            description: 'Multi-camera RED arena coverage, live LED concert stage production, VIP corporate conclaves, and high-octane aftermovies.',
+            image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+            live_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+            badge_text: 'ARENA EVENTS ↗',
+            badge_class: 'bg-amber-400 text-black',
+            button_text: 'EXPLORE EVENT',
+            open_new_tab: true
           }
         ];
 
@@ -455,13 +483,13 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 gap-4 sm:gap-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2 sm:mb-3">
-                {content.tagline || 'Featured SaaS & Software Solutions'}
+                {content.tagline || 'Full-Spectrum Production & Software Work'}
               </span>
               <h2 className="text-2xl sm:text-5xl font-black text-white font-display uppercase tracking-tight">
                 {content.heading || 'Work That Speaks For Us.'}
               </h2>
               <p className="text-zinc-400 text-xs sm:text-base mt-2">
-                {content.subheading || 'Explore our ready-to-deploy enterprise SaaS products, specialized industry CRMs, and custom software platforms.'}
+                {content.subheading || 'Explore our client deliverables across 1. Video Production, 2. News Websites, 3. CRM & SaaS Platforms, and 4. Live Events.'}
               </p>
             </div>
             <SmartLink
@@ -473,23 +501,22 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
             </SmartLink>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {portfolioCards.map((p, idx) => (
               <div key={idx} className="bg-zinc-900/90 border border-zinc-800/90 rounded-3xl overflow-hidden group hover:border-zinc-700 transition-all flex flex-col justify-between shadow-2xl hover:shadow-amber-500/5">
                 <div>
-                  <div className="h-52 sm:h-60 relative overflow-hidden bg-zinc-950">
+                  <div className="h-48 sm:h-52 relative overflow-hidden bg-zinc-950">
                     <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-black/30" />
-                    <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[9px] sm:text-[10px] font-extrabold px-2.5 py-1 bg-zinc-950/95 text-zinc-200 rounded-full border border-zinc-700 shadow-md backdrop-blur-md">
+                    <span className="absolute top-3 left-3 text-[9px] font-extrabold px-2.5 py-1 bg-zinc-950/95 text-zinc-200 rounded-full border border-zinc-700 shadow-md backdrop-blur-md">
                       {p.client}
                     </span>
-                    <span className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[9px] sm:text-[10px] font-black px-2.5 py-1 bg-emerald-400 text-black rounded-full font-mono shadow-md flex items-center gap-1.5 uppercase tracking-wide">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
-                      LIVE DEMO ↗
+                    <span className={`absolute top-3 right-3 text-[9px] font-black px-2.5 py-1 rounded-full font-mono shadow-md flex items-center gap-1.5 uppercase tracking-wide ${p.badge_class || 'bg-emerald-400 text-black'}`}>
+                      {p.badge_text || 'LIVE ↗'}
                     </span>
                   </div>
-                  <div className="p-5 sm:p-6 space-y-2">
-                    <h3 className="text-base sm:text-lg font-bold text-white font-display group-hover:text-amber-400 transition-colors leading-snug">
+                  <div className="p-5 space-y-2">
+                    <h3 className="text-sm sm:text-base font-bold text-white font-display group-hover:text-amber-400 transition-colors leading-snug">
                       {p.title}
                     </h3>
                     {p.description && (
@@ -499,11 +526,11 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
                     )}
                   </div>
                 </div>
-                <div className="p-5 sm:p-6 pt-0 space-y-2">
+                <div className="p-5 pt-0 space-y-2">
                   <SmartLink
                     to={p.live_url}
                     openInNewTab={p.open_new_tab}
-                    className="inline-flex justify-center items-center gap-2 w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg hover:shadow-amber-400/20"
+                    className="inline-flex justify-center items-center gap-2 w-full py-3 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg hover:shadow-amber-400/20"
                   >
                     {p.button_text} <ExternalLink className="w-3.5 h-3.5" />
                   </SmartLink>
