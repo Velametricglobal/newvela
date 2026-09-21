@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { PortfolioProject, VideoReel } from '../../types/database.types';
 import { portfolioService } from '../../services/portfolioService';
+import { DapflixReelsShowcase } from '../../components/public/DapflixReelsShowcase';
+import { EkraaheeCinemaSlider } from '../../components/public/EkraaheeCinemaSlider';
 import { Link } from 'react-router-dom';
 import { 
   ExternalLink, 
@@ -10,12 +12,14 @@ import {
   Film, 
   Newspaper, 
   Server, 
-  Calendar,
+  Calendar, 
   Layers,
   Play,
   X,
   Instagram,
-  Video
+  Video,
+  Clapperboard,
+  Tv
 } from 'lucide-react';
 
 const getYouTubeId = (url?: string): string | null => {
@@ -28,6 +32,7 @@ export const PortfolioPage: React.FC = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
   const [filter, setFilter] = useState<'ALL' | 'VIDEO' | 'NEWS' | 'CRM' | 'EVENTS'>('ALL');
   const [activeReelModal, setActiveReelModal] = useState<VideoReel | null>(null);
+  const [selectedStudio, setSelectedStudio] = useState<'DAPFLIX' | 'EKRAAHEE'>('DAPFLIX');
 
   useEffect(() => {
     const loadProjects = () => {
@@ -74,7 +79,7 @@ export const PortfolioPage: React.FC = () => {
         </h1>
 
         <p className="text-zinc-400 text-base sm:text-xl leading-relaxed">
-          Explore our client deliverables structured across Video Production with embedded video galleries, High-Traffic News Portals, Specialized CRM & SaaS Platforms, and Live Events.
+          Explore our client deliverables structured across Interactive Video & Reels Production, High-Traffic News Portals, Specialized CRM & SaaS Platforms, and Live Events.
         </p>
       </div>
 
@@ -136,53 +141,110 @@ export const PortfolioPage: React.FC = () => {
         </button>
       </div>
 
-      {/* 3. NEWS WEBSITES QUICK SPOTLIGHT (When News filter is active) */}
+      {/* 3. DYNAMIC CINEMA & REELS CONSOLE PLAYER (When Video or All is active) */}
+      {(filter === 'VIDEO' || filter === 'ALL') && (
+        <div className="space-y-6 pt-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest mb-1.5">
+                <Clapperboard className="w-4 h-4" /> Official Cinema Production OS
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black text-white font-display uppercase tracking-tight">
+                {selectedStudio === 'DAPFLIX' 
+                  ? 'DAPFLIX Instagram Reels & Video Slider' 
+                  : 'Ekraahee Films Commercial Cinema Stage'}
+              </h2>
+              <p className="text-zinc-400 text-xs sm:text-sm mt-1">
+                {selectedStudio === 'DAPFLIX'
+                  ? 'Interactive rotatable smartphone & landscape cinema slider with active reel metrics, audio playback, and direct social engagement.'
+                  : 'Broadcast-grade Arri/RED 4K master quality TV commercials, luxury retail launches, and studio tech interviews.'}
+              </p>
+            </div>
+
+            {/* Studio Selection Switcher */}
+            <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl">
+              <button
+                onClick={() => setSelectedStudio('DAPFLIX')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
+                  selectedStudio === 'DAPFLIX'
+                    ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-lg shadow-pink-500/20 scale-105'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Instagram className="w-3.5 h-3.5" /> DAPFLIX Reels
+              </button>
+
+              <button
+                onClick={() => setSelectedStudio('EKRAAHEE')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
+                  selectedStudio === 'EKRAAHEE'
+                    ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20 font-black scale-105'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Tv className="w-3.5 h-3.5" /> Ekraahee Cinema
+              </button>
+            </div>
+          </div>
+
+          {/* Render The Chosen Interactive Player */}
+          <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+            {selectedStudio === 'DAPFLIX' ? (
+              <DapflixReelsShowcase hideHeader={true} />
+            ) : (
+              <EkraaheeCinemaSlider hideHeader={true} showFullLink={false} />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 4. NEWS WEBSITES SPOTLIGHT (When News filter is active) */}
       {filter === 'NEWS' && (
-        <div className="p-6 rounded-3xl bg-zinc-900/90 border border-red-500/30 backdrop-blur space-y-4 shadow-2xl">
+        <div className="p-6 sm:p-8 rounded-3xl bg-zinc-900/90 border border-red-500/30 backdrop-blur space-y-4 shadow-2xl">
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
             <Newspaper className="w-4 h-4" /> Featured Regional Media & News Portals
           </div>
-          <p className="text-zinc-300 text-sm">
-            Velametric engineers high-throughput news publishing systems, automated editorial CMS workflows, and AMP-accelerated mobile portals delivering breaking coverage for millions of daily readers:
+          <p className="text-zinc-300 text-sm max-w-3xl leading-relaxed">
+            Velametric engineers high-throughput news publishing platforms, automated editorial CMS workflows, and AMP-accelerated mobile portals delivering breaking news for millions of daily readers across Uttarakhand and North India:
           </p>
-          <div className="flex flex-wrap gap-3 pt-1">
+          <div className="flex flex-wrap gap-3 pt-2">
             <a
               href="https://lokjanexpress.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
             >
-              <Globe className="w-3.5 h-3.5 text-red-500" /> 1. lokjanexpress.com ↗
+              <Globe className="w-4 h-4 text-red-500" /> 1. lokjanexpress.com ↗
             </a>
             <a
               href="https://gangakhabar.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
             >
-              <Globe className="w-3.5 h-3.5 text-red-500" /> 2. gangakhabar.com ↗
+              <Globe className="w-4 h-4 text-red-500" /> 2. gangakhabar.com ↗
             </a>
             <a
               href="https://52garhsamachar.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 border border-zinc-800 text-white text-xs font-extrabold hover:border-red-500 hover:text-red-400 transition-all shadow-xl"
             >
-              <Globe className="w-3.5 h-3.5 text-red-500" /> 3. 52garhsamachar.com ↗
+              <Globe className="w-4 h-4 text-red-500" /> 3. 52garhsamachar.com ↗
             </a>
           </div>
         </div>
       )}
 
-      {/* 4. WORK SHOWCASE GRID */}
+      {/* 5. WORK SHOWCASE CARDS GRID */}
       <div className="space-y-6">
         <div className="flex justify-between items-center px-1">
           <h3 className="text-xl font-bold text-white font-display uppercase tracking-tight">
-            {filter === 'VIDEO' ? '1. Video Production & Cinema Showcases' :
-             filter === 'NEWS' ? '2. Live News Websites & Media Portals' :
-             filter === 'CRM' ? '3. Enterprise CRM & SaaS Systems' :
-             filter === 'EVENTS' ? '4. Live Events & Arena Production' :
-             'Complete Work Portfolio'}
+            {filter === 'VIDEO' ? 'Video Production & Commercial Deliverables' :
+             filter === 'NEWS' ? 'Live News Websites & Media Portals' :
+             filter === 'CRM' ? 'Enterprise CRM & SaaS Systems' :
+             filter === 'EVENTS' ? 'Live Events & Arena Production' :
+             'Complete Work Portfolio & Case Studies'}
           </h3>
           <span className="text-xs font-mono text-zinc-400">
             Showing {filteredProjects.length} Projects
@@ -273,7 +335,7 @@ export const PortfolioPage: React.FC = () => {
                       {proj.description}
                     </p>
 
-                    {/* EMBEDDED VIDEO REELS GALLERY (Exact gallery from previous version!) */}
+                    {/* Embedded Reels Strip */}
                     {hasReels && (
                       <div className="pt-2">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2.5 flex items-center gap-1.5 font-mono">
@@ -321,7 +383,6 @@ export const PortfolioPage: React.FC = () => {
 
                 {/* Card Footer Actions */}
                 <div className="p-6 pt-0 space-y-3">
-                  {/* 1. Video Production: Vibrant Instagram / Portfolio Button */}
                   {isVideo && proj.instagram_url ? (
                     <a
                       href={proj.instagram_url}
@@ -332,7 +393,6 @@ export const PortfolioPage: React.FC = () => {
                       <Instagram className="w-4 h-4" /> OUR WORK ↗
                     </a>
                   ) : isNews && proj.live_url ? (
-                    /* 2. News Websites: High-conversion Live Portal Link */
                     <a
                       href={proj.live_url}
                       target="_blank"
@@ -342,7 +402,6 @@ export const PortfolioPage: React.FC = () => {
                       <Globe className="w-4 h-4" /> Visit Live News Website <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   ) : isEvent && proj.instagram_url ? (
-                    /* 4. Events: Instagram / Coverage Link */
                     <a
                       href={proj.instagram_url}
                       target="_blank"
@@ -352,7 +411,6 @@ export const PortfolioPage: React.FC = () => {
                       <Instagram className="w-4 h-4" /> OUR WORK ↗
                     </a>
                   ) : proj.live_url ? (
-                    /* 3. CRM & SaaS: Live Demo Button */
                     <a
                       href={proj.live_url}
                       target={proj.live_url.startsWith('http') ? "_blank" : undefined}
@@ -378,7 +436,7 @@ export const PortfolioPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 5. INTERACTIVE EMBEDDED VIDEO MODAL PLAYER */}
+      {/* 6. INTERACTIVE EMBEDDED VIDEO MODAL PLAYER */}
       {activeReelModal && (
         <div 
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
@@ -446,7 +504,7 @@ export const PortfolioPage: React.FC = () => {
         </div>
       )}
 
-      {/* 6. STUDIO & PARTNER FOOTER BANNER */}
+      {/* 7. STUDIO & PARTNER FOOTER BANNER */}
       <div className="mt-16 p-8 rounded-3xl bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
