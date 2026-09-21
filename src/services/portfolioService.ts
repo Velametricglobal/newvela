@@ -232,6 +232,35 @@ let localProjects: PortfolioProject[] = [
 
   // 3. CRM & SAAS PLATFORMS
   {
+    id: 'proj-velametric-hotel-crm',
+    title: 'Hotel Pinathiya Paradise — Alpine Resort Website & Central Reservation System (CRS / CRM SaaS)',
+    slug: 'hotel-pinathiya-paradise-booking-crm-saas',
+    category: 'crm_saas',
+    client: 'Hotel Pinathiya Paradise (Purola, Uttarakhand)',
+    live_url: 'https://hotel-pinathiya-paradise.pages.dev',
+    admin_url: 'https://hotel-pinathiya-paradise.pages.dev/admin.html',
+    project_type: 'web_app',
+    description: 'An all-in-one luxury alpine resort website, interactive multi-step guest booking engine, and cloud Central Reservation System (CRS / CRM SaaS). Features real-time room inventory management, contactless Aadhaar ID document verification, automated WhatsApp booking dispatch, dining POS management, and payment reconciliation.',
+    challenge: 'Managing high-peak seasonal bookings for Himalayan treks (Kedarkantha & Har Ki Dun) without double-booking rooms, eliminating manual guest check-in bottlenecks, and securing guest identification in remote hill stations.',
+    solution: 'Engineered a lightweight edge-hosted CRS backend on Cloudflare Pages with zero-latency guest booking engine, instant WhatsApp voucher dispatch, and a comprehensive Host Admin CRM console featuring room assignment, payment tracking, and guest Aadhaar document verification.',
+    results: 'Direct booking commission savings of over 18%, 100% real-time room inventory synchronization, and sub-60-second contactless guest check-in.',
+    featured_image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80'
+    ],
+    videos: [],
+    completion_date: '2026-09-18',
+    testimonial_quote: 'The Central Reservation System and instant WhatsApp booking dispatch streamlined our entire hotel operation. We get direct bookings with zero OTA commissions and manage check-ins effortlessly.',
+    testimonial_author: 'Deepak Chand Ramola, Managing Host — Hotel Pinathiya Paradise',
+    is_featured: true,
+    status: 'PUBLISHED',
+    services_used: ['Hotel Booking Engine', 'Central Reservation System (CRS)', 'Guest CRM & Document Vault', 'WhatsApp Booking Dispatch', 'Cloudflare Pages Edge'],
+    technologies: ['JavaScript', 'Node.js REST API', 'Cloudflare Pages Edge', 'JSON Database', 'Tailwind CSS'],
+    industry: 'Hospitality & Hotel Tech'
+  },
+  {
     id: 'proj-velametric-1',
     title: 'Real Estate & Property Dealer CRM Platform',
     slug: 'real-estate-property-dealer-crm',
@@ -540,6 +569,7 @@ export const portfolioService = {
               slug: p.slug || p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
               client: p.client_name || localMatch?.client || 'Velametric Client',
               live_url: p.project_url || localMatch?.live_url || '',
+              admin_url: p.admin_url || localMatch?.admin_url,
               project_type: localMatch?.project_type || p.category || 'web_app',
               category: localMatch?.category || p.category || 'crm_saas',
               production_partner: localMatch?.production_partner,

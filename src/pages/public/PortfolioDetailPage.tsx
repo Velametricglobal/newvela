@@ -470,15 +470,25 @@ export const PortfolioDetailPage: React.FC = () => {
             </p>
 
             {project.live_url && (
-              <div className="pt-4">
+              <div className="pt-4 flex flex-wrap items-center gap-4">
                 <a
                   href={project.live_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-2xl"
                 >
-                  <Globe className="w-4 h-4 text-emerald-600" /> Visit Live Hosted Website <ExternalLink className="w-4 h-4" />
+                  <Globe className="w-4 h-4 text-emerald-600" /> {project.admin_url ? 'Visit Guest Booking Website' : 'Visit Live Hosted Website'} <ExternalLink className="w-4 h-4" />
                 </a>
+                {project.admin_url && (
+                  <a
+                    href={project.admin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 font-extrabold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all shadow-xl shadow-amber-500/10"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-amber-400" /> Hotel Host & CRM Admin Console <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
               </div>
             )}
           </div>

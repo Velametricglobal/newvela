@@ -810,14 +810,26 @@ export const PortfolioPage: React.FC = () => {
                       <Instagram className="w-4 h-4" /> OUR WORK ↗
                     </a>
                   ) : proj.live_url ? (
-                    <a
-                      href={proj.live_url}
-                      target={proj.live_url.startsWith('http') ? "_blank" : undefined}
-                      rel={proj.live_url.startsWith('http') ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10"
-                    >
-                      <Server className="w-4 h-4 text-emerald-600" /> {proj.live_url.startsWith('http') ? 'Visit Live Demo' : 'Explore Platform Overview'} <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                    <div className="space-y-2 w-full">
+                      <a
+                        href={proj.live_url}
+                        target={proj.live_url.startsWith('http') ? "_blank" : undefined}
+                        rel={proj.live_url.startsWith('http') ? "noopener noreferrer" : undefined}
+                        className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10"
+                      >
+                        <Server className="w-4 h-4 text-emerald-600" /> {proj.admin_url ? 'Guest Booking Engine' : proj.live_url.startsWith('http') ? 'Visit Live Demo' : 'Explore Platform Overview'} <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                      {proj.admin_url && (
+                        <a
+                          href={proj.admin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all"
+                        >
+                          <Layers className="w-3.5 h-3.5 text-amber-400" /> Host & CRM Admin Console <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
                   ) : null}
 
                   <div className="text-center">
