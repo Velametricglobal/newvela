@@ -28,7 +28,60 @@ let localProjects: PortfolioProject[] = [
     status: 'PUBLISHED',
     services_used: ['Commercial TVCs', 'Luxury Brand Films', 'Multi-Cam Podcasts', 'HDR Color Grading'],
     technologies: ['Arri Alexa Mini LF', 'RED V-Raptor 8K', 'Cooke Anamorphic Lenses'],
-    industry: 'Cinema & Commercial Video'
+    industry: 'Cinema & Commercial Video',
+    instagram_url: 'https://www.instagram.com/ekraaheefilms/',
+    video_reels: [
+      {
+        id: 'reel-ef1',
+        title: 'Pottery Barn Flagship Store Launch',
+        video_url: 'https://www.youtube.com/watch?v=WPKQbHTa2pc',
+        thumbnail_url: 'https://i.ytimg.com/vi/WPKQbHTa2pc/hqdefault.jpg',
+        partner_name: 'Ekraahee Films',
+        category: 'Luxury Store Launch',
+        views_count: '1.2M+',
+        duration: '0:42'
+      },
+      {
+        id: 'reel-ef2',
+        title: 'Podcast with Qualcomm for 91mobiles',
+        video_url: 'https://www.youtube.com/watch?v=wVPxaWhOwjA',
+        thumbnail_url: 'https://i.ytimg.com/vi/wVPxaWhOwjA/hqdefault.jpg',
+        partner_name: 'Ekraahee Films',
+        category: 'Studio Tech Talk',
+        views_count: '850K+',
+        duration: '1:15'
+      },
+      {
+        id: 'reel-ef3',
+        title: 'IGA Awards 2025 for 91mobiles',
+        video_url: 'https://www.youtube.com/watch?v=8qYlKs-dRVc',
+        thumbnail_url: 'https://i.ytimg.com/vi/8qYlKs-dRVc/hqdefault.jpg',
+        partner_name: 'Ekraahee Films',
+        category: 'Arena Stage Event',
+        views_count: '1.5M+',
+        duration: '0:58'
+      },
+      {
+        id: 'reel-ef4',
+        title: 'Kinza Lemon Soda Drink Commercial',
+        video_url: 'https://youtu.be/SaQQgPmnAVU',
+        thumbnail_url: 'https://i.ytimg.com/vi/SaQQgPmnAVU/hqdefault.jpg',
+        partner_name: 'Ekraahee Films',
+        category: 'Beverage TVC',
+        views_count: '2.1M+',
+        duration: '0:30'
+      },
+      {
+        id: 'reel-ef5',
+        title: 'Bharat Loan Performance UGC Video Ad',
+        video_url: 'https://youtu.be/RQWwFpQfQig',
+        thumbnail_url: 'https://i.ytimg.com/vi/RQWwFpQfQig/hqdefault.jpg',
+        partner_name: 'Ekraahee Films',
+        category: 'FinTech Growth UGC',
+        views_count: '3.4M+',
+        duration: '0:45'
+      }
+    ]
   },
   {
     id: 'proj-video-2',
@@ -55,7 +108,51 @@ let localProjects: PortfolioProject[] = [
     status: 'PUBLISHED',
     services_used: ['Music Videos', 'Viral Social Reels', '4K Aerial Drone Cinematography', 'VFX'],
     technologies: ['Sony FX Cinema Systems', 'DJI Mavic 3 Cine 5.1K', 'DaVinci Resolve Studio'],
-    industry: 'Music & Creative Media'
+    industry: 'Music & Creative Media',
+    instagram_url: 'https://www.instagram.com/dapflix/',
+    video_reels: [
+      {
+        id: 'reel-dp1',
+        title: 'Cafe On The Waves, UKI — Commercial Brand Film',
+        video_url: 'https://dapflix.com/wp-content/uploads/2025/02/DAPFLIX-FILMS-CAFE-ON-THE-WAVES-UKI.mp4',
+        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/IMG_3337.jpg',
+        partner_name: 'Dapflix',
+        category: 'Hospitality Commercial',
+        views_count: '450K+',
+        duration: '02:14'
+      },
+      {
+        id: 'reel-dp2',
+        title: 'Uttarkashi × Dapflix — Aerial Drone & Tourism Cinema',
+        video_url: 'https://dapflix.com/wp-content/uploads/2025/03/UTTARKASHI-x-DAPFLIX-2.mp4',
+        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img3.jpg',
+        partner_name: 'Dapflix',
+        category: 'Tourism & Aerial Cinema',
+        views_count: '820K+',
+        duration: '01:48'
+      },
+      {
+        id: 'reel-dp3',
+        title: 'Urban Fashion & Music Visual Reel (Cut 33)',
+        video_url: 'https://dapflix.com/wp-content/uploads/2025/02/33.mp4',
+        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img2.jpg',
+        partner_name: 'Dapflix',
+        category: 'Music Video & TVC',
+        views_count: '640K+',
+        duration: '00:45'
+      },
+      {
+        id: 'reel-dp4',
+        title: 'Mansi & Swapnil — Retro Love Wedding Reel',
+        video_url: 'https://dapflix.com/wp-content/uploads/2025/03/AQN6qG8rwAJbhnu2yYkyKThtZcu00393c2jRDpiOpM3lwGtAM3n6jqxc8soOiE9xTMHhCPDToZo849qCOASX3UIj9_xb-K2TAxunY0s.mp4',
+        thumbnail_url: 'https://dapflix.com/wp-content/uploads/2025/02/counter-img4.jpg',
+        partner_name: 'Dapflix',
+        category: 'Instagram Wedding Reel',
+        instagram_url: 'https://www.instagram.com/reel/DbDsHASSajx/',
+        views_count: '48.5K',
+        duration: '00:40'
+      }
+    ]
   },
 
   // 2. NEWS WEBSITES
@@ -256,7 +353,30 @@ let localProjects: PortfolioProject[] = [
     status: 'PUBLISHED',
     services_used: ['Arena Event Cinema', 'Multi-Cam Live Broadcast', 'Stage Visuals', 'Drone Fly-Throughs'],
     technologies: ['RED Cinema Cameras', 'Multi-Angle Wireless Feeds', 'DaVinci Resolve Studio'],
-    industry: 'Live Events & Arena Cinema'
+    industry: 'Live Events & Arena Cinema',
+    instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+    video_reels: [
+      {
+        id: 'reel-d1',
+        title: 'Arena Live Event Aftermovie 2026',
+        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+        thumbnail_url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+        partner_name: 'Destiny Productions',
+        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+        views_count: '850K',
+        duration: '0:58'
+      },
+      {
+        id: 'reel-d2',
+        title: 'Luxury Brand Commercial Campaign',
+        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+        thumbnail_url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80',
+        partner_name: 'Destiny Productions',
+        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
+        views_count: '1.2M',
+        duration: '0:45'
+      }
+    ]
   },
   {
     id: 'proj-event-conclave',
