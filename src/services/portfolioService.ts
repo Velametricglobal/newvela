@@ -369,80 +369,6 @@ let localProjects: PortfolioProject[] = [
       'Broadcast Media Production'
     ],
     industry: 'Sports, Culture & Civic Social Change'
-  },
-  {
-    id: 'proj-event-destiny',
-    title: 'Destiny Productions — Arena Event Cinema & Live Concert Coverage',
-    slug: 'destiny-productions-arena-events',
-    category: 'events',
-    project_type: 'events',
-    client: 'Destiny Productions',
-    live_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-    description: 'Cinematic brand commercial films, high-octane arena concert coverage, multi-camera live LED stage broadcasts, and festival aftermovies engineered in partnership with Destiny Productions.',
-    challenge: 'Delivering broadcast-grade 4K video coverage and viral reel edits for high-profile arena events under tight timelines.',
-    solution: 'Utilized multi-angle RED camera setups, aerial drone cinematography, and same-day social media edit turnarounds.',
-    results: 'Over 2.4 Million cumulative Instagram views and 85,000+ engagements across official event release campaigns.',
-    featured_image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80'
-    ],
-    videos: ['https://www.instagram.com/destiny_in_productions/?hl=en'],
-    completion_date: '2026-09-08',
-    testimonial_quote: 'Collaborating with Velametric allows our arena event productions to reach hundreds of thousands through integrated digital coverage.',
-    testimonial_author: 'Creative Director, Destiny Productions',
-    is_featured: true,
-    status: 'PUBLISHED',
-    services_used: ['Arena Event Cinema', 'Multi-Cam Live Broadcast', 'Stage Visuals', 'Drone Fly-Throughs'],
-    technologies: ['RED Cinema Cameras', 'Multi-Angle Wireless Feeds', 'DaVinci Resolve Studio'],
-    industry: 'Live Events & Arena Cinema',
-    instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-    video_reels: [
-      {
-        id: 'reel-d1',
-        title: 'Arena Live Event Aftermovie 2026',
-        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Destiny Productions',
-        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        views_count: '850K',
-        duration: '0:58'
-      },
-      {
-        id: 'reel-d2',
-        title: 'Luxury Brand Commercial Campaign',
-        video_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        thumbnail_url: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80',
-        partner_name: 'Destiny Productions',
-        instagram_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-        views_count: '1.2M',
-        duration: '0:45'
-      }
-    ]
-  },
-  {
-    id: 'proj-event-conclave',
-    title: 'Global Leadership Conclave & Corporate Event Tech Suite',
-    slug: 'global-leadership-conclave-event',
-    category: 'events',
-    project_type: 'events',
-    client: 'Global Business Leadership Conclave',
-    live_url: '/request-quote',
-    description: 'Integrated digital delegate registration portal, on-site QR badge printing, keynote live broadcast streaming, and automated sponsor lead retrieval for international corporate summits.',
-    challenge: 'High check-in queues at summit venues, disorganized session tracking, and delayed post-event lead distribution to summit sponsors.',
-    solution: 'Engineered a unified event management dashboard with instant QR badge generation, synchronized registration desks, and live sponsor lead scanning.',
-    results: 'Sub-3 second delegate badge check-in for 1,200+ attendees and 100% sponsor lead capture attribution.',
-    featured_image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
-    gallery: ['https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80'],
-    videos: [],
-    completion_date: '2026-09-12',
-    testimonial_quote: 'The event tech infrastructure eliminated lines completely and impressed both our international delegates and corporate sponsors.',
-    testimonial_author: 'Chairperson, Global Business Leadership Conclave',
-    is_featured: true,
-    status: 'PUBLISHED',
-    services_used: ['Event Registration Portal', 'QR Badge Scanning CRM', 'Keynote Live AV', 'Delegate Engagement'],
-    technologies: ['React', 'Supabase Realtime', 'Thermal QR Printing', 'vMix Broadcast Suite'],
-    industry: 'Corporate Events & Conclaves'
   }
 ];
 
@@ -643,13 +569,23 @@ export const portfolioService = {
               merged.push(lp);
             }
           }
-          return merged;
+          return merged.filter(p => 
+            p.id !== 'proj-event-destiny' && 
+            p.id !== 'proj-event-conclave' && 
+            p.slug !== 'destiny-productions-arena-events' && 
+            p.slug !== 'global-leadership-conclave-event'
+          );
         }
       } catch (e) {
         console.warn('Supabase portfolio_projects query failed, falling back to local:', e);
       }
     }
-    return [...localProjects];
+    return localProjects.filter(p => 
+      p.id !== 'proj-event-destiny' && 
+      p.id !== 'proj-event-conclave' && 
+      p.slug !== 'destiny-productions-arena-events' && 
+      p.slug !== 'global-leadership-conclave-event'
+    );
   },
 
   async getProjectBySlug(slug: string): Promise<PortfolioProject | null> {
