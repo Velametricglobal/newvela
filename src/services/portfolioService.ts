@@ -232,6 +232,35 @@ let localProjects: PortfolioProject[] = [
 
   // 3. CRM & SAAS PLATFORMS
   {
+    id: 'proj-velametric-booking-crm',
+    title: 'Booking Engine & Hospitality CRM — Homestays, Hotels & Tour Operators',
+    slug: 'booking-engine-hospitality-crm',
+    category: 'crm_saas',
+    client: 'Velametric Hospitality & Travel Tech (Hotels, Homestays & Tour Operators)',
+    live_url: 'https://global-trek-hub.pages.dev/',
+    admin_url: 'https://global-trek-hub.pages.dev/admin.html',
+    project_type: 'web_app',
+    description: 'A high-converting direct-booking engine and hospitality CRM engineered to eliminate 18–25% OTA commissions. Features real-time inventory slots, instant WhatsApp voucher dispatch, Supabase cloud CRM sync, 1-click police/forest checkpoint manifest generator, and mobile host administration.',
+    challenge: 'Property hosts and tour operators lose 18% to 25% of top-line revenue to OTA aggregators, waste hours on manual entry for police/forest permits, and suffer low inquiry conversion rates over traditional email.',
+    solution: 'Engineered a direct guest booking workflow with 25% advance / full UPI payment flexibility, automated WhatsApp digital pass delivery, real-time Supabase cloud sync, and 1-click PDF/CSV export for tourist checkpoint manifests.',
+    results: '0% middleman commission on direct reservations, 98% message open rate via WhatsApp automation, and automated guest manifest compliance within 30 seconds.',
+    featured_image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'
+    ],
+    videos: [],
+    completion_date: '2026-09-19',
+    testimonial_quote: 'Switching to Velametric’s direct booking engine saved us tens of thousands in OTA commissions each month. Trekkers and hotel guests love the instant WhatsApp passes, and the 1-click police manifest export is a lifesaver.',
+    testimonial_author: 'Jagvir Rana & Manish Rana, Operations Directors — Himalayan Hospitality & Expeditions',
+    is_featured: true,
+    status: 'PUBLISHED',
+    services_used: ['Booking Engine Development', 'Hospitality CRM Platform', 'WhatsApp Voucher Dispatch', '1-Click Police/Forest Manifest', 'Supabase Cloud Sync'],
+    technologies: ['Velametric Hospitality Core', 'Supabase Realtime DB', 'Cloudflare Pages Edge', 'WhatsApp Business API', 'Tailwind CSS'],
+    industry: 'Hospitality & Travel Tech'
+  },
+  {
     id: 'proj-velametric-hotel-crm',
     title: 'Hotel Pinathiya Paradise — Alpine Resort Website & Central Reservation System (CRS / CRM SaaS)',
     slug: 'hotel-pinathiya-paradise-booking-crm-saas',

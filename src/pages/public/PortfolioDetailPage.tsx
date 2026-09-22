@@ -486,7 +486,7 @@ export const PortfolioDetailPage: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 font-extrabold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all shadow-xl shadow-amber-500/10"
                   >
-                    <ShieldCheck className="w-4 h-4 text-amber-400" /> Hotel Host & CRM Admin Console <ExternalLink className="w-4 h-4" />
+                    <ShieldCheck className="w-4 h-4 text-amber-400" /> {project.title?.toLowerCase().includes('hotel') ? 'Hotel Host & CRM Admin Console' : 'Host & CRM Admin Console'} <ExternalLink className="w-4 h-4" />
                   </a>
                 )}
               </div>
