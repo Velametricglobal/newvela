@@ -580,6 +580,11 @@ export const PortfolioPage: React.FC = () => {
                   <div className="h-60 relative overflow-hidden bg-zinc-950">
                     <img
                       src={proj.featured_image}
+                      onError={(e) => {
+                        if (proj.featured_image?.includes('maxresdefault.jpg')) {
+                          (e.target as HTMLImageElement).src = proj.featured_image.replace('maxresdefault.jpg', 'hqdefault.jpg');
+                        }
+                      }}
                       alt={proj.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-100"
                     />

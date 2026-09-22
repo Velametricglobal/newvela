@@ -422,12 +422,12 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
             title: p.title,
             client: p.client || 'Client Deliverable',
             description: p.description || 'Production-grade enterprise platform engineered for scale and conversions.',
-            image: p.featured_image || '/images/services/saas_property_crm.jpg',
-            live_url: p.live_url || `/portfolio/${p.slug}`,
+            image: isVideo ? 'https://i.ytimg.com/vi/WPKQbHTa2pc/maxresdefault.jpg' : (p.featured_image || '/images/services/saas_property_crm.jpg'),
+            live_url: isVideo ? `/portfolio/${p.slug}` : (p.live_url || `/portfolio/${p.slug}`),
             badge_text: isNews ? 'NEWS PORTAL ↗' : isVideo ? 'VIDEO CINEMA ↗' : isEvent ? 'ARENA EVENTS ↗' : 'LIVE DEMO ↗',
             badge_class: isNews ? 'bg-red-500 text-white' : isVideo ? 'bg-purple-500 text-white' : isEvent ? 'bg-amber-400 text-black' : 'bg-emerald-400 text-black',
             button_text: isNews ? 'VISIT NEWS SITE' : isVideo ? 'WATCH SHOWCASE' : isEvent ? 'EXPLORE EVENT' : 'VISIT LIVE DEMO',
-            open_new_tab: !!p.live_url && p.live_url.startsWith('http')
+            open_new_tab: isVideo ? false : (!!p.live_url && p.live_url.startsWith('http'))
           };
         })
       : [
@@ -435,12 +435,12 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
             title: 'Ekraahee Films — Commercial Video & Cinema Production Showcase',
             client: 'Ekraahee Films',
             description: 'Broadcast-grade TV commercial films, luxury retail launches, multi-camera studio podcasts, and Arri/RED master color grading.',
-            image: '/images/services/video_production_workstation.jpg',
-            live_url: 'https://www.instagram.com/ekraaheefilms/',
+            image: 'https://i.ytimg.com/vi/WPKQbHTa2pc/maxresdefault.jpg',
+            live_url: '/portfolio/ekraahee-films-showcase',
             badge_text: 'VIDEO CINEMA ↗',
             badge_class: 'bg-purple-500 text-white',
             button_text: 'WATCH SHOWCASE',
-            open_new_tab: true
+            open_new_tab: false
           },
           {
             title: 'Lokjan Express — Leading Digital News & Current Affairs Network',
@@ -506,7 +506,16 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
               <div key={idx} className="bg-zinc-900/90 border border-zinc-800/90 rounded-3xl overflow-hidden group hover:border-zinc-700 transition-all flex flex-col justify-between shadow-2xl hover:shadow-amber-500/5">
                 <div>
                   <div className="h-48 sm:h-52 relative overflow-hidden bg-zinc-950">
-                    <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
+                    <img 
+                      src={p.image} 
+                      onError={(e) => {
+                        if (p.image?.includes('maxresdefault.jpg')) {
+                          (e.target as HTMLImageElement).src = p.image.replace('maxresdefault.jpg', 'hqdefault.jpg');
+                        }
+                      }}
+                      alt={p.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-black/30" />
                     <span className="absolute top-3 left-3 text-[9px] font-extrabold px-2.5 py-1 bg-zinc-950/95 text-zinc-200 rounded-full border border-zinc-700 shadow-md backdrop-blur-md">
                       {p.client}
