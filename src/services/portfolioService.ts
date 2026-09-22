@@ -15,9 +15,9 @@ let localProjects: PortfolioProject[] = [
     challenge: 'Delivering broadcast-grade Arri/RED 4K cinema visuals and rapid-turnaround luxury commercial edits under strict production windows.',
     solution: 'Engineered a specialized camera workflow utilizing Arri Alexa Mini LF, anamorphic prime lenses, and DaVinci HDR studio color grading.',
     results: 'Over 15 Million cumulative campaign views and official commercial broadcast placements across national TV and digital platforms.',
-    featured_image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80',
+    featured_image: '/images/services/video_production_workstation.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+      '/images/services/video_production_workstation.jpg',
       'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80'
     ],
     videos: ['https://www.instagram.com/ekraaheefilms/'],
@@ -607,7 +607,7 @@ export const portfolioService = {
               challenge: p.challenge || localMatch?.challenge || 'Scaling performance and user conversion for modern market leaders.',
               solution: p.solution || p.description || localMatch?.solution || 'Delivered a resilient digital architecture with clean UI/UX.',
               results: p.results || localMatch?.results || 'Achieved measurable engagement growth and high-performing lead conversion.',
-              featured_image: p.featured_image || localMatch?.featured_image || '/images/services/saas_property_crm.jpg',
+              featured_image: (p.featured_image && !p.featured_image.includes('1492691527719')) ? p.featured_image : (localMatch?.featured_image || '/images/services/video_production_workstation.jpg'),
               gallery: Array.isArray(p.gallery_images) ? p.gallery_images : (localMatch?.gallery || (p.featured_image ? [p.featured_image] : [])),
               videos: p.video_url ? [p.video_url] : (localMatch?.videos || []),
               instagram_url: localMatch?.instagram_url,

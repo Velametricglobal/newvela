@@ -435,7 +435,7 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
             title: 'Ekraahee Films — Commercial Video & Cinema Production Showcase',
             client: 'Ekraahee Films',
             description: 'Broadcast-grade TV commercial films, luxury retail launches, multi-camera studio podcasts, and Arri/RED master color grading.',
-            image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+            image: '/images/services/video_production_workstation.jpg',
             live_url: 'https://www.instagram.com/ekraaheefilms/',
             badge_text: 'VIDEO CINEMA ↗',
             badge_class: 'bg-purple-500 text-white',
