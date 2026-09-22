@@ -5,9 +5,11 @@ import {
   Sparkles, ArrowRight, Play, CheckCircle2, Calculator, Building, Award, Users,
   Globe, Laptop, Video, Film, Instagram, ChevronDown, MapPin, Phone, Mail, Clock, Send,
   HelpCircle, Megaphone, Calendar, CreditCard, ShieldCheck, Newspaper, Camera, ExternalLink, Star,
-  Compass, Palette, Code2, Landmark, Tv, Layers
+  Compass, Palette, Code2, Landmark, Tv, Layers, Clapperboard, Youtube
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { EkraaheeCinemaSlider } from './EkraaheeCinemaSlider';
+import { DapflixReelsShowcase } from './DapflixReelsShowcase';
 
 interface SectionRendererProps {
   section: PageSection;
@@ -83,6 +85,9 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
 
   // Modal State for Video Testimonials
   const [activeVideoModal, setActiveVideoModal] = useState<any | null>(null);
+
+  // Video Production Studio Switcher State
+  const [selectedStudio, setSelectedStudio] = useState<'EKRAAHEE' | 'DAPFLIX' | 'BOTH'>('EKRAAHEE');
 
   // Event Countdown Clock State
   const [timeLeft, setTimeLeft] = useState({ days: 45, hours: 12, mins: 30, secs: 15 });
@@ -402,150 +407,150 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
     );
   }
 
-  // 4. FEATURED PORTFOLIO / OUR WORK
+  // 4. FEATURED VIDEO PRODUCTION SHOWCASE / OUR WORK SCREEN
   if (section.section_type === 'portfolio' || section.id.includes('portfolio') || section.name.toLowerCase().includes('portfolio') || section.name.toLowerCase().includes('work')) {
-    const headerCtaText = content.header_cta_text || 'View All Work (4 Categories)';
+    const headerCtaText = content.header_cta_text || 'Explore All Work (4 Categories)';
     const headerCtaUrl = content.header_cta_url || '/portfolio';
     const headerOpenNewTab = content.header_cta_open_new_tab || false;
 
-    const portfolioCards = (projects && projects.length > 0)
-      ? [
-          projects.find(p => p.category === 'video_production') || projects[0],
-          projects.find(p => p.category === 'news_website') || projects[1],
-          projects.find(p => p.category === 'crm_saas') || projects[2],
-          projects.find(p => p.category === 'events') || projects[3]
-        ].filter(Boolean).map(p => {
-          const isNews = p.category === 'news_website';
-          const isVideo = p.category === 'video_production';
-          const isEvent = p.category === 'events';
-          return {
-            title: p.title,
-            client: p.client || 'Client Deliverable',
-            description: p.description || 'Production-grade enterprise platform engineered for scale and conversions.',
-            image: isVideo ? 'https://i.ytimg.com/vi/WPKQbHTa2pc/maxresdefault.jpg' : (p.featured_image || '/images/services/saas_property_crm.jpg'),
-            live_url: isVideo ? `/portfolio/${p.slug}` : (p.live_url || `/portfolio/${p.slug}`),
-            badge_text: isNews ? 'NEWS PORTAL ↗' : isVideo ? 'VIDEO CINEMA ↗' : isEvent ? 'ARENA EVENTS ↗' : 'LIVE DEMO ↗',
-            badge_class: isNews ? 'bg-red-500 text-white' : isVideo ? 'bg-purple-500 text-white' : isEvent ? 'bg-amber-400 text-black' : 'bg-emerald-400 text-black',
-            button_text: isNews ? 'VISIT NEWS SITE' : isVideo ? 'WATCH SHOWCASE' : isEvent ? 'EXPLORE EVENT' : 'VISIT LIVE DEMO',
-            open_new_tab: isVideo ? false : (!!p.live_url && p.live_url.startsWith('http'))
-          };
-        })
-      : [
-          {
-            title: 'Ekraahee Films — Commercial Video & Cinema Production Showcase',
-            client: 'Ekraahee Films',
-            description: 'Broadcast-grade TV commercial films, luxury retail launches, multi-camera studio podcasts, and Arri/RED master color grading.',
-            image: 'https://i.ytimg.com/vi/WPKQbHTa2pc/maxresdefault.jpg',
-            live_url: '/portfolio/ekraahee-films-showcase',
-            badge_text: 'VIDEO CINEMA ↗',
-            badge_class: 'bg-purple-500 text-white',
-            button_text: 'WATCH SHOWCASE',
-            open_new_tab: false
-          },
-          {
-            title: 'Lokjan Express — Leading Digital News & Current Affairs Network',
-            client: 'Lokjan Express Media Network',
-            description: 'High-speed Hindi digital news portal featuring instant breaking news tickers, automated editorial workflow, and AMP acceleration.',
-            image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
-            live_url: 'https://lokjanexpress.com/',
-            badge_text: 'NEWS PORTAL ↗',
-            badge_class: 'bg-red-500 text-white',
-            button_text: 'VISIT NEWS SITE',
-            open_new_tab: true
-          },
-          {
-            title: 'Real Estate & Property Dealer CRM Platform',
-            client: 'PropTech SaaS Solution',
-            description: 'Interactive 3D property listings, automated 99acres lead auto-routing, and split commission broker payouts.',
-            image: '/images/services/saas_property_crm.jpg',
-            live_url: 'https://navajowhite-ant-953565.hostingersite.com/',
-            badge_text: 'CRM & SAAS ↗',
-            badge_class: 'bg-emerald-400 text-black',
-            button_text: 'VISIT LIVE DEMO',
-            open_new_tab: true
-          },
-          {
-            title: 'Destiny Productions — Arena Event Cinema & Live Concert Coverage',
-            client: 'Destiny Productions',
-            description: 'Multi-camera RED arena coverage, live LED concert stage production, VIP corporate conclaves, and high-octane aftermovies.',
-            image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-            live_url: 'https://www.instagram.com/destiny_in_productions/?hl=en',
-            badge_text: 'ARENA EVENTS ↗',
-            badge_class: 'bg-amber-400 text-black',
-            button_text: 'EXPLORE EVENT',
-            open_new_tab: true
-          }
-        ];
-
     return (
       <section className="py-16 sm:py-28 bg-zinc-950 border-b border-zinc-800/80">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 gap-4 sm:gap-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2 sm:mb-3">
-                {content.tagline || 'Full-Spectrum Production & Software Work'}
-              </span>
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 space-y-10">
+          {/* Header & Studio Switcher */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-zinc-800/80 pb-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+                <Clapperboard className="w-4 h-4" /> Official Cinema & Video Production Studios
+              </div>
               <h2 className="text-2xl sm:text-5xl font-black text-white font-display uppercase tracking-tight">
                 {content.heading || 'Work That Speaks For Us.'}
               </h2>
-              <p className="text-zinc-400 text-xs sm:text-base mt-2">
-                {content.subheading || 'Explore our client deliverables across 1. Video Production, 2. News Websites, 3. CRM & SaaS Platforms, and 4. Live Events.'}
+              <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                Explore our dual production ecosystem: <span className="text-red-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events) and <span className="text-pink-400 font-bold">DAPFLIX</span> (viral social reels & kinetic editing).
               </p>
             </div>
-            <SmartLink
-              to={headerCtaUrl}
-              openInNewTab={headerOpenNewTab}
-              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-amber-400 hover:text-amber-300 hover:underline transition-colors shrink-0"
-            >
-              {headerCtaText} <ArrowRight className="w-4 h-4" />
-            </SmartLink>
+
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 shrink-0">
+              {/* Studio Selection Switcher */}
+              <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 shadow-xl flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setSelectedStudio('EKRAAHEE')}
+                  className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                    selectedStudio === 'EKRAAHEE'
+                      ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black scale-105'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Youtube className="w-3.5 h-3.5" /> 1. Ekraahee YouTube Cinema
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedStudio('DAPFLIX')}
+                  className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                    selectedStudio === 'DAPFLIX'
+                      ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-lg shadow-pink-500/20 scale-105'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Instagram className="w-3.5 h-3.5" /> 2. DAPFLIX Reels
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedStudio('BOTH')}
+                  className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                    selectedStudio === 'BOTH'
+                      ? 'bg-white text-black shadow-lg scale-105'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> Both Studios
+                </button>
+              </div>
+
+              <SmartLink
+                to={headerCtaUrl}
+                openInNewTab={headerOpenNewTab}
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-amber-400 hover:text-amber-300 hover:underline transition-colors shrink-0"
+              >
+                {headerCtaText} <ArrowRight className="w-4 h-4" />
+              </SmartLink>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {portfolioCards.map((p, idx) => (
-              <div key={idx} className="bg-zinc-900/90 border border-zinc-800/90 rounded-3xl overflow-hidden group hover:border-zinc-700 transition-all flex flex-col justify-between shadow-2xl hover:shadow-amber-500/5">
-                <div>
-                  <div className="h-48 sm:h-52 relative overflow-hidden bg-zinc-950">
-                    <img 
-                      src={p.image} 
-                      onError={(e) => {
-                        if (p.image?.includes('maxresdefault.jpg')) {
-                          (e.target as HTMLImageElement).src = p.image.replace('maxresdefault.jpg', 'hqdefault.jpg');
-                        }
-                      }}
-                      alt={p.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-black/30" />
-                    <span className="absolute top-3 left-3 text-[9px] font-extrabold px-2.5 py-1 bg-zinc-950/95 text-zinc-200 rounded-full border border-zinc-700 shadow-md backdrop-blur-md">
-                      {p.client}
-                    </span>
-                    <span className={`absolute top-3 right-3 text-[9px] font-black px-2.5 py-1 rounded-full font-mono shadow-md flex items-center gap-1.5 uppercase tracking-wide ${p.badge_class || 'bg-emerald-400 text-black'}`}>
-                      {p.badge_text || 'LIVE ↗'}
+          {/* Interactive Cinema Showcase Screens */}
+          <div className="space-y-12">
+            {/* 1. Ekraahee Films YouTube Cinema Stage (FIRST) */}
+            {(selectedStudio === 'EKRAAHEE' || selectedStudio === 'BOTH') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-red-400">
+                      Studio 01: Ekraahee Films — 4K YouTube Commercial Cinema Showcase
                     </span>
                   </div>
-                  <div className="p-5 space-y-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white font-display group-hover:text-amber-400 transition-colors leading-snug">
-                      {p.title}
-                    </h3>
-                    {p.description && (
-                      <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
-                        {p.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="p-5 pt-0 space-y-2">
-                  <SmartLink
-                    to={p.live_url}
-                    openInNewTab={p.open_new_tab}
-                    className="inline-flex justify-center items-center gap-2 w-full py-3 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg hover:shadow-amber-400/20"
+                  <a
+                    href="https://www.youtube.com/@EkRaaheefilms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
                   >
-                    {p.button_text} <ExternalLink className="w-3.5 h-3.5" />
-                  </SmartLink>
+                    <Youtube className="w-3.5 h-3.5" /> @EkRaaheefilms on YouTube ↗
+                  </a>
+                </div>
+
+                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+                  <EkraaheeCinemaSlider hideHeader={true} showFullLink={true} />
                 </div>
               </div>
-            ))}
+            )}
+
+            {/* 2. DAPFLIX Reels Stage (SECOND) */}
+            {(selectedStudio === 'DAPFLIX' || selectedStudio === 'BOTH') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400">
+                      Studio 02: DAPFLIX — Viral Social Reels & Visual Timeline Console
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.instagram.com/dapflix/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-zinc-400 hover:text-pink-400 flex items-center gap-1 transition-colors"
+                  >
+                    <Instagram className="w-3.5 h-3.5" /> @dapflix on Instagram ↗
+                  </a>
+                </div>
+
+                <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
+                  <DapflixReelsShowcase hideHeader={true} />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Quick Category Gateway to Full Portfolio */}
+          <div className="p-6 rounded-3xl bg-zinc-900/80 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="space-y-1 text-center md:text-left">
+              <div className="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono">
+                Also Explore Other Ecosystem Deliverables
+              </div>
+              <div className="text-sm font-semibold text-white">
+                📰 3 High-Volume News Portals • 💻 5 Enterprise CRM & SaaS Engines • 🏃 Civic Marathons & Events
+              </div>
+            </div>
+            <Link
+              to="/portfolio"
+              className="px-6 py-3 rounded-full bg-white hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-xl flex items-center gap-2 shrink-0"
+            >
+              <Layers className="w-4 h-4" /> Explore All Work & Case Studies <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>
