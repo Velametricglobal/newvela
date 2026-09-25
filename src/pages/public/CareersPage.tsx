@@ -259,7 +259,7 @@ export const CareersPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   // Filter categories and smart tags
@@ -377,11 +377,11 @@ ${applicantForm.message || 'No additional note provided.'}`,
       <section className="relative pt-20 pb-24 border-b border-zinc-800/80 overflow-hidden bg-grid-pattern">
         {/* Glow Spheres */}
         <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none" />
-        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-indigo-500/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-amber-400/10 blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-[1280px] mx-auto px-6 relative z-10 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-zinc-900/90 text-amber-400 border border-zinc-800 backdrop-blur shadow-xl">
-            <Home className="w-3.5 h-3.5 text-emerald-400" /> 100% WORK FROM HOME • PROJECT-BASED CONTRACTS • FRESHERS WELCOME TO APPLY
+            <Home className="w-3.5 h-3.5 text-amber-400" /> 100% WORK FROM HOME • PROJECT-BASED CONTRACTS • FRESHERS WELCOME TO APPLY
           </div>
 
           <h1 className="text-4xl sm:text-7xl font-black tracking-tight text-white font-display uppercase leading-tight max-w-5xl mx-auto">
@@ -395,19 +395,19 @@ ${applicantForm.message || 'No additional note provided.'}`,
           {/* Quick Metrics Bar */}
           <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-display">100% WFH</div>
+              <div className="text-2xl sm:text-3xl font-black text-amber-400 font-display">100% WFH</div>
               <div className="text-xs text-zinc-400 font-mono mt-1 uppercase">Work Anywhere in India</div>
             </div>
             <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-amber-400 font-display">Project-Based</div>
+              <div className="text-2xl sm:text-3xl font-black text-white font-display">Project-Based</div>
               <div className="text-xs text-zinc-400 font-mono mt-1 uppercase">Milestone Payouts</div>
             </div>
             <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-cyan-400 font-display">Freshers</div>
+              <div className="text-2xl sm:text-3xl font-black text-amber-400 font-display">Freshers</div>
               <div className="text-xs text-zinc-400 font-mono mt-1 uppercase">Students & Beginners Welcome</div>
             </div>
             <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-purple-400 font-display">Flexible</div>
+              <div className="text-2xl sm:text-3xl font-black text-white font-display">Flexible</div>
               <div className="text-xs text-zinc-400 font-mono mt-1 uppercase">Your Own Hours</div>
             </div>
           </div>
@@ -445,8 +445,8 @@ ${applicantForm.message || 'No additional note provided.'}`,
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-emerald-400/50 transition-all space-y-4 group">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-amber-400/50 transition-all space-y-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-amber-400/10 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white font-display">Freshers & Beginners Welcomed</h3>
@@ -455,8 +455,8 @@ ${applicantForm.message || 'No additional note provided.'}`,
               </p>
             </div>
 
-            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-cyan-400/50 transition-all space-y-4 group">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-white/50 transition-all space-y-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Home className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white font-display">100% Remote & WFH Freedom</h3>
@@ -475,8 +475,8 @@ ${applicantForm.message || 'No additional note provided.'}`,
               </p>
             </div>
 
-            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-purple-400/50 transition-all space-y-4 group">
-              <div className="w-12 h-12 rounded-2xl bg-purple-400/10 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-amber-400/50 transition-all space-y-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-amber-400/10 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Trophy className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-white font-display">Live Portfolio & Mentorship</h3>
@@ -505,7 +505,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-6 rounded-3xl bg-zinc-900/70 border border-zinc-800 flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-white/10 text-emerald-400 shrink-0">
+              <div className="p-3 rounded-2xl bg-white/10 text-white shrink-0">
                 <Home className="w-6 h-6" />
               </div>
               <div>
@@ -529,7 +529,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
             </div>
 
             <div className="p-6 rounded-3xl bg-zinc-900/70 border border-zinc-800 flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-white/10 text-cyan-400 shrink-0">
+              <div className="p-3 rounded-2xl bg-white/10 text-amber-400 shrink-0">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <div>
@@ -541,7 +541,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
             </div>
 
             <div className="p-6 rounded-3xl bg-zinc-900/70 border border-zinc-800 flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-white/10 text-indigo-400 shrink-0">
+              <div className="p-3 rounded-2xl bg-white/10 text-amber-400 shrink-0">
                 <Clock className="w-6 h-6" />
               </div>
               <div>
@@ -553,7 +553,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
             </div>
 
             <div className="p-6 rounded-3xl bg-zinc-900/70 border border-zinc-800 flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-white/10 text-rose-400 shrink-0">
+              <div className="p-3 rounded-2xl bg-white/10 text-amber-400 shrink-0">
                 <Trophy className="w-6 h-6" />
               </div>
               <div>
@@ -662,12 +662,12 @@ ${applicantForm.message || 'No additional note provided.'}`,
                       </span>
                     )}
                     {job.fresher_friendly && (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono flex items-center gap-1">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30 font-mono flex items-center gap-1">
                         <GraduationCap className="w-3 h-3" /> Freshers Welcome
                       </span>
                     )}
-                    <span className="text-xs text-emerald-400/90 flex items-center gap-1 font-mono font-medium">
-                      <Home className="w-3.5 h-3.5" /> {job.location}
+                    <span className="text-xs text-white flex items-center gap-1 font-mono font-medium">
+                      <Home className="w-3.5 h-3.5 text-amber-400" /> {job.location}
                     </span>
                   </div>
 
@@ -798,7 +798,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
               
               {submitStatus === 'success' ? (
                 <div className="py-12 text-center space-y-4 max-w-md mx-auto">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-xl">
+                  <div className="w-16 h-16 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center justify-center mx-auto shadow-xl">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-black text-white font-display">
@@ -835,7 +835,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="p-5 rounded-2xl bg-zinc-950/70 border border-zinc-800 space-y-3">
                         <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
-                          <Check className="w-4 h-4 text-emerald-400" /> Key Responsibilities:
+                          <Check className="w-4 h-4 text-amber-400" /> Key Responsibilities:
                         </h4>
                         <ul className="space-y-2 text-xs text-zinc-400">
                           {activeJob.responsibilities.map((resp, i) => (
@@ -849,12 +849,12 @@ ${applicantForm.message || 'No additional note provided.'}`,
 
                       <div className="p-5 rounded-2xl bg-zinc-950/70 border border-zinc-800 space-y-3">
                         <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
-                          <Shield className="w-4 h-4 text-cyan-400" /> Key Requirements:
+                          <Shield className="w-4 h-4 text-white" /> Key Requirements:
                         </h4>
                         <ul className="space-y-2 text-xs text-zinc-400">
                           {activeJob.requirements.map((req, i) => (
                             <li key={i} className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1.5" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
                               <span>{req}</span>
                             </li>
                           ))}
@@ -867,7 +867,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
                         <MapPin className="w-4 h-4 text-amber-400" /> Location: <strong className="text-white">{activeJob.location}</strong>
                       </span>
                       <span className="text-zinc-400 font-mono flex items-center gap-1.5">
-                        <Briefcase className="w-4 h-4 text-cyan-400" /> Experience: <strong className="text-white">{activeJob.experience}</strong>
+                        <Briefcase className="w-4 h-4 text-amber-400" /> Experience: <strong className="text-white">{activeJob.experience}</strong>
                       </span>
                     </div>
                   </div>
@@ -887,19 +887,19 @@ ${applicantForm.message || 'No additional note provided.'}`,
                     </div>
 
                     {/* Freshers Welcome Callout Banner */}
-                    <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-start gap-3">
-                      <GraduationCap className="w-5 h-5 shrink-0 text-emerald-400 mt-0.5" />
+                    <div className="p-4 rounded-2xl bg-amber-400/10 border border-amber-400/20 text-amber-300 text-xs flex items-start gap-3">
+                      <GraduationCap className="w-5 h-5 shrink-0 text-amber-400 mt-0.5" />
                       <div className="space-y-0.5">
                         <strong className="text-white block text-sm font-display">🌱 Freshers & College Students Welcome!</strong>
-                        <p className="text-[11px] text-emerald-300/80 leading-relaxed">
+                        <p className="text-[11px] text-amber-300/80 leading-relaxed">
                           No corporate company experience is required. Share your personal projects, GitHub repos, college assignments, Figma files, or video showreel. We evaluate talent, eagerness to learn, and actual proof-of-work.
                         </p>
                       </div>
                     </div>
 
                     {errorMessage && (
-                      <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4 shrink-0" />
+                      <div className="p-3.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0 text-amber-400" />
                         <span>{errorMessage}</span>
                       </div>
                     )}
@@ -908,7 +908,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                            Full Name <span className="text-rose-400">*</span>
+                            Full Name <span className="text-amber-400">*</span>
                           </label>
                           <input
                             type="text"
@@ -922,7 +922,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
 
                         <div>
                           <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                            Email Address <span className="text-rose-400">*</span>
+                            Email Address <span className="text-amber-400">*</span>
                           </label>
                           <input
                             type="email"
@@ -938,7 +938,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                            Phone / WhatsApp Number <span className="text-rose-400">*</span>
+                            Phone / WhatsApp Number <span className="text-amber-400">*</span>
                           </label>
                           <input
                             type="tel"
@@ -952,7 +952,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
 
                         <div>
                           <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                            Experience Level <span className="text-rose-400">*</span>
+                            Experience Level <span className="text-amber-400">*</span>
                           </label>
                           <select
                             value={applicantForm.experience}
@@ -983,7 +983,7 @@ ${applicantForm.message || 'No additional note provided.'}`,
 
                         <div>
                           <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                            Portfolio / GitHub / Showreel Link <span className="text-emerald-400 text-[10px] font-normal">(College & personal projects welcome)</span>
+                            Portfolio / GitHub / Showreel Link <span className="text-amber-400 text-[10px] font-normal">(College & personal projects welcome)</span>
                           </label>
                           <input
                             type="url"

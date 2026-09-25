@@ -98,7 +98,7 @@ export const AboutPage: React.FC = () => {
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-4 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-xl">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center">
-                  <Video className="w-6 h-6 text-rose-400" />
+                  <Video className="w-6 h-6 text-amber-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white font-display">Video Production</h3>
                 <p className="text-zinc-400 text-xs leading-relaxed">
@@ -106,7 +106,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
               <div className="pt-2">
-                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-rose-400 rounded-full border border-zinc-800">
+                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-amber-400 rounded-full border border-zinc-800">
                   Commercials • Viral Reels • Documentaries
                 </span>
               </div>
@@ -116,7 +116,7 @@ export const AboutPage: React.FC = () => {
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-4 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-xl">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center">
-                  <Calendar className="w-6 h-6 text-purple-400" />
+                  <Calendar className="w-6 h-6 text-amber-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white font-display">Event Organization</h3>
                 <p className="text-zinc-400 text-xs leading-relaxed">
@@ -124,7 +124,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
               <div className="pt-2">
-                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-purple-400 rounded-full border border-zinc-800">
+                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-amber-400 rounded-full border border-zinc-800">
                   End-to-End Planning • Mega Events
                 </span>
               </div>
@@ -134,7 +134,7 @@ export const AboutPage: React.FC = () => {
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-4 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-xl md:col-span-2 lg:col-span-2">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center">
-                  <CreditCard className="w-6 h-6 text-emerald-400" />
+                  <CreditCard className="w-6 h-6 text-amber-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white font-display">Finance & Credit Solutions</h3>
                 <p className="text-zinc-400 text-xs leading-relaxed">
@@ -142,7 +142,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
               <div className="pt-2">
-                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-emerald-400 rounded-full border border-zinc-800">
+                <span className="text-[10px] font-mono font-bold px-3 py-1 bg-zinc-950 text-amber-400 rounded-full border border-zinc-800">
                   Government Subsidy Loans • Business Credit • DPR Advisory
                 </span>
               </div>
@@ -212,18 +212,18 @@ export const AboutPage: React.FC = () => {
 
             {/* Co-Founder Card: Ayush Prakash */}
             <div className="bg-zinc-950 border border-zinc-800 p-8 sm:p-10 rounded-3xl space-y-6 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="space-y-5">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-purple-600 via-pink-600 to-amber-500 text-white font-black text-2xl flex items-center justify-center font-display shadow-lg shrink-0">
+                  <div className="w-16 h-16 rounded-full bg-amber-400 text-black font-black text-2xl flex items-center justify-center font-display shadow-lg shadow-amber-400/20 shrink-0">
                     AP
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-white font-display">Ayush Prakash</h3>
-                    <div className="text-xs font-bold text-rose-400 uppercase tracking-widest mt-0.5">Co-Founder & Creative Director</div>
+                    <div className="text-xs font-bold text-amber-400 uppercase tracking-widest mt-0.5">Co-Founder & Creative Director</div>
                     <div className="text-[11px] text-zinc-500 flex items-center gap-1 mt-1 font-mono">
-                      <Film className="w-3 h-3 text-rose-400" /> Owner, Destiny in Production
+                      <Film className="w-3 h-3 text-amber-400" /> Owner, Destiny in Production
                     </div>
                   </div>
                 </div>
@@ -234,13 +234,13 @@ export const AboutPage: React.FC = () => {
 
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800">
-                    <Film className="w-3 h-3 text-rose-400" /> Destiny in Production
+                    <Film className="w-3 h-3 text-amber-400" /> Destiny in Production
                   </span>
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800">
-                    <Video className="w-3 h-3 text-rose-400" /> Multimedia Director
+                    <Video className="w-3 h-3 text-amber-400" /> Multimedia Director
                   </span>
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800">
-                    <Sparkles className="w-3 h-3 text-rose-400" /> Visual Cinema Innovation
+                    <Sparkles className="w-3 h-3 text-amber-400" /> Visual Cinema Innovation
                   </span>
                 </div>
               </div>
@@ -287,11 +287,11 @@ export const AboutPage: React.FC = () => {
 
             {/* Second Office: Joshiyara, Uttarkashi */}
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-4 hover:border-zinc-700 transition-all flex items-start gap-5 shadow-xl">
-              <div className="p-3.5 rounded-2xl bg-rose-500/20 text-rose-400 shrink-0">
+              <div className="p-3.5 rounded-2xl bg-amber-400/20 text-amber-400 shrink-0">
                 <Globe className="w-6 h-6" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-rose-400 font-mono">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 font-mono">
                   Regional Operations Office
                 </span>
                 <h3 className="text-xl font-bold text-white font-display">Joshiyara, Uttarkashi</h3>

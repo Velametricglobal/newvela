@@ -30,7 +30,7 @@ export const ContactPage: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -169,7 +169,7 @@ export const ContactPage: React.FC = () => {
               <h2 className="text-2xl font-bold text-white mb-6 font-display">Send Us a Custom Project Inquiry</h2>
 
               {status === 'success' && (
-                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center gap-3 text-sm font-semibold">
+                <div className="mb-6 p-4 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400 flex items-center gap-3 text-sm font-semibold">
                   <CheckCircle2 className="w-5 h-5 shrink-0" />
                   Thank you! Your inquiry has been logged in our CRM. A sales manager will respond within 24 hours.
                 </div>
@@ -301,7 +301,7 @@ export const QuoteRequestPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -336,7 +336,7 @@ export const QuoteRequestPage: React.FC = () => {
       <div className="bg-zinc-900 border border-zinc-800 p-6 sm:p-12 rounded-3xl shadow-2xl">
         {submitted ? (
           <div className="text-center py-12 space-y-4">
-            <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto" />
+            <CheckCircle2 className="w-16 h-16 text-amber-400 mx-auto" />
             <h2 className="text-2xl font-bold text-white font-display">Quote Request Received!</h2>
             <p className="text-zinc-400 text-xs max-w-md mx-auto">
               Our team is preparing your customized proposal breakdown. You will receive an email confirmation shortly.

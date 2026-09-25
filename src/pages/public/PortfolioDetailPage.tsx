@@ -146,9 +146,9 @@ export const PortfolioDetailPage: React.FC = () => {
                 <Calendar className="w-3.5 h-3.5" /> Event Date: December 25, 2018
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800 uppercase tracking-wider">
-                <Users className="w-3.5 h-3.5 text-red-400" /> Organizers: OK India Media Partner & Wellmetrics
+                <Users className="w-3.5 h-3.5 text-amber-400" /> Organizers: OK India Media Partner & Wellmetrics
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-zinc-900 text-emerald-400 border border-zinc-800 uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-zinc-900 text-amber-400 border border-zinc-800 uppercase tracking-wider">
                 <Flag className="w-3.5 h-3.5" /> "Drug-Free Uttarakhand" & "Corruption-Free Uttarakhand"
               </span>
             </div>
@@ -335,9 +335,9 @@ export const PortfolioDetailPage: React.FC = () => {
               </div>
 
               {/* Card 2: Cultural Showcase & Performances */}
-              <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-4 shadow-xl hover:border-pink-500/50 transition-all flex flex-col justify-between">
+              <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-4 shadow-xl hover:border-amber-400/50 transition-all flex flex-col justify-between">
                 <div className="space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400">
                     <Heart className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-white font-display">
@@ -347,7 +347,7 @@ export const PortfolioDetailPage: React.FC = () => {
                     The event celebrated the rich heritage of the region through vibrant traditional folk dances, musical performances, and theatrical acts. These cultural segments not only engaged the audience deeply but also reinforced local pride and unity while delivering socially impactful messages.
                   </p>
                 </div>
-                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-pink-400 font-bold">
+                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-amber-400 font-bold">
                   <span>Uttarakhand Heritage</span>
                   <span>Authentic Garhwali Attire & Troupe</span>
                 </div>
@@ -373,9 +373,9 @@ export const PortfolioDetailPage: React.FC = () => {
               </div>
 
               {/* Card 4: Social Advocacy Campaign */}
-              <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-4 shadow-xl hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+              <div className="p-7 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-4 shadow-xl hover:border-amber-400/50 transition-all flex flex-col justify-between">
                 <div className="space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400">
                     <ShieldCheck className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-white font-display">
@@ -385,7 +385,7 @@ export const PortfolioDetailPage: React.FC = () => {
                     Throughout the venue, interactive sessions and displays emphasized the core mission of the campaign: eradicating drug dependency and rooting out corruption. Attendees pledged their support to build a transparent, progressive, and resilient Uttarakhand for future generations.
                   </p>
                 </div>
-                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-emerald-400 font-bold">
+                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-amber-400 font-bold">
                   <span>"Drug-Free & Corruption-Free"</span>
                   <span>Community Pledges & Civic Action</span>
                 </div>
@@ -423,7 +423,7 @@ export const PortfolioDetailPage: React.FC = () => {
               <div className="text-xs font-mono text-zinc-400 uppercase">Golden Globe Trophies</div>
             </div>
             <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-center space-y-1">
-              <div className="text-2xl sm:text-4xl font-black text-emerald-400 font-display">100%</div>
+              <div className="text-2xl sm:text-4xl font-black text-white font-display">100%</div>
               <div className="text-xs font-mono text-zinc-400 uppercase">Civic Advocacy Pledges</div>
             </div>
           </div>
@@ -450,7 +450,7 @@ export const PortfolioDetailPage: React.FC = () => {
                 Client: {project.client}
               </span>
               {project.live_url && (
-                <span className="text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-wider font-mono">
+                <span className="text-xs font-extrabold px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 uppercase tracking-wider font-mono">
                   ● Live Hosted Site
                 </span>
               )}
@@ -477,7 +477,7 @@ export const PortfolioDetailPage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-2xl"
                 >
-                  <Globe className="w-4 h-4 text-emerald-600" /> {project.admin_url ? 'Visit Guest Booking Website' : 'Visit Live Hosted Website'} <ExternalLink className="w-4 h-4" />
+                  <Globe className="w-4 h-4 text-amber-500" /> {project.live_button_label || (project.slug?.includes('admit') || project.title?.toLowerCase().includes('admit') ? 'Student Admission Portal' : project.admin_url ? 'Visit Guest Booking Website' : 'Visit Live Hosted Website')} <ExternalLink className="w-4 h-4" />
                 </a>
                 {project.admin_url && (
                   <a
@@ -486,7 +486,7 @@ export const PortfolioDetailPage: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 font-extrabold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all shadow-xl shadow-amber-500/10"
                   >
-                    <ShieldCheck className="w-4 h-4 text-amber-400" /> {project.title?.toLowerCase().includes('hotel') ? 'Hotel Host & CRM Admin Console' : 'Host & CRM Admin Console'} <ExternalLink className="w-4 h-4" />
+                    <ShieldCheck className="w-4 h-4 text-amber-400" /> {project.admin_button_label || (project.slug?.includes('admit') || project.title?.toLowerCase().includes('admit') ? 'Host & CRM Admin Counsellor Console' : project.title?.toLowerCase().includes('hotel') ? 'Hotel Host & CRM Admin Console' : 'Host & CRM Admin Console')} <ExternalLink className="w-4 h-4" />
                   </a>
                 )}
               </div>
@@ -509,7 +509,7 @@ export const PortfolioDetailPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-3">
-              <h3 className="text-lg font-extrabold text-rose-400 font-display uppercase tracking-wider">The Challenge</h3>
+              <h3 className="text-lg font-extrabold text-white font-display uppercase tracking-wider">The Challenge</h3>
               <p className="text-zinc-300 text-xs leading-relaxed">{project.challenge}</p>
             </div>
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-3">
@@ -517,7 +517,7 @@ export const PortfolioDetailPage: React.FC = () => {
               <p className="text-zinc-300 text-xs leading-relaxed">{project.solution}</p>
             </div>
             <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl space-y-3">
-              <h3 className="text-lg font-extrabold text-emerald-400 font-display uppercase tracking-wider">Measurable Results</h3>
+              <h3 className="text-lg font-extrabold text-amber-400 font-display uppercase tracking-wider">Measurable Results</h3>
               <p className="text-zinc-300 text-xs leading-relaxed">{project.results}</p>
             </div>
           </div>

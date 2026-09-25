@@ -90,7 +90,7 @@ export const ServiceDetailPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {service.benefits.map((b, idx) => (
                 <div key={idx} className="flex items-center gap-2 text-xs text-zinc-200 bg-zinc-950 p-3 rounded-xl border border-zinc-800/80">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
                   <span>{b}</span>
                 </div>
               ))}
@@ -102,9 +102,9 @@ export const ServiceDetailPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsDemoOpen(true)}
-                className="px-8 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs flex items-center gap-2 transition-all shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-95"
+                className="px-8 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs flex items-center gap-2 transition-all shadow-xl shadow-amber-400/20 hover:scale-[1.02] active:scale-95"
               >
-                <Play className="w-4 h-4 fill-current text-white" /> Launch Interactive Demo
+                <Play className="w-4 h-4 fill-current text-black" /> Launch Interactive Demo
               </button>
             )}
             <button
@@ -120,7 +120,7 @@ export const ServiceDetailPage: React.FC = () => {
               href="https://wa.me/919876543210"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-xl"
+              className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs flex items-center gap-2 transition-all shadow-xl"
             >
               <MessageCircle className="w-4 h-4" /> Instant WhatsApp Inquiry
             </a>
@@ -174,7 +174,7 @@ export const ServiceDetailPage: React.FC = () => {
                     isFeatured
                       ? 'bg-gradient-to-b from-amber-500/10 via-zinc-900 to-zinc-950 border-2 border-amber-500/50 shadow-2xl scale-105 z-10'
                       : isCustomQuote
-                      ? 'bg-gradient-to-b from-emerald-500/5 via-zinc-900 to-zinc-950 border border-emerald-500/30 hover:border-emerald-500/60 shadow-xl'
+                      ? 'bg-gradient-to-b from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 hover:border-amber-400/40 shadow-xl'
                       : 'bg-zinc-900/80 border border-zinc-800'
                   }`}
                 >
@@ -197,7 +197,7 @@ export const ServiceDetailPage: React.FC = () => {
                       {isCustomQuote ? (
                         <div>
                           <div className="text-3xl font-black text-white font-display">Custom Plan</div>
-                          <div className="text-xs text-emerald-400 font-semibold font-mono mt-1">Contact for Custom Quote</div>
+                          <div className="text-xs text-amber-400 font-semibold font-mono mt-1">Contact for Custom Quote</div>
                         </div>
                       ) : (
                         <div>
@@ -222,7 +222,7 @@ export const ServiceDetailPage: React.FC = () => {
                       <ul className="space-y-2.5">
                         {pkg.inclusions.map((inc, idxInc) => (
                           <li key={idxInc} className="flex items-start gap-2.5 text-xs text-zinc-300">
-                            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                             <span>{inc}</span>
                           </li>
                         ))}
@@ -236,7 +236,7 @@ export const ServiceDetailPage: React.FC = () => {
                         <ul className="space-y-1.5">
                           {pkg.exclusions.map((exc, idxExc) => (
                             <li key={idxExc} className="flex items-start gap-2 text-xs text-zinc-400 italic">
-                              <X className="w-3.5 h-3.5 text-rose-500/80 shrink-0 mt-0.5" />
+                              <X className="w-3.5 h-3.5 text-zinc-500 shrink-0 mt-0.5" />
                               <span>{exc}</span>
                             </li>
                           ))}
@@ -252,7 +252,7 @@ export const ServiceDetailPage: React.FC = () => {
                         isFeatured
                           ? 'bg-amber-400 hover:bg-amber-300 text-black'
                           : isCustomQuote
-                          ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
+                          ? 'bg-amber-400/90 hover:bg-amber-300 text-black'
                           : 'bg-white hover:bg-zinc-200 text-black'
                       }`}
                     >
@@ -281,7 +281,7 @@ export const ServiceDetailPage: React.FC = () => {
                   <th className="p-4">Feature / Parameter</th>
                   <th className="p-4 text-center">STARTUP</th>
                   <th className="p-4 text-center text-amber-400">ENTERPRISE (POPULAR)</th>
-                  <th className="p-4 text-center text-emerald-400">ORGANIZATION</th>
+                  <th className="p-4 text-center text-zinc-300">ORGANIZATION</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-800/60">
@@ -289,7 +289,7 @@ export const ServiceDetailPage: React.FC = () => {
                   <td className="p-4 font-bold text-white">Starting Price</td>
                   <td className="p-4 text-center font-bold text-white">{formatAmount(startupPkg.price)}</td>
                   <td className="p-4 text-center font-bold text-amber-400">{formatAmount(enterprisePkg.price)}</td>
-                  <td className="p-4 text-center font-bold text-emerald-400">Custom Quotation</td>
+                  <td className="p-4 text-center font-bold text-amber-400">Custom Quotation</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-zinc-300">Target Audience</td>
@@ -301,13 +301,13 @@ export const ServiceDetailPage: React.FC = () => {
                   <td className="p-4 font-semibold text-zinc-300">Features Scope</td>
                   <td className="p-4 text-center text-zinc-400">Essential Scope</td>
                   <td className="p-4 text-center text-amber-300 font-bold">Advanced Custom Scope</td>
-                  <td className="p-4 text-center text-emerald-300 font-bold">Full Enterprise Architecture</td>
+                  <td className="p-4 text-center text-zinc-300 font-bold">Full Enterprise Architecture</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-zinc-300">Technical Support</td>
                   <td className="p-4 text-center text-zinc-400">1 Month Basic Support</td>
                   <td className="p-4 text-center text-amber-300 font-semibold">3 Months Dedicated Support</td>
-                  <td className="p-4 text-center text-emerald-300 font-bold">24/7 Dedicated SLA Support</td>
+                  <td className="p-4 text-center text-zinc-300 font-bold">24/7 Dedicated SLA Support</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-zinc-300">Action CTA</td>
@@ -322,7 +322,7 @@ export const ServiceDetailPage: React.FC = () => {
                     </button>
                   </td>
                   <td className="p-4 text-center">
-                    <button onClick={() => setActiveEnquiryPkg(orgPkg)} className="px-4 py-1.5 rounded-xl bg-emerald-500 text-black font-bold text-[11px]">
+                    <button onClick={() => setActiveEnquiryPkg(orgPkg)} className="px-4 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-[11px]">
                       Request Quote
                     </button>
                   </td>
@@ -401,7 +401,7 @@ export const ServiceDetailPage: React.FC = () => {
             <div className="p-6 rounded-3xl bg-zinc-950 border border-zinc-800 space-y-4 hover:border-amber-400/50 transition-all flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase bg-emerald-400/10 text-emerald-400 border border-emerald-400/30 font-mono">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase bg-amber-400/10 text-amber-400 border border-amber-400/30 font-mono">
                     Commercials & 4K Drone Cinema
                   </span>
                   <img src="/images/partners/dapflix_logo.png" alt="DAPFLIX Films" className="h-6 w-auto object-contain" />

@@ -13,7 +13,7 @@ export const ProductTrialPage: React.FC = () => {
       : 'education';
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   return (
@@ -47,7 +47,7 @@ export const ProductTrialPage: React.FC = () => {
       {/* Bottom Trust & Assurance Badges */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80 text-xs font-mono text-zinc-400">
         <div className="flex items-center gap-3 p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+          <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
           <span>Zero Commitment &bull; No Credit Card Required</span>
         </div>
         <div className="flex items-center gap-3 p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800">
@@ -55,7 +55,7 @@ export const ProductTrialPage: React.FC = () => {
           <span>Instant Cloud Sandbox & In-Browser Interactive Simulator</span>
         </div>
         <div className="flex items-center gap-3 p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800">
-          <Phone className="w-5 h-5 text-cyan-400 shrink-0" />
+          <Phone className="w-5 h-5 text-amber-400 shrink-0" />
           <span>Priority WhatsApp Onboarding & Technical Support</span>
         </div>
       </div>

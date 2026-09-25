@@ -135,11 +135,13 @@ export const Hero3DCanvas: React.FC<Hero3DProps> = ({
 
     const handleResize = () => {
       if (!containerRef.current) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      const w = containerRef.current.clientWidth || 500;
+      const h = containerRef.current.clientHeight || 500;
+      if (h > 0 && w > 0) {
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -148,8 +150,15 @@ export const Hero3DCanvas: React.FC<Hero3DProps> = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
+      geometry.dispose();
+      material.dispose();
+      wireGeo.dispose();
+      wireMat.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
+      renderer.dispose();
+      if (renderer.domElement && renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
       }
     };
   }, [glowColor, rotationSpeed, scale, particleDensity, lightIntensity, mouseInteraction]);

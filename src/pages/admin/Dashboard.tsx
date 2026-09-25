@@ -585,9 +585,22 @@ export const Dashboard: React.FC = () => {
             >
               <span className="flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-amber-400" />
-                Blog Publishing CMS
+                Blog CMS
               </span>
               <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-white transition-colors" />
+            </Link>
+
+            <Link
+              to="/admin/talents"
+              className="p-3 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 rounded-xl flex items-center justify-between text-xs font-bold text-slate-200 transition-all group col-span-2 sm:col-span-4"
+            >
+              <span className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-amber-400" />
+                Talent Portfolio & Account Management
+              </span>
+              <span className="text-amber-400 text-xs font-mono font-bold flex items-center gap-1">
+                Manage Directory <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </Link>
           </div>
 

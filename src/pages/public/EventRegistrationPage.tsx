@@ -33,7 +33,7 @@ export const EventRegistrationPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +66,7 @@ export const EventRegistrationPage: React.FC = () => {
       
       {/* HEADER BANNER */}
       <div className="text-center space-y-4 mb-12 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono">
           <Calendar className="w-3.5 h-3.5" /> Official Event Participant Entry 2026
         </div>
         <h1 className="text-3xl sm:text-6xl font-black text-white font-display uppercase tracking-tight leading-tight">
@@ -81,8 +81,8 @@ export const EventRegistrationPage: React.FC = () => {
       <div className="bg-zinc-900 border border-zinc-800 p-6 sm:p-12 rounded-3xl shadow-2xl space-y-8">
         
         {regStatus.submitted ? (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 p-8 sm:p-12 rounded-3xl text-center space-y-6">
-            <div className="w-16 h-16 bg-emerald-500 text-black rounded-full flex items-center justify-center mx-auto text-3xl font-black shadow-xl">
+          <div className="bg-amber-400/10 border border-amber-400/30 p-8 sm:p-12 rounded-3xl text-center space-y-6">
+            <div className="w-16 h-16 bg-amber-400 text-black rounded-full flex items-center justify-center mx-auto text-3xl font-black shadow-xl">
               ✓
             </div>
             <div className="space-y-2">

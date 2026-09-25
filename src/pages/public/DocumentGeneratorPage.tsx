@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { 
   FileText, Printer, Download, Sparkles, Plus, Trash2, CheckCircle2, 
   Building2, User, CreditCard, ShieldCheck, RefreshCw, Copy, 
   Palette, Eye, ArrowRight, Check, QrCode, FileSpreadsheet, Layers, 
   Receipt, ShoppingCart, Calculator, Briefcase, Calendar, Clock,
-  Scale, FileCheck, PenTool, CheckSquare, Globe, Award, FileDown, Code
+  Scale, FileCheck, PenTool, CheckSquare, Globe, Award, FileDown, Code,
+  Upload, Zap
 } from 'lucide-react';
 
 export type DocumentType = 'INVOICE' | 'QUOTATION' | 'PO' | 'RECEIPT' | 'AGREEMENT' | 'FREELANCE';
@@ -65,123 +66,143 @@ export interface ThemeConfig {
 export const DOCUMENT_THEMES: Record<string, ThemeConfig> = {
   modern_amber: {
     id: 'modern_amber',
-    name: 'Modern Amber',
-    desc: 'Warm executive gold & amber palette',
-    dot: 'bg-amber-500',
-    accentBar: 'bg-amber-500',
-    titleColor: 'text-amber-700',
+    name: 'Modern Yellow & Amber',
+    desc: 'Signature warm executive gold, yellow & dark charcoal',
+    dot: 'bg-amber-400',
+    accentBar: 'bg-amber-400',
+    titleColor: 'text-amber-500',
     subtextColor: 'text-amber-600',
-    borderColor: 'border-amber-500',
+    borderColor: 'border-amber-400',
     borderLight: 'border-amber-200',
-    badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
+    badgeBg: 'bg-amber-100 text-amber-950 border-amber-300 font-semibold',
+    cardBg: 'bg-amber-50/70 border-amber-300/80',
+    clauseNumberBg: 'bg-amber-400 text-black font-bold',
+    highlightText: 'text-amber-950 font-bold',
+    signatureBorder: 'border-amber-400',
+    tableHeaderBg: 'bg-amber-100/90',
+    tableHeaderBorder: 'border-amber-400',
+    totalsBg: 'bg-amber-50 border-amber-300',
+    buttonBg: 'bg-amber-400 text-black hover:bg-amber-300 font-bold'
+  },
+  minimalist: {
+    id: 'minimalist',
+    name: 'Minimalist Black & White',
+    desc: 'Pure high-contrast monochrome black & crisp white',
+    dot: 'bg-black',
+    accentBar: 'bg-black',
+    titleColor: 'text-black',
+    subtextColor: 'text-zinc-700',
+    borderColor: 'border-black',
+    borderLight: 'border-zinc-300',
+    badgeBg: 'bg-zinc-100 text-black border-zinc-300 font-semibold',
+    cardBg: 'bg-zinc-50 border-zinc-300',
+    clauseNumberBg: 'bg-black text-white font-bold',
+    highlightText: 'text-black font-bold',
+    signatureBorder: 'border-zinc-600',
+    tableHeaderBg: 'bg-zinc-100',
+    tableHeaderBorder: 'border-black',
+    totalsBg: 'bg-zinc-50 border-zinc-300',
+    buttonBg: 'bg-black text-white hover:bg-zinc-800 font-bold'
+  },
+  executive_gold: {
+    id: 'executive_gold',
+    name: 'Executive Gold & Slate',
+    desc: 'Refined golden yellow accents with deep charcoal slate',
+    dot: 'bg-yellow-500',
+    accentBar: 'bg-yellow-500',
+    titleColor: 'text-zinc-950',
+    subtextColor: 'text-yellow-700',
+    borderColor: 'border-yellow-500',
+    borderLight: 'border-yellow-300',
+    badgeBg: 'bg-yellow-100 text-yellow-950 border-yellow-300 font-semibold',
+    cardBg: 'bg-yellow-50/60 border-yellow-200',
+    clauseNumberBg: 'bg-yellow-500 text-black font-bold',
+    highlightText: 'text-yellow-950 font-bold',
+    signatureBorder: 'border-yellow-500',
+    tableHeaderBg: 'bg-yellow-100/80',
+    tableHeaderBorder: 'border-yellow-500',
+    totalsBg: 'bg-yellow-50 border-yellow-300',
+    buttonBg: 'bg-yellow-400 text-black hover:bg-yellow-300 font-bold'
+  },
+  corporate_blue: {
+    id: 'corporate_blue',
+    name: 'Vibrant Amber Accent',
+    desc: 'Warm yellow gold accentuation with crisp white canvas',
+    dot: 'bg-amber-400',
+    accentBar: 'bg-amber-400',
+    titleColor: 'text-zinc-950',
+    subtextColor: 'text-amber-700',
+    borderColor: 'border-amber-400',
+    borderLight: 'border-amber-200',
+    badgeBg: 'bg-amber-100 text-amber-950 border-amber-300 font-semibold',
     cardBg: 'bg-amber-50/60 border-amber-200/80',
-    clauseNumberBg: 'bg-amber-500 text-black',
-    highlightText: 'text-amber-800',
+    clauseNumberBg: 'bg-amber-400 text-black font-bold',
+    highlightText: 'text-amber-950 font-bold',
     signatureBorder: 'border-amber-400',
     tableHeaderBg: 'bg-amber-100/80',
     tableHeaderBorder: 'border-amber-400',
     totalsBg: 'bg-amber-50 border-amber-300',
-    buttonBg: 'bg-amber-400 text-black hover:bg-amber-300'
-  },
-  corporate_blue: {
-    id: 'corporate_blue',
-    name: 'Corporate Navy',
-    desc: 'Trust, corporate & enterprise royal blue',
-    dot: 'bg-blue-600',
-    accentBar: 'bg-blue-600',
-    titleColor: 'text-blue-700',
-    subtextColor: 'text-blue-600',
-    borderColor: 'border-blue-600',
-    borderLight: 'border-blue-200',
-    badgeBg: 'bg-blue-100 text-blue-900 border-blue-300',
-    cardBg: 'bg-blue-50/60 border-blue-200/80',
-    clauseNumberBg: 'bg-blue-600 text-white',
-    highlightText: 'text-blue-800',
-    signatureBorder: 'border-blue-400',
-    tableHeaderBg: 'bg-blue-100/80',
-    tableHeaderBorder: 'border-blue-400',
-    totalsBg: 'bg-blue-50 border-blue-300',
-    buttonBg: 'bg-blue-600 text-white hover:bg-blue-500'
+    buttonBg: 'bg-amber-400 text-black hover:bg-amber-300 font-bold'
   },
   executive_emerald: {
     id: 'executive_emerald',
-    name: 'Executive Emerald',
-    desc: 'Prestige forest & emerald green palette',
-    dot: 'bg-emerald-600',
-    accentBar: 'bg-emerald-600',
-    titleColor: 'text-emerald-700',
-    subtextColor: 'text-emerald-600',
-    borderColor: 'border-emerald-600',
-    borderLight: 'border-emerald-200',
-    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-    cardBg: 'bg-emerald-50/60 border-emerald-200/80',
-    clauseNumberBg: 'bg-emerald-600 text-white',
-    highlightText: 'text-emerald-800',
-    signatureBorder: 'border-emerald-400',
-    tableHeaderBg: 'bg-emerald-100/80',
-    tableHeaderBorder: 'border-emerald-400',
-    totalsBg: 'bg-emerald-50 border-emerald-300',
-    buttonBg: 'bg-emerald-600 text-white hover:bg-emerald-500'
-  },
-  minimalist: {
-    id: 'minimalist',
-    name: 'Minimalist Clean',
-    desc: 'Pure high-contrast monochrome black & slate',
-    dot: 'bg-zinc-900',
-    accentBar: 'bg-slate-900',
-    titleColor: 'text-slate-950',
-    subtextColor: 'text-slate-700',
-    borderColor: 'border-slate-900',
-    borderLight: 'border-slate-200',
-    badgeBg: 'bg-slate-100 text-slate-900 border-slate-300',
-    cardBg: 'bg-slate-50 border-slate-200',
-    clauseNumberBg: 'bg-slate-900 text-white',
-    highlightText: 'text-slate-900',
-    signatureBorder: 'border-slate-400',
-    tableHeaderBg: 'bg-slate-100',
-    tableHeaderBorder: 'border-slate-900',
-    totalsBg: 'bg-slate-50 border-slate-300',
-    buttonBg: 'bg-slate-900 text-white hover:bg-slate-800'
+    name: 'Gold Contrast & Ink',
+    desc: 'High-contrast ink black framing with rich gold notes',
+    dot: 'bg-yellow-400',
+    accentBar: 'bg-yellow-400',
+    titleColor: 'text-zinc-950',
+    subtextColor: 'text-zinc-800',
+    borderColor: 'border-zinc-900',
+    borderLight: 'border-yellow-200',
+    badgeBg: 'bg-yellow-100 text-zinc-950 border-yellow-400 font-semibold',
+    cardBg: 'bg-zinc-50 border-yellow-300',
+    clauseNumberBg: 'bg-black text-yellow-400 font-bold',
+    highlightText: 'text-zinc-950 font-bold',
+    signatureBorder: 'border-zinc-900',
+    tableHeaderBg: 'bg-yellow-100/80',
+    tableHeaderBorder: 'border-zinc-900',
+    totalsBg: 'bg-yellow-50 border-yellow-400',
+    buttonBg: 'bg-black text-amber-300 hover:bg-zinc-900 font-bold'
   },
   crimson_red: {
     id: 'crimson_red',
-    name: 'Royal Crimson',
-    desc: 'Bold crimson & ruby wine executive styling',
-    dot: 'bg-rose-600',
-    accentBar: 'bg-rose-600',
-    titleColor: 'text-rose-700',
-    subtextColor: 'text-rose-600',
-    borderColor: 'border-rose-600',
-    borderLight: 'border-rose-200',
-    badgeBg: 'bg-rose-100 text-rose-900 border-rose-300',
-    cardBg: 'bg-rose-50/60 border-rose-200/80',
-    clauseNumberBg: 'bg-rose-600 text-white',
-    highlightText: 'text-rose-800',
-    signatureBorder: 'border-rose-400',
-    tableHeaderBg: 'bg-rose-100/80',
-    tableHeaderBorder: 'border-rose-400',
-    totalsBg: 'bg-rose-50 border-rose-300',
-    buttonBg: 'bg-rose-600 text-white hover:bg-rose-500'
+    name: 'Architectural Charcoal',
+    desc: 'Bold dark architecture lines with pure white and amber',
+    dot: 'bg-zinc-800',
+    accentBar: 'bg-zinc-900',
+    titleColor: 'text-zinc-950',
+    subtextColor: 'text-zinc-600',
+    borderColor: 'border-zinc-800',
+    borderLight: 'border-zinc-200',
+    badgeBg: 'bg-zinc-100 text-zinc-900 border-zinc-400 font-semibold',
+    cardBg: 'bg-zinc-50 border-zinc-300',
+    clauseNumberBg: 'bg-zinc-900 text-white font-bold',
+    highlightText: 'text-zinc-900 font-bold',
+    signatureBorder: 'border-zinc-700',
+    tableHeaderBg: 'bg-zinc-100',
+    tableHeaderBorder: 'border-zinc-800',
+    totalsBg: 'bg-zinc-50 border-zinc-300',
+    buttonBg: 'bg-zinc-900 text-white hover:bg-black font-bold'
   },
   purple_violet: {
     id: 'purple_violet',
-    name: 'Executive Indigo',
-    desc: 'Deep indigo & violet luxury consultant styling',
-    dot: 'bg-indigo-600',
-    accentBar: 'bg-indigo-600',
-    titleColor: 'text-indigo-700',
-    subtextColor: 'text-indigo-600',
-    borderColor: 'border-indigo-600',
-    borderLight: 'border-indigo-200',
-    badgeBg: 'bg-indigo-100 text-indigo-900 border-indigo-300',
-    cardBg: 'bg-indigo-50/60 border-indigo-200/80',
-    clauseNumberBg: 'bg-indigo-600 text-white',
-    highlightText: 'text-indigo-800',
-    signatureBorder: 'border-indigo-400',
-    tableHeaderBg: 'bg-indigo-100/80',
-    tableHeaderBorder: 'border-indigo-400',
-    totalsBg: 'bg-indigo-50 border-indigo-300',
-    buttonBg: 'bg-indigo-600 text-white hover:bg-indigo-500'
+    name: 'Crown Amber & Gold',
+    desc: 'Luxury yellow gold badges with editorial black type',
+    dot: 'bg-amber-500',
+    accentBar: 'bg-amber-500',
+    titleColor: 'text-zinc-950',
+    subtextColor: 'text-amber-700',
+    borderColor: 'border-amber-400',
+    borderLight: 'border-amber-200',
+    badgeBg: 'bg-amber-100 text-amber-950 border-amber-300 font-semibold',
+    cardBg: 'bg-amber-50/70 border-amber-200',
+    clauseNumberBg: 'bg-amber-400 text-black font-bold',
+    highlightText: 'text-amber-950 font-bold',
+    signatureBorder: 'border-amber-400',
+    tableHeaderBg: 'bg-amber-100/90',
+    tableHeaderBorder: 'border-amber-400',
+    totalsBg: 'bg-amber-50 border-amber-300',
+    buttonBg: 'bg-amber-400 text-black hover:bg-amber-300 font-bold'
   }
 };
 
@@ -362,13 +383,15 @@ export interface DocumentData {
   gst_type: 'intra_state' | 'inter_state';
   shipping_fee: number;
 
-  // Banking Details & UPI
+  // Banking Details & UPI / Custom QR
   bank_name: string;
   account_number: string;
   account_holder: string;
   ifsc_code: string;
   upi_id: string;
   show_qr_code: boolean;
+  qr_mode?: 'upi' | 'custom';
+  custom_qr_image?: string;
 
   // Terms & Notes
   notes: string;
@@ -465,6 +488,8 @@ const DEFAULT_DOCUMENT: DocumentData = {
   ifsc_code: 'HDFC0001234',
   upi_id: 'velametric@hdfcbank',
   show_qr_code: true,
+  qr_mode: 'upi',
+  custom_qr_image: '',
 
   notes: 'Thank you for choosing Velametric. All deliverables include our 99.9% uptime SLA and architecture warranty.',
   terms: '1. Payment is due within 15 days of invoice date.\n2. Invoices unpaid after 30 days are subject to a 1.5% monthly late fee.\n3. All IP and software repositories transfer upon final settlement.',
@@ -514,7 +539,7 @@ function numberToWords(num: number): string {
 
 export const DocumentGeneratorPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const initialType = (searchParams.get('type') as DocumentType) || 'AGREEMENT';
+  const initialType = (searchParams.get('type') as DocumentType) || 'INVOICE';
 
   const [doc, setDoc] = useState<DocumentData>(() => {
     const saved = localStorage.getItem('VELAMETRIC_GENERATOR_DRAFT_V3');
@@ -528,7 +553,13 @@ export const DocumentGeneratorPage: React.FC = () => {
     return { ...DEFAULT_DOCUMENT, type: initialType };
   });
 
-  const [activeTab, setActiveTab] = useState<'editor' | 'overview'>('editor');
+  const [activeTab, setActiveTab] = useState<'editor' | 'overview'>(() => {
+    const mode = searchParams.get('mode') || searchParams.get('tab');
+    if (mode === 'editor' || mode === 'studio' || searchParams.get('editor') === 'true' || searchParams.get('wizard') === 'true') {
+      return 'editor';
+    }
+    return 'overview';
+  });
   const [editorStep, setEditorStep] = useState<string>(() => {
     return initialType === 'AGREEMENT' || initialType === 'FREELANCE' ? 'profession_duration' : 'items';
   });
@@ -921,8 +952,83 @@ export const DocumentGeneratorPage: React.FC = () => {
     const note = encodeURIComponent(`${doc.type} ${doc.doc_number}`);
     const amount = isAgreementMode ? doc.total_fee : calculations.grandTotal;
     const upiUri = `upi://pay?pa=${doc.upi_id}&pn=${encodeURIComponent(doc.sender_company)}&am=${amount}&cu=INR&tn=${note}`;
-    return `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}&color=0-0-0&bgcolor=255-255-255`;
+    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUri)}&color=0-0-0&bgcolor=255-255-255`;
   }, [doc.upi_id, doc.sender_company, doc.doc_number, doc.type, calculations.grandTotal, doc.total_fee, isAgreementMode]);
+
+  // Active QR Code to render (Custom Uploaded QR or Dynamic UPI QR)
+  const activeQrCodeUrl = useMemo(() => {
+    if (doc.qr_mode === 'custom' && doc.custom_qr_image) {
+      return doc.custom_qr_image;
+    }
+    return upiQrUrl;
+  }, [doc.qr_mode, doc.custom_qr_image, upiQrUrl]);
+
+  // Handle Custom QR Image Upload
+  const handleQrImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please upload a valid image file (PNG, JPG, SVG, or WEBP).');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image file size exceeds 5MB limit. Please upload a smaller image.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (uploadEvent) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxDim = 600;
+        let width = img.width;
+        let height = img.height;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/png');
+          setDoc((prev) => ({
+            ...prev,
+            custom_qr_image: compressedDataUrl,
+            qr_mode: 'custom',
+            show_qr_code: true,
+          }));
+        } else {
+          setDoc((prev) => ({
+            ...prev,
+            custom_qr_image: uploadEvent.target?.result as string,
+            qr_mode: 'custom',
+            show_qr_code: true,
+          }));
+        }
+      };
+      img.src = uploadEvent.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Remove Custom QR
+  const handleRemoveQrImage = () => {
+    setDoc((prev) => ({
+      ...prev,
+      custom_qr_image: '',
+      qr_mode: 'upi',
+    }));
+  };
 
   // Steps to display in Wizard
   const wizardSteps = useMemo(() => {
@@ -961,203 +1067,422 @@ export const DocumentGeneratorPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className={`min-h-screen font-sans selection:bg-amber-400 selection:text-black ${activeTab === 'overview' ? 'bg-white text-slate-900' : 'bg-zinc-950 text-zinc-100'}`}>
       
-      {/* 1. TOP TOOLBAR & TITLE (HIDDEN DURING PRINT) */}
-      <div className="no-print border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-xl sticky top-16 sm:top-20 z-40">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
-          
-          {/* Left Title & Status */}
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-amber-400 text-black font-extrabold shadow-md shadow-amber-400/20">
-              <Scale className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-lg font-black text-white font-display uppercase tracking-tight">
-                  Document & Agreement Studio
-                </h1>
-                <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase">
-                  Contracts & GST Ready
-                </span>
-              </div>
-              <p className="text-xs text-zinc-400 hidden sm:block">
-                Generate GST Invoices, Quotes, POs, and Work Agreements tailored by Profession & Duration.
-              </p>
-            </div>
-          </div>
-
-          {/* Center Document Type Quick Switcher */}
-          <div className="flex items-center gap-1 p-1 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-x-auto max-w-full">
-            {[
-              { id: 'INVOICE', label: 'Tax Invoice' },
-              { id: 'QUOTATION', label: 'Quotation' },
-              { id: 'PO', label: 'Purchase Order' },
-              { id: 'RECEIPT', label: 'Receipt' },
-              { id: 'AGREEMENT', label: 'Work Agreement ⚡' },
-              { id: 'FREELANCE', label: 'Freelancer Contract ⚡' }
-            ].map((t) => (
+      {/* 1. TOP TOOLBAR & TITLE (ACTIVE IN EDITOR STUDIO / HIDDEN DURING PRINT & OVERVIEW) */}
+      {activeTab === 'editor' && (
+        <div className="no-print border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-xl sticky top-16 sm:top-20 z-40">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            {/* Left Title & Status */}
+            <div className="flex items-center gap-3">
               <button
-                key={t.id}
                 type="button"
-                onClick={() => handleTypeChange(t.id as DocumentType)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all whitespace-nowrap ${
-                  doc.type === t.id
-                    ? 'bg-amber-400 text-black shadow-md'
-                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                }`}
+                onClick={() => {
+                  setActiveTab('overview');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-all flex items-center gap-1.5 text-xs font-bold"
+                title="Return to Product Landing Page"
               >
-                {t.label}
+                <span>← Overview</span>
               </button>
-            ))}
-          </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-base font-black text-white font-display uppercase tracking-tight">
+                    Document & Agreement Studio
+                  </h1>
+                  <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-mono font-extrabold bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase">
+                    Contracts & GST Ready
+                  </span>
+                </div>
+              </div>
+            </div>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handlePrint}
-              className="px-4 py-2 rounded-xl bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10 flex items-center gap-1.5 transform hover:scale-105"
-              title="Print or Save clean document as A4 PDF (strictly document only)"
-            >
-              <Printer className="w-3.5 h-3.5" /> Print / Save PDF
-            </button>
-            <button
-              type="button"
-              onClick={handleDownloadHTML}
-              className="px-3.5 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-bold font-mono transition-all flex items-center gap-1.5"
-              title="Download standalone clean document file without any page wrappers"
-            >
-              <FileDown className="w-3.5 h-3.5 text-emerald-400" /> Download Document
-            </button>
-            <button
-              type="button"
-              onClick={handleExportJSON}
-              className="px-2.5 py-2 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition-all text-xs font-mono flex items-center gap-1"
-              title="Backup Raw Form Data (.JSON)"
-            >
-              <Code className="w-3.5 h-3.5" /> <span className="text-[10px] hidden md:inline">Backup</span>
-            </button>
-            <button
-              type="button"
-              onClick={handleReset}
-              className="p-2 rounded-xl bg-zinc-900 text-zinc-400 hover:text-rose-400 hover:bg-zinc-800 border border-zinc-800 transition-all"
-              title="Reset to Demo Defaults"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
+            {/* Center Document Type Quick Switcher */}
+            <div className="flex items-center gap-1 p-1 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-x-auto max-w-full">
+              {[
+                { id: 'INVOICE', label: 'Tax Invoice' },
+                { id: 'QUOTATION', label: 'Quotation' },
+                { id: 'PO', label: 'Purchase Order' },
+                { id: 'RECEIPT', label: 'Receipt' },
+                { id: 'AGREEMENT', label: 'Work Agreement ⚡' },
+                { id: 'FREELANCE', label: 'Freelancer Contract ⚡' }
+              ].map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => handleTypeChange(t.id as DocumentType)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all whitespace-nowrap ${
+                    doc.type === t.id
+                      ? 'bg-amber-400 text-black shadow-md'
+                      : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Right Action Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="px-4 py-2 rounded-xl bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10 flex items-center gap-1.5 transform hover:scale-105"
+                title="Print or Save clean document as A4 PDF (strictly document only)"
+              >
+                <Printer className="w-3.5 h-3.5" /> Print / Save PDF
+              </button>
+              <button
+                type="button"
+                onClick={handleDownloadHTML}
+                className="px-3.5 py-2 rounded-xl bg-amber-400 text-black hover:bg-amber-300 border border-amber-500 text-xs font-bold font-mono transition-all flex items-center gap-1.5 shadow-md"
+                title="Download standalone clean document file without any page wrappers"
+              >
+                <FileDown className="w-3.5 h-3.5 text-black" /> Download Document
+              </button>
+              <button
+                type="button"
+                onClick={handleExportJSON}
+                className="px-2.5 py-2 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition-all text-xs font-mono flex items-center gap-1"
+                title="Backup Raw Form Data (.JSON)"
+              >
+                <Code className="w-3.5 h-3.5" /> <span className="text-[10px] hidden md:inline">Backup</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="p-2 rounded-xl bg-zinc-900 text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 border border-zinc-800 transition-all"
+                title="Reset to Demo Defaults"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* 2. MAIN WORKSPACE CONTAINER */}
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        
-        {/* VIEW TOGGLE TABS (EDITOR VS OVERVIEW) */}
-        <div className="no-print flex items-center justify-between pb-6 border-b border-zinc-800/80 mb-6">
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab('editor')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-                activeTab === 'editor'
-                  ? 'bg-zinc-800 text-white border border-zinc-700'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-amber-400" /> Document Studio & Live Canvas
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('overview')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
-                activeTab === 'overview'
-                  ? 'bg-zinc-800 text-white border border-zinc-700'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5 text-cyan-400" /> Templates & Legal Guide
-            </button>
-          </div>
-
-          <div className="hidden md:flex items-center gap-2 text-xs text-zinc-400 font-mono">
-            <span>{isAgreementMode ? 'Contract Consideration:' : 'Current Total:'}</span>
-            <span className="text-amber-400 font-bold font-display text-sm">
-              {doc.currency_symbol}
-              {isAgreementMode
-                ? doc.total_fee.toLocaleString('en-IN')
-                : calculations.grandTotal.toLocaleString('en-IN')}
-            </span>
-          </div>
-        </div>
-
-        {activeTab === 'overview' ? (
+      {activeTab === 'overview' ? (
+        <div className="no-print bg-white text-slate-900">
           
-          /* OVERVIEW & TEMPLATES GUIDE TAB */
-          <div className="no-print space-y-12 max-w-5xl mx-auto py-6">
-            <div className="text-center space-y-3">
-              <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
-                ENTERPRISE CAPABILITIES
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white font-display uppercase">
-                Work Agreements & Business Invoices in One Studio
-              </h2>
-              <p className="text-sm text-zinc-400 max-w-2xl mx-auto">
-                Built specifically for Indian & global professionals, agencies, and businesses. Generate legally robust Work Agreements by Profession & Duration, plus GST Tax Invoices with embedded UPI QR codes.
+          {/* ── HERO BANNER ── */}
+          <section className="relative pt-16 pb-20 sm:pt-24 sm:pb-28 overflow-hidden text-center">
+            {/* Soft Ambient Light Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-400/10 blur-[120px] rounded-full pointer-events-none" />
+
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 space-y-6 sm:space-y-8">
+              {/* Golden Pill */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-bold font-mono tracking-wider uppercase bg-amber-50 text-amber-700 border border-amber-300 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>FREE ENTERPRISE TOOL • GST READY</span>
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-950 font-display uppercase leading-[1.08] max-w-4xl mx-auto">
+                CREATE PROFESSIONAL <br className="hidden sm:block" />
+                <span className="text-amber-500">DOCUMENTS</span> IN SECONDS
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+                Generate GST-compliant Invoices, Quotations, and Purchase Orders instantly. Download print-ready PDFs for free, or manage cloud archives seamlessly.
               </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-3xl bg-zinc-900/80 border border-zinc-800 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-amber-400/10 text-amber-400 flex items-center justify-center font-bold text-lg">
-                  ⚖️
-                </div>
-                <h3 className="text-lg font-bold text-white font-display">Profession-Specific Contracts</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  Tailored scopes and intellectual property clauses for Web/Software Dev, Video Production, UI/UX Design, Performance Marketing, Copywriting, Real Estate, and Financial Advisory.
+              {/* Action CTAs */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('editor');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg shadow-amber-400/25 flex items-center justify-center gap-2"
+                >
+                  <span>START GENERATING FOR FREE</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <Link
+                  to="/services"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 shadow-sm transition-all duration-200 flex items-center justify-center"
+                >
+                  EXPLORE ENTERPRISE SERVICES
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* ── FEATURES GRID (EVERYTHING YOU NEED TO RUN YOUR BUSINESS BILLING) ── */}
+          <section className="py-16 sm:py-24 border-t border-slate-200 relative">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+              
+              {/* Section Header */}
+              <div className="text-center space-y-3 max-w-3xl mx-auto">
+                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-amber-500">
+                  EVERYTHING INCLUDED
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-950 font-display uppercase tracking-tight">
+                  EVERYTHING YOU NEED TO RUN YOUR BUSINESS BILLING
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl mx-auto">
+                  Built specifically for Indian MSMEs, startups, agencies, and growing commercial enterprises.
                 </p>
               </div>
 
-              <div className="p-6 rounded-3xl bg-zinc-900/80 border border-zinc-800 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center font-bold text-lg">
-                  ⏰
+              {/* 6 Feature Cards (2x3 Grid) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                {/* Card 1: Multiple Formats */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      Multiple Formats & Templates
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Choose from clean, professional layouts for Tax Invoices, Quotations, and Purchase Orders.
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-white font-display">Custom Duration & WFH Terms</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  Configure Sprint terms (2 Weeks), Standard Quarter (3 Months), Bi-Annual Retainers (6 Months), or Ongoing models with 100% Remote / WFH and notice periods.
+
+                {/* Card 2: GST Auto-Calculations */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold text-lg font-mono group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    ₹
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      GST Auto-Calculations
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Auto-calculates IGST, CGST, and SGST accurately based on source states and tax brackets.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 3: Instant PDF Export */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    <Download className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      Instant PDF Export
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Download high-resolution, print-ready PDF documents tailored with client branding.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 4: Bank-Grade Cloud Storage */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      Bank-Grade Cloud Storage
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Your billing archives are safely protected with PostgreSQL Row Level Security.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 5: Quick-Fill Client Directory */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      Quick-Fill Client Directory
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Save client and company GSTIN profiles to auto-fill future documents in 1 click.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card 6: Real-Time Live Preview */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-md transition-all duration-300 space-y-4 group text-left">
+                  <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center group-hover:bg-amber-400 group-hover:text-black transition-all">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-slate-900 font-display">
+                      Real-Time Live Preview
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      See your document update live with accurate typography, borders, and itemized calculations.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          {/* ── TRANSPARENT DOCUMENT STORAGE (PRICING) ── */}
+          <section className="py-16 sm:py-24 border-t border-slate-200 relative">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-12">
+              
+              {/* Section Header */}
+              <div className="text-center space-y-3 max-w-3xl mx-auto">
+                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-amber-500">
+                  SIMPLE & FAIR
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-950 font-display uppercase tracking-tight">
+                  TRANSPARENT DOCUMENT STORAGE
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl mx-auto">
+                  Generate and download as many documents as you want for free. Upgrade only if you need extended cloud history.
                 </p>
               </div>
 
-              <div className="p-6 rounded-3xl bg-zinc-900/80 border border-zinc-800 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center font-bold text-lg">
-                  ⚡
+              {/* 2 Centered Comparison Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+                
+                {/* Free Starter Tier */}
+                <div className="p-8 sm:p-9 rounded-2xl bg-white border border-slate-200 flex flex-col justify-between space-y-8 shadow-sm text-left">
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-extrabold uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200 inline-block">
+                        FREE
+                      </span>
+                      <h3 className="text-xl font-bold text-slate-900 font-display">
+                        Free Starter Tier
+                      </h3>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl sm:text-4xl font-black text-slate-950 font-display">₹0</span>
+                        <span className="text-xs text-slate-500 font-mono uppercase font-bold">/ FOREVER</span>
+                      </div>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        Perfect for quick, one-off invoices and quotations.
+                      </p>
+                    </div>
+
+                    <div className="space-y-3 pt-4 border-t border-slate-100">
+                      {[
+                        'Create GST Invoices, Quotations & POs',
+                        'Custom Logo & Company Details',
+                        'Print-Ready Instant PDF Downloads',
+                        'Real-Time Live Preview Calculation',
+                        '7-Day Free Cloud Retention'
+                      ].map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-700">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab('editor');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="w-full py-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-sm"
+                  >
+                    USE FREE GENERATOR
+                  </button>
                 </div>
-                <h3 className="text-lg font-bold text-white font-display">GST Math & UPI QR Payments</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  Seamless switch to commercial invoices with Intra/Inter GST calculations, milestone payment schedule, and auto-generated scannable UPI QR codes.
-                </p>
+
+                {/* Pro Cloud Storage (Featured) */}
+                <div className="relative p-8 sm:p-9 rounded-2xl bg-white border-2 border-amber-400 flex flex-col justify-between space-y-8 shadow-xl shadow-amber-400/10 text-left">
+                  {/* Most Popular Ribbon Badge */}
+                  <div className="absolute -top-3.5 right-8 px-3.5 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] font-mono uppercase tracking-widest shadow-sm">
+                    MOST POPULAR
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-extrabold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-300 inline-block">
+                        ENTERPRISE
+                      </span>
+                      <h3 className="text-xl font-bold text-slate-900 font-display">
+                        Pro Cloud Storage
+                      </h3>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl sm:text-4xl font-black text-slate-950 font-display">₹250</span>
+                        <span className="text-xs text-slate-500 font-mono uppercase font-bold">/ MONTH</span>
+                      </div>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        For businesses that require perpetual billing history and multi-brand control.
+                      </p>
+                    </div>
+
+                    <div className="space-y-3 pt-4 border-t border-slate-100">
+                      {[
+                        'Everything in Free Starter Tier',
+                        'Unlimited Lifetime Document Storage',
+                        'Saved Multi-Company Profiles',
+                        'Brand Color Themes & Custom Fonts',
+                        'Automated Payment Tracking & CRM Sync',
+                        'Priority Technical Support'
+                      ].map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-800 font-medium">
+                          <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab('editor');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md shadow-amber-400/20 flex items-center justify-center gap-1.5"
+                  >
+                    <span>CREATE DOCUMENT & GET STARTED</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+
               </div>
             </div>
+          </section>
 
-            <div className="p-8 rounded-3xl bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-zinc-900 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="space-y-1">
-                <h4 className="text-xl font-bold text-white font-display">Ready to Draft Your Work Agreement or Invoice?</h4>
-                <p className="text-xs text-zinc-400">Select your profession and duration to generate an executive A4 document in seconds.</p>
+          {/* ── BOTTOM CALL TO ACTION ── */}
+          <section className="py-20 sm:py-28 border-t border-slate-200 relative text-center">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-950 font-display uppercase tracking-tight">
+                READY TO STREAMLINE YOUR <br className="hidden sm:block" />
+                INVOICING & PROPOSALS?
+              </h2>
+              <p className="text-xs sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+                Experience lightning-fast GST invoicing and quotation creation powered by Velametric Global.
+              </p>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('editor');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-8 py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg shadow-amber-400/25 inline-flex items-center gap-2"
+                >
+                  <span>GENERATE YOUR FIRST DOCUMENT NOW</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setActiveTab('editor')}
-                className="px-6 py-3 rounded-full bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider hover:bg-amber-300 transition-all shadow-xl"
-              >
-                Open Studio Canvas →
-              </button>
             </div>
-          </div>
+          </section>
+        </div>
+      ) : (
 
-        ) : (
-
-          /* SPLIT-SCREEN DOCUMENT STUDIO */
-          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+        /* ── SPLIT-SCREEN DOCUMENT STUDIO (ACTIVE WHEN EDITOR IS OPEN) ── */
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
             
             {/* LEFT COLUMN: WIZARD CONTROLS (NO-PRINT) */}
             <div className="no-print xl:col-span-5 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-xl space-y-6">
@@ -1384,7 +1709,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-wider block">
+                    <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
                       SECOND PARTY / CLIENT / ENGAGING ENTITY
                     </span>
                     <div className="grid grid-cols-2 gap-3">
@@ -1515,7 +1840,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                   {/* Duration Model Picker */}
                   <div className="space-y-2 pt-2 border-t border-zinc-800">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5" /> 2. Select Term & Duration
                       </span>
                       <span className="text-[10px] text-zinc-500">Auto-dates contract</span>
@@ -1529,7 +1854,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                           onClick={() => handleSelectDuration(dp.id)}
                           className={`p-2 rounded-xl border text-center transition-all ${
                             doc.duration_id === dp.id
-                              ? 'bg-cyan-400/10 border-cyan-400 text-cyan-300 font-bold ring-1 ring-cyan-400/30'
+                              ? 'bg-amber-400/10 border-amber-400 text-amber-300 font-bold ring-1 ring-amber-400/30'
                               : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white'
                           }`}
                         >
@@ -1712,15 +2037,15 @@ export const DocumentGeneratorPage: React.FC = () => {
                     </span>
                     <ul className="space-y-2 text-xs text-zinc-300">
                       <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-amber-400" />
                         <span>Independent Contractor Status (No Employment / PF liability)</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-amber-400" />
                         <span>1.5% Monthly Late Payment Interest on Overdue Invoices</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-amber-400" />
                         <span>Direct Electronic Wire & Scannable UPI Payment Remittance</span>
                       </li>
                     </ul>
@@ -1784,7 +2109,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => handleRemoveItem(item.id)}
-                              className="text-zinc-500 hover:text-rose-400 p-1 transition-colors"
+                              className="text-zinc-500 hover:text-amber-400 p-1 transition-colors"
                               title="Remove Line Item"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -1982,30 +2307,144 @@ export const DocumentGeneratorPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-3 pt-3 border-t border-zinc-800">
-                    <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-wider block">
-                      DYNAMIC UPI QR CODE
-                    </span>
-                    <div>
-                      <label className="block text-[11px] text-zinc-400 mb-1">UPI VPA / ID</label>
-                      <input
-                        type="text"
-                        value={doc.upi_id}
-                        placeholder="yourname@okhdfcbank"
-                        onChange={(e) => setDoc({ ...doc, upi_id: e.target.value })}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2 text-xs text-white font-mono"
-                      />
+                  <div className="space-y-4 pt-3 border-t border-zinc-800">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
+                        PAYMENT QR CODE CONFIGURATION
+                      </span>
+                      {doc.custom_qr_image && (
+                        <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[9px] font-mono font-bold">
+                          ✓ CUSTOM QR ATTACHED
+                        </span>
+                      )}
                     </div>
+
+                    {/* QR SOURCE SELECTOR TABS */}
+                    <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-950 border border-zinc-800 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => setDoc({ ...doc, qr_mode: 'upi' })}
+                        className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                          doc.qr_mode !== 'custom'
+                            ? 'bg-zinc-800 text-amber-400 shadow-md border border-amber-400/40'
+                            : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                        Dynamic UPI QR
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDoc({ ...doc, qr_mode: 'custom' })}
+                        className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                          doc.qr_mode === 'custom'
+                            ? 'bg-amber-400/20 text-amber-300 shadow-md border border-amber-400/50'
+                            : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        <Upload className="w-3.5 h-3.5 text-amber-400" />
+                        Upload Custom QR
+                      </button>
+                    </div>
+
+                    {/* OPTION A: DYNAMIC UPI QR */}
+                    {doc.qr_mode !== 'custom' ? (
+                      <div className="space-y-2 p-3 bg-zinc-950/60 rounded-xl border border-zinc-800/80">
+                        <label className="block text-[11px] text-zinc-300 font-semibold mb-1">UPI VPA / ID</label>
+                        <input
+                          type="text"
+                          value={doc.upi_id}
+                          placeholder="yourname@okhdfcbank"
+                          onChange={(e) => setDoc({ ...doc, upi_id: e.target.value })}
+                          className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2.5 text-xs text-white font-mono focus:border-amber-400 focus:outline-none"
+                        />
+                        <p className="text-[10px] text-zinc-400 leading-snug">
+                          Generates a real-time UPI payment QR code encoded with your company name, invoice #, and grand total.
+                        </p>
+                      </div>
+                    ) : (
+                      /* OPTION B: UPLOAD CUSTOM QR IMAGE */
+                      <div className="space-y-3 p-3.5 bg-zinc-950/80 rounded-xl border border-amber-400/30">
+                        {doc.custom_qr_image ? (
+                          <div className="flex items-center gap-4 bg-zinc-900/90 border border-zinc-800 p-3 rounded-xl">
+                            <img
+                              src={doc.custom_qr_image}
+                              alt="Uploaded Custom QR"
+                              className="w-16 h-16 object-contain bg-white rounded-lg p-1 border border-zinc-700 shadow-sm shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                                Custom QR Active
+                              </div>
+                              <div className="text-[10px] text-zinc-400 mt-0.5 truncate">
+                                Rendered on invoice preview, printout, and HTML download.
+                              </div>
+                              <div className="flex items-center gap-2 mt-2">
+                                <label className="text-[10px] font-bold text-black bg-amber-400 hover:bg-amber-300 border border-amber-500 px-2.5 py-1 rounded-lg cursor-pointer transition-colors inline-flex items-center gap-1">
+                                  <RefreshCw className="w-3 h-3" /> Change QR
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleQrImageUpload}
+                                    className="hidden"
+                                  />
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={handleRemoveQrImage}
+                                  className="text-[10px] font-bold text-zinc-400 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 px-2.5 py-1 rounded-lg transition-colors inline-flex items-center gap-1"
+                                >
+                                  <Trash2 className="w-3 h-3" /> Remove
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center p-5 border-2 border-dashed border-amber-400/40 hover:border-amber-400 bg-amber-400/5 hover:bg-amber-400/10 rounded-xl cursor-pointer transition-all group">
+                            <div className="w-11 h-11 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform mb-2 shadow-inner">
+                              <Upload className="w-5 h-5" />
+                            </div>
+                            <span className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">
+                              Click to Upload QR Code Image
+                            </span>
+                            <span className="text-[10px] text-zinc-400 mt-1 text-center max-w-[280px]">
+                              Supports PhonePe, Google Pay, Paytm, BharatPe, or Bank Merchant QR (PNG, JPG, WEBP)
+                            </span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleQrImageUpload}
+                              className="hidden"
+                            />
+                          </label>
+                        )}
+
+                        <div>
+                          <label className="block text-[11px] text-zinc-300 font-semibold mb-1">
+                            UPI ID / Payee Note (Optional)
+                          </label>
+                          <input
+                            type="text"
+                            value={doc.upi_id}
+                            placeholder="e.g. yourname@okhdfcbank or Scan with any UPI App"
+                            onChange={(e) => setDoc({ ...doc, upi_id: e.target.value })}
+                            className="w-full bg-zinc-900 border border-zinc-700/80 rounded-xl p-2 text-xs text-white font-mono focus:border-amber-400 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-2 pt-1">
                       <input
                         type="checkbox"
                         id="show_qr"
                         checked={doc.show_qr_code}
                         onChange={(e) => setDoc({ ...doc, show_qr_code: e.target.checked })}
-                        className="w-4 h-4 rounded text-amber-400 bg-zinc-950 border-zinc-800 focus:ring-amber-400"
+                        className="w-4 h-4 rounded text-amber-400 bg-zinc-950 border-zinc-800 focus:ring-amber-400 cursor-pointer"
                       />
-                      <label htmlFor="show_qr" className="text-xs text-zinc-300 select-none">
-                        Render Scannable UPI QR code on document printout
+                      <label htmlFor="show_qr" className="text-xs text-zinc-300 select-none cursor-pointer">
+                        Render Scannable Payment QR code on document printout
                       </label>
                     </div>
                   </div>
@@ -2072,9 +2511,9 @@ export const DocumentGeneratorPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleDownloadHTML}
-                      className="w-full py-3 rounded-2xl bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all font-mono"
+                      className="w-full py-3 rounded-2xl bg-amber-400 text-black hover:bg-amber-300 border border-amber-500 font-bold text-xs flex items-center justify-center gap-2 transition-all font-mono shadow-md"
                     >
-                      <FileDown className="w-4 h-4 text-emerald-400" /> Download Document (.HTML)
+                      <FileDown className="w-4 h-4 text-black" /> Download Document (.HTML)
                     </button>
                   </div>
                 </div>
@@ -2089,7 +2528,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownloadHTML}
-                    className="px-3 py-2 rounded-xl bg-zinc-800 text-emerald-400 hover:bg-zinc-700 transition-all text-xs font-mono flex items-center gap-1.5"
+                    className="px-3 py-2 rounded-xl bg-zinc-800 text-amber-400 hover:bg-zinc-700 transition-all text-xs font-mono flex items-center gap-1.5"
                     title="Download Clean Document (.HTML)"
                   >
                     <FileDown className="w-3.5 h-3.5" /> Download (.HTML)
@@ -2122,6 +2561,7 @@ export const DocumentGeneratorPage: React.FC = () => {
               {/* A4 CANVAS WRAPPER (ISOLATED BY ID FOR PRINT) */}
               <div 
                 id="printable-document-container"
+                style={{ backgroundColor: '#ffffff' }}
                 className="w-full max-w-[760px] shadow-2xl rounded-2xl border border-zinc-800 bg-white text-slate-900"
               >
                 
@@ -2131,7 +2571,10 @@ export const DocumentGeneratorPage: React.FC = () => {
                   /* ------------------------------------------------------------------ */
                   /* FORMAL WORK & SERVICE AGREEMENT CANVAS                             */
                   /* ------------------------------------------------------------------ */
-                  <div className="printable-document p-6 sm:p-10 space-y-5 bg-white min-h-[1050px] flex flex-col justify-between text-slate-800 text-[11px] sm:text-xs leading-relaxed">
+                  <div 
+                    style={{ backgroundColor: '#ffffff' }}
+                    className="printable-document p-6 sm:p-10 space-y-5 bg-white min-h-[1050px] flex flex-col justify-between text-slate-800 text-[11px] sm:text-xs leading-relaxed"
+                  >
                     
                     <div>
                       {/* TOP ACCENT STRIPE */}
@@ -2249,6 +2692,21 @@ export const DocumentGeneratorPage: React.FC = () => {
                           <p className="text-[10px] text-slate-500">
                             * Invoices unpaid past 15 days of presentation shall incur late payment interest at the rate of 1.5% per month.
                           </p>
+                          {doc.show_qr_code && activeQrCodeUrl && (
+                            <div className="flex items-center gap-3 pt-2">
+                              <img
+                                src={activeQrCodeUrl}
+                                alt="Payment QR Code"
+                                className="w-14 h-14 object-contain border border-slate-300 rounded-lg p-1 bg-white shadow-sm"
+                              />
+                              <div className="text-[10px] font-mono text-slate-600">
+                                <div className="font-bold text-slate-800">
+                                  {doc.qr_mode === 'custom' ? 'Direct Remittance QR Code' : 'UPI Digital Settlement QR'}
+                                </div>
+                                <div>Scan to pay consideration milestones {doc.upi_id && `(${doc.upi_id})`}</div>
+                              </div>
+                            </div>
+                          )}
                         </div>
 
                         {/* CLAUSE 5: INTELLECTUAL PROPERTY & OWNERSHIP */}
@@ -2357,7 +2815,10 @@ export const DocumentGeneratorPage: React.FC = () => {
                   /* ------------------------------------------------------------------ */
                   /* COMMERCIAL TAX INVOICE / QUOTATION / PO / RECEIPT CANVAS          */
                   /* ------------------------------------------------------------------ */
-                  <div className="printable-document p-6 sm:p-10 space-y-6 bg-white min-h-[1050px] flex flex-col justify-between text-slate-800 text-[11px] sm:text-xs">
+                  <div 
+                    style={{ backgroundColor: '#ffffff' }}
+                    className="printable-document p-6 sm:p-10 space-y-6 bg-white min-h-[1050px] flex flex-col justify-between text-slate-800 text-[11px] sm:text-xs"
+                  >
                     
                     {/* TOP ACCENT STRIPE */}
                     <div>
@@ -2438,16 +2899,20 @@ export const DocumentGeneratorPage: React.FC = () => {
                             </div>
                           </div>
 
-                          {doc.show_qr_code && upiQrUrl && (
+                          {doc.show_qr_code && activeQrCodeUrl && (
                             <div className="flex items-center justify-end gap-3 pt-2">
                               <div className="text-right">
-                                <span className="text-[9px] font-mono uppercase text-slate-500 block">Scan to Pay via UPI</span>
-                                <span className="text-[10px] font-mono font-bold text-slate-800">{doc.upi_id}</span>
+                                <span className="text-[9px] font-mono uppercase text-slate-500 block">
+                                  {doc.qr_mode === 'custom' ? 'Scan to Pay' : 'Scan to Pay via UPI'}
+                                </span>
+                                <span className="text-[10px] font-mono font-bold text-slate-800 max-w-[150px] truncate block">
+                                  {doc.upi_id || (doc.qr_mode === 'custom' ? 'Instant QR Payment' : '')}
+                                </span>
                               </div>
                               <img
-                                src={upiQrUrl}
-                                alt="UPI QR Code"
-                                className="w-16 h-16 border border-slate-300 rounded-lg p-1 bg-white"
+                                src={activeQrCodeUrl}
+                                alt="Payment QR Code"
+                                className="w-16 h-16 sm:w-20 sm:h-20 object-contain border border-slate-300 rounded-lg p-1 bg-white shadow-sm"
                               />
                             </div>
                           )}
@@ -2532,7 +2997,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                           </div>
 
                           {calculations.discountAmount > 0 && (
-                            <div className="flex justify-between text-emerald-700">
+                            <div className="flex justify-between text-zinc-900 font-semibold">
                               <span>Discount:</span>
                               <span>-{doc.currency_symbol}{calculations.discountAmount.toLocaleString('en-IN')}</span>
                             </div>
@@ -2617,8 +3082,7 @@ export const DocumentGeneratorPage: React.FC = () => {
         )}
 
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default DocumentGeneratorPage;

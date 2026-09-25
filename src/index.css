@@ -32,47 +32,65 @@
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.4);
-  box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 12px 30px -10px rgba(251, 191, 36, 0.25);
 }
 
 /* ========================================================= */
-/* GLOBAL RULE: ALL WHITE BACKGROUND ELEMENTS HOVER YELLOW   */
+/* GLOBAL RULE: WHITE BUTTONS & CTAS HOVER YELLOW           */
+/* (Strictly excludes document canvases, cards & previews)  */
 /* ========================================================= */
-.bg-white,
-[class*="bg-white"] {
+button.bg-white,
+a.bg-white,
+[role="button"].bg-white {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
 }
 
-/* Any button, link, badge, pill, or interactive element with white background turns vibrant yellow on hover */
-button.bg-white:hover,
-a.bg-white:hover,
-[role="button"].bg-white:hover,
-.cursor-pointer.bg-white:hover,
-.bg-white:hover:not(input:not([type="button"]):not([type="submit"])):not(textarea):not(select):not(pre):not(code),
-[class*="bg-white"]:is(button, a, [role="button"], .cursor-pointer):hover,
-[class*="bg-white"][class*="hover:"]:hover:not(input:not([type="button"]):not([type="submit"])):not(textarea):not(select):not(pre):not(code) {
+/* Only interactive buttons, links, and action pills turn vibrant yellow on hover */
+button.bg-white:hover:not(#printable-document-container *):not(.printable-document *):not(#printable-document *),
+a.bg-white:hover:not(#printable-document-container *):not(.printable-document *):not(#printable-document *),
+[role="button"].bg-white:hover:not(#printable-document-container *):not(.printable-document *):not(#printable-document *),
+.cursor-pointer.bg-white:hover:not(#printable-document-container):not(#printable-document-container *):not(.printable-document):not(.printable-document *):not(#printable-document):not(#printable-document *),
+button[class*="bg-white"]:hover:not(#printable-document-container *):not(.printable-document *):not(#printable-document *),
+a[class*="bg-white"]:hover:not(#printable-document-container *):not(.printable-document *):not(#printable-document *) {
   background-color: #fbbf24 !important; /* amber-400 vibrant yellow */
   color: #000000 !important;
   border-color: #f59e0b !important;
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.7) !important;
 }
 
 /* Ensure text, icons, and SVG children inside white buttons stay deep black for peak contrast on yellow */
-button.bg-white:hover *,
-a.bg-white:hover *,
-[role="button"].bg-white:hover *,
-.cursor-pointer.bg-white:hover *,
-[class*="bg-white"]:is(button, a, [role="button"]):hover * {
+button.bg-white:hover *:not(#printable-document-container *):not(.printable-document *),
+a.bg-white:hover *:not(#printable-document-container *):not(.printable-document *),
+[role="button"].bg-white:hover *:not(#printable-document-container *):not(.printable-document *),
+.cursor-pointer.bg-white:hover *:not(#printable-document-container *):not(.printable-document *) {
   color: #000000 !important;
   stroke: #000000 !important;
 }
 
-/* Warm radiant yellow glow on hovered white buttons */
-button.bg-white:hover,
-a.bg-white:hover,
-[role="button"].bg-white:hover,
-[class*="bg-white"]:is(button, a, [role="button"]):hover {
-  box-shadow: 0 0 25px rgba(251, 191, 36, 0.7) !important;
+/* ========================================================= */
+/* DOCUMENT PREVIEW & PRINTABLE CANVAS: IMMUTABLE COLOR      */
+/* Never changes background, border, or text color on hover  */
+/* ========================================================= */
+#printable-document-container,
+#printable-document-container:hover,
+.printable-document,
+.printable-document:hover,
+#printable-document,
+#printable-document:hover {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgb(39 39 42 / 0.8) !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+#printable-document-container:hover *,
+.printable-document:hover *,
+#printable-document:hover * {
+  transform: none !important;
+  transition: none !important;
 }
 
 /* Custom Editorial Scrollbar */
@@ -91,7 +109,7 @@ a.bg-white:hover,
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4f46e5;
+  background: #f59e0b;
 }
 
 /* Hide scrollbar utility */

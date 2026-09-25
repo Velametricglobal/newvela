@@ -402,7 +402,7 @@ export const ResourceDetailPage: React.FC = () => {
               </div>
 
               <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-3">
-                <div className="flex items-center gap-2 text-emerald-400 font-bold font-display text-base">
+                <div className="flex items-center gap-2 text-amber-400 font-bold font-display text-base">
                   <Phone className="w-5 h-5" /> Frictionless Access & Instant Call
                 </div>
                 <p className="text-sm text-zinc-400 leading-relaxed">
@@ -441,7 +441,7 @@ export const ResourceDetailPage: React.FC = () => {
               </li>
 
               <li className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-start gap-4">
-                <div className="w-8 h-8 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
                   <Star className="w-4 h-4" />
                 </div>
                 <div>
@@ -491,8 +491,8 @@ export const ResourceDetailPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-gradient-to-r from-zinc-900 to-zinc-950 border border-emerald-400/30">
-                <h4 className="text-lg font-bold text-emerald-400 font-display mb-2">Exponential Profitability</h4>
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-zinc-900 to-zinc-950 border border-amber-400/30">
+                <h4 className="text-lg font-bold text-amber-400 font-display mb-2">Exponential Profitability</h4>
                 <p className="text-zinc-300 text-sm leading-relaxed">
                   This massive wave of inbound traffic translated directly into higher capacity utilization, steady active care contracts, and substantial financial growth for Amit and his team.
                 </p>

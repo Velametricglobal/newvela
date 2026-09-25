@@ -130,7 +130,7 @@ export const SponsorRegistrationPage: React.FC = () => {
               </div>
               <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
                 <span className="text-zinc-400">Selected Tier:</span>
-                <span className="text-emerald-400 font-bold">{formData.sponsorship_tier}</span>
+                <span className="text-amber-400 font-bold">{formData.sponsorship_tier}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-zinc-400">Contact Officer:</span>

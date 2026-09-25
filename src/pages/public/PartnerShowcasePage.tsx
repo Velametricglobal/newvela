@@ -145,7 +145,7 @@ export const PartnerShowcasePage: React.FC = () => {
             <div className="lg:w-80 shrink-0 bg-zinc-950/90 border border-zinc-800 p-6 rounded-3xl space-y-5 shadow-2xl backdrop-blur-md">
               <div className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400 border-b border-zinc-800 pb-3 flex items-center justify-between">
                 <span>Studio Credentials</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
+                <span className="text-amber-400 font-bold flex items-center gap-1 text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5" /> Verified
                 </span>
               </div>
@@ -170,9 +170,9 @@ export const PartnerShowcasePage: React.FC = () => {
                     href={partner.instagram_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-xs font-bold text-white hover:text-pink-400 transition-colors"
+                    className="flex items-center gap-3 text-xs font-bold text-white hover:text-amber-400 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-xl bg-zinc-900 flex items-center justify-center text-pink-500 shrink-0">
+                    <div className="w-8 h-8 rounded-xl bg-zinc-900 flex items-center justify-center text-amber-400 shrink-0">
                       <Instagram className="w-4 h-4" />
                     </div>
                     <span>Follow on Instagram ↗</span>
@@ -260,7 +260,7 @@ export const PartnerShowcasePage: React.FC = () => {
         {/* Equipment & Cinema Rigs Card */}
         <div className="p-8 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-400/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
+            <div className="w-10 h-10 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400">
               <Sliders className="w-5 h-5" />
             </div>
             <div>
@@ -272,7 +272,7 @@ export const PartnerShowcasePage: React.FC = () => {
           <div className="space-y-3">
             {partner.equipment.map((eq, idx) => (
               <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-zinc-950/60 border border-zinc-850">
-                <Sparkles className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <Sparkles className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <span className="text-xs sm:text-sm text-zinc-200 font-medium">{eq}</span>
               </div>
             ))}

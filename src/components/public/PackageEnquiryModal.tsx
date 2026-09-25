@@ -70,7 +70,7 @@ export const PackageEnquiryModal: React.FC<PackageEnquiryModalProps> = ({
 
         {submittedEnqId ? (
           <div className="text-center py-8 space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 rounded-full bg-amber-400/20 text-amber-400 border border-amber-400/30 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-bold text-white font-display">Inquiry & Quotation Request Submitted!</h3>
@@ -187,7 +187,7 @@ export const PackageEnquiryModal: React.FC<PackageEnquiryModalProps> = ({
 
               <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
                 <div className="text-[11px] text-zinc-400 flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Confidential & Direct Sales CRM Routing
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" /> Confidential & Direct Sales CRM Routing
                 </div>
                 <button
                   type="submit"

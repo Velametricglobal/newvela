@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth, INITIAL_SETUP_AGENT_USERS } from '../../context/AuthContext';
 import { AgentRole } from '../../types/database.types';
 import { Lock, Mail, Key, ShieldCheck, ArrowRight, Eye, EyeOff, Sparkles, UserCheck, CheckCircle2 } from 'lucide-react';
@@ -50,7 +50,7 @@ export const LoginPage: React.FC = () => {
       {/* BACKGROUND DECORATIVE GLOW */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-600/20 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-7 shadow-2xl backdrop-blur relative z-10 text-left">
+      <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl backdrop-blur relative z-10 text-left">
         
         {/* BRAND LOGO & HEADER */}
         <div className="text-center space-y-3">
@@ -63,6 +63,20 @@ export const LoginPage: React.FC = () => {
             </h1>
             <p className="text-slate-400 text-xs mt-1">Protected Enterprise Dashboard Login</p>
           </div>
+        </div>
+
+        {/* PORTAL SELECTOR */}
+        <div className="grid grid-cols-2 gap-1 p-1 bg-slate-950 rounded-2xl border border-slate-800 text-center text-xs">
+          <div className="py-2 px-3 rounded-xl bg-brand-600 text-white font-bold shadow-sm">
+            Staff / Admin Login
+          </div>
+          <Link
+            to="/talent-login"
+            className="py-2 px-3 rounded-xl text-slate-400 hover:text-amber-300 font-bold transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Talent Portal</span>
+          </Link>
         </div>
 
         {/* LOGIN FORM */}
@@ -173,6 +187,17 @@ export const LoginPage: React.FC = () => {
               <div className="text-[10px] text-amber-400 font-mono">FINANCE-001</div>
             </button>
           </div>
+        </div>
+
+        {/* TALENT PORTAL DIRECT ACCESS LINK */}
+        <div className="pt-4 border-t border-slate-800 text-center">
+          <Link
+            to="/talent-login"
+            className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center justify-center gap-1.5 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Are you a Model, Artist or Creator? Sign In to Talent Studio →</span>
+          </Link>
         </div>
 
       </div>

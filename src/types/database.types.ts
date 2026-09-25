@@ -514,6 +514,8 @@ export interface PortfolioProject {
   client?: string;
   live_url?: string;
   admin_url?: string;
+  live_button_label?: string;
+  admin_button_label?: string;
   cover_image?: string;
   featured_image?: string;
   description?: string;

@@ -39,6 +39,7 @@ export const ROLE_DASHBOARDS: Record<DashboardViewType, RoleDashboardConfig> = {
     colorAccent: 'from-amber-400 to-yellow-600',
     items: [
       { label: 'Dashboard Overview', path: '/admin/dashboard', icon: LayoutDashboard },
+      { label: 'Talent Management', path: '/admin/talents', icon: Star, badge: 'TALENT' },
       { label: 'Task & Lead Delegation', path: '/admin/delegation', icon: UserCheck, badge: 'AUTO' },
       { label: 'User Directory', path: '/admin/users', icon: Users, badge: 'IAM' },
       { label: 'Roles & Permissions', path: '/admin/roles', icon: Shield, badge: 'RBAC' },
@@ -77,6 +78,7 @@ export const ROLE_DASHBOARDS: Record<DashboardViewType, RoleDashboardConfig> = {
     colorAccent: 'from-rose-500 to-red-600',
     items: [
       { label: 'Dashboard (Event KPIs)', path: '/admin/dashboard', icon: LayoutDashboard },
+      { label: 'Talent Management', path: '/admin/talents', icon: Star, badge: 'TALENT' },
       { label: 'Events & Auditions', path: '/admin/events', icon: Calendar, badge: 'HOT' },
       { label: 'Media Library', path: '/admin/media', icon: ImageIcon },
     ]
@@ -91,6 +93,7 @@ export const ROLE_DASHBOARDS: Record<DashboardViewType, RoleDashboardConfig> = {
     colorAccent: 'from-purple-500 to-pink-600',
     items: [
       { label: 'Dashboard (Campaign ROI)', path: '/admin/dashboard', icon: LayoutDashboard },
+      { label: 'Talent Management', path: '/admin/talents', icon: Star, badge: 'TALENT' },
       { label: 'Campaigns', path: '/admin/campaigns', icon: Target },
       { label: 'Reel Marketing', path: '/admin/marketing/reels', icon: Video, badge: 'REELS' },
       { label: 'Communication Hub', path: '/admin/communication', icon: MessageCircle, badge: 'LEADS' },
@@ -118,6 +121,7 @@ export const ROLE_DASHBOARDS: Record<DashboardViewType, RoleDashboardConfig> = {
 };
 
 export const SUPER_ADMIN_CORE_ITEMS: DashboardNavItem[] = [
+  { label: 'Talent Management', path: '/admin/talents', icon: Star, badge: 'TALENT' },
   { label: 'Task & Lead Delegation', path: '/admin/delegation', icon: UserCheck, badge: 'AUTO' },
   { label: 'User Directory', path: '/admin/users', icon: Users, badge: 'IAM' },
   { label: 'Roles & Permissions', path: '/admin/roles', icon: Shield, badge: 'RBAC' },

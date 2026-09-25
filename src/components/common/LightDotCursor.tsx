@@ -20,12 +20,13 @@ export const LightDotCursor: React.FC = () => {
     setIsNearBottom(false);
   }, [location.pathname]);
 
-  // Completely hide cursor following light in CRM panel, backend administration, and all working panels
+  // Completely hide cursor following light in CRM panel, backend administration, talent studio, and all working panels
   const isBackendOrCrmPanel = 
     location.pathname.startsWith('/admin') || 
     location.pathname.startsWith('/crm') ||
     location.pathname === '/login' ||
-    location.pathname.includes('/admin');
+    location.pathname.includes('/admin') ||
+    location.pathname.startsWith('/talent-dashboard');
 
   useEffect(() => {
     if (isBackendOrCrmPanel) return;
@@ -75,6 +76,13 @@ export const LightDotCursor: React.FC = () => {
 
       const target = e.target as HTMLElement | null;
       if (target) {
+        // Detect if cursor is on printable document canvas / preview
+        const inDocPreview = !!target.closest('#printable-document-container, .printable-document, #printable-document');
+        if (inDocPreview) {
+          setIsVisible(false);
+          return;
+        }
+
         // Detect if cursor is on the header
         const inHeader = !!target.closest('header');
         setIsOverHeader(inHeader);
@@ -155,9 +163,9 @@ export const LightDotCursor: React.FC = () => {
       // 3. Ignore only actual functional interactive controls
       const target = e.target as HTMLElement | null;
       if (target) {
-        // Exclude links, buttons, form controls
+        // Exclude links, buttons, form controls, and document preview sheets
         const isActionControl = target.closest(
-          'a[href], button, input, textarea, select, option, label[for], [contenteditable="true"], audio, video, iframe, [role="button"]:not([data-scroll-click="true"]), .no-scroll-click'
+          'a[href], button, input, textarea, select, option, label[for], [contenteditable="true"], audio, video, iframe, canvas, [role="button"]:not([data-scroll-click="true"]), [role="tab"], [role="switch"], .no-scroll-click, #printable-document-container, .printable-document, #printable-document'
         );
         if (isActionControl) return;
 

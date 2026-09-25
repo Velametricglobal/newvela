@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { PortfolioProject, VideoReel } from '../../types/database.types';
 import { portfolioService } from '../../services/portfolioService';
-import { DapflixReelsShowcase } from '../../components/public/DapflixReelsShowcase';
 import { EkraaheeCinemaSlider } from '../../components/public/EkraaheeCinemaSlider';
+import { DapflixCinemaSlider } from '../../components/public/DapflixCinemaSlider';
+import { DapflixReelsShowcase } from '../../components/public/DapflixReelsShowcase';
 import { Link } from 'react-router-dom';
 import { 
   ExternalLink, 
@@ -96,9 +97,10 @@ export const EVENT_GALLERY_PHOTOS: EventGalleryPhoto[] = [
 
 export const PortfolioPage: React.FC = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
-  const [filter, setFilter] = useState<'ALL' | 'VIDEO' | 'NEWS' | 'CRM' | 'EVENTS'>('ALL');
+  const [filter, setFilter] = useState<'VIDEO' | 'NEWS' | 'CRM' | 'EVENTS'>('VIDEO');
   const [activeReelModal, setActiveReelModal] = useState<VideoReel | null>(null);
-  const [selectedStudio, setSelectedStudio] = useState<'BOTH' | 'DAPFLIX' | 'EKRAAHEE'>('BOTH');
+  const [selectedStudio, setSelectedStudio] = useState<'EKRAAHEE' | 'DAPFLIX'>('EKRAAHEE');
+  const [dapflixMode, setDapflixMode] = useState<'REELS' | 'CINEMA'>('REELS');
   const [activeEventPhotoIndex, setActiveEventPhotoIndex] = useState<number>(0);
   const [eventPhotoModal, setEventPhotoModal] = useState<EventGalleryPhoto | null>(null);
 
@@ -154,47 +156,36 @@ export const PortfolioPage: React.FC = () => {
       {/* 2. CATEGORY SWITCHER PILLS */}
       <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
         <button
-          onClick={() => setFilter('ALL')}
-          className={`px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
-            filter === 'ALL' 
-              ? 'bg-white text-black shadow-2xl scale-105' 
-              : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
-          }`}
-        >
-          <Layers className="w-3.5 h-3.5" /> All Work ({projects.length})
-        </button>
-
-        <button
           onClick={() => setFilter('VIDEO')}
           className={`px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
             filter === 'VIDEO' 
-              ? 'bg-purple-500 text-white shadow-2xl scale-105' 
+              ? 'bg-amber-400 text-black shadow-2xl scale-105' 
               : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
           }`}
         >
-          <Film className="w-3.5 h-3.5 text-purple-300" /> 1. Video Production ({videoCount})
+          <Film className="w-3.5 h-3.5 text-amber-400" /> 1. Video Production ({videoCount})
         </button>
 
         <button
           onClick={() => setFilter('NEWS')}
           className={`px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
             filter === 'NEWS' 
-              ? 'bg-red-600 text-white shadow-2xl scale-105' 
+              ? 'bg-amber-400 text-black shadow-2xl scale-105' 
               : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
           }`}
         >
-          <Newspaper className="w-3.5 h-3.5 text-red-400" /> 2. News Websites ({newsCount})
+          <Newspaper className="w-3.5 h-3.5 text-amber-400" /> 2. News Websites ({newsCount})
         </button>
 
         <button
           onClick={() => setFilter('CRM')}
           className={`px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
             filter === 'CRM' 
-              ? 'bg-emerald-400 text-black shadow-2xl scale-105' 
+              ? 'bg-amber-400 text-black shadow-2xl scale-105' 
               : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
           }`}
         >
-          <Server className="w-3.5 h-3.5 text-emerald-400" /> 3. CRM & SaaS Platforms ({crmCount})
+          <Server className="w-3.5 h-3.5 text-amber-400" /> 3. CRM & SaaS Platforms ({crmCount})
         </button>
 
         <button
@@ -209,8 +200,37 @@ export const PortfolioPage: React.FC = () => {
         </button>
       </div>
 
-      {/* 3. DYNAMIC CINEMA & REELS CONSOLE PLAYERS (When Video or All is active) */}
-      {(filter === 'VIDEO' || filter === 'ALL') && (
+      {/* CREATOR & MODEL SHOWCASE GATEWAY CALLOUT */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-amber-400/40 p-6 sm:p-8 shadow-2xl backdrop-blur">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-amber-400 text-black text-[10px] font-mono font-black uppercase tracking-wider">
+                NEW TALENT STUDIO
+              </span>
+              <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> 4 Dedicated Work Showcase Templates
+              </span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white font-display uppercase tracking-tight">
+              Are You a Model, Influencer, or Digital Creator?
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
+              Build your customized 4K video reel & photo portfolio comp-card. Choose between <span className="text-amber-400 font-bold">Haute Editorial Model</span>, <span className="text-white font-bold">Viral Social Reels</span>, <span className="text-amber-400 font-bold">Luxe Commercial Ambassador</span>, and <span className="text-white font-bold">Power Fitness Creator</span> formats.
+            </p>
+          </div>
+
+          <Link
+            to="/talent-showcase"
+            className="px-6 py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl shadow-amber-400/25 transition-all hover:scale-105 shrink-0"
+          >
+            <Camera className="w-4 h-4" /> Create Work Profile Now <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* 3. DYNAMIC CINEMA & REELS CONSOLE PLAYERS (When Video is active) */}
+      {filter === 'VIDEO' && (
         <div className="space-y-8 pt-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
             <div>
@@ -221,56 +241,46 @@ export const PortfolioPage: React.FC = () => {
                 Video Production & Cinema Portfolios
               </h2>
               <p className="text-zinc-400 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                Explore our dual production ecosystem: <span className="text-red-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events) and <span className="text-pink-400 font-bold">DAPFLIX</span> (viral social reels & kinetic editing).
+                Explore our dual production ecosystem: <span className="text-amber-400 font-bold">Ekraahee Films</span> (broadcast TVCs, 4K YouTube commercial films & arena events) and <span className="text-white font-bold">DAPFLIX</span> (viral social reels & kinetic editing).
               </p>
             </div>
 
-            {/* Studio Selection Switcher */}
-            <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl flex-wrap">
+            {/* Studio Selection Switcher - One Unified Active Slider */}
+            <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto shrink-0 shadow-xl">
               <button
+                type="button"
                 onClick={() => setSelectedStudio('EKRAAHEE')}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
                   selectedStudio === 'EKRAAHEE'
-                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black scale-105'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-amber-400 text-black shadow-lg font-black'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                 }`}
               >
                 <Youtube className="w-3.5 h-3.5" /> 1. Ekraahee YouTube Cinema
               </button>
 
               <button
+                type="button"
                 onClick={() => setSelectedStudio('DAPFLIX')}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-2 ${
                   selectedStudio === 'DAPFLIX'
-                    ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-lg shadow-pink-500/20 scale-105'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-amber-400 text-black shadow-lg font-black'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                 }`}
               >
                 <Instagram className="w-3.5 h-3.5" /> 2. DAPFLIX Reels
               </button>
-
-              <button
-                onClick={() => setSelectedStudio('BOTH')}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
-                  selectedStudio === 'BOTH'
-                    ? 'bg-white text-black shadow-lg scale-105'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5" /> Both Studios
-              </button>
             </div>
           </div>
 
-          {/* Render The Chosen Interactive Player(s) */}
-          <div className="space-y-10">
-            {/* 1. Ekraahee Films YouTube Cinema Stage (FIRST) */}
-            {(selectedStudio === 'EKRAAHEE' || selectedStudio === 'BOTH') && (
+          {/* SINGLE CINEMA SLIDER STAGE */}
+          <div className="space-y-4">
+            {selectedStudio === 'EKRAAHEE' ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-red-400">
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
                       Studio 01: Ekraahee Films — 4K YouTube Commercial Cinema Showcase
                     </span>
                   </div>
@@ -278,7 +288,7 @@ export const PortfolioPage: React.FC = () => {
                     href="https://www.youtube.com/@EkRaaheefilms"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
+                    className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors"
                   >
                     <Youtube className="w-3.5 h-3.5" /> @EkRaaheefilms on YouTube ↗
                   </a>
@@ -288,30 +298,60 @@ export const PortfolioPage: React.FC = () => {
                   <EkraaheeCinemaSlider hideHeader={true} showFullLink={true} />
                 </div>
               </div>
-            )}
-
-            {/* 2. DAPFLIX Interactive Reel Console (SECOND) */}
-            {(selectedStudio === 'DAPFLIX' || selectedStudio === 'BOTH') && (
+            ) : (
               <div className="space-y-3">
-                <div className="flex items-center justify-between px-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400">
-                      Studio 02: DAPFLIX — Viral Social Reels & Visual Timeline Console
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
+                      Studio 02: DAPFLIX — {dapflixMode === 'REELS' ? 'Viral Social Reels & Visual Timeline' : '4K Cinema Commercial Films'}
                     </span>
                   </div>
-                  <a
-                    href="https://www.instagram.com/dapflix/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-zinc-400 hover:text-pink-400 flex items-center gap-1 transition-colors"
-                  >
-                    @dapflix on Instagram ↗
-                  </a>
+
+                  <div className="flex items-center gap-2.5">
+                    {/* Sub-mode switcher inside DAPFLIX */}
+                    <div className="flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
+                      <button
+                        type="button"
+                        onClick={() => setDapflixMode('REELS')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                          dapflixMode === 'REELS'
+                            ? 'bg-amber-400 text-black font-black shadow-md'
+                            : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        <Instagram className="w-3 h-3" /> Viral Reels (9:16)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDapflixMode('CINEMA')}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                          dapflixMode === 'CINEMA'
+                            ? 'bg-amber-400 text-black font-black shadow-md'
+                            : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        <Film className="w-3 h-3" /> 4K Cinema (16:9)
+                      </button>
+                    </div>
+
+                    <a
+                      href="https://www.instagram.com/dapflix/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold text-zinc-400 hover:text-amber-400 flex items-center gap-1 transition-colors shrink-0"
+                    >
+                      <Instagram className="w-3.5 h-3.5 text-amber-400" /> @dapflix ↗
+                    </a>
+                  </div>
                 </div>
 
                 <div className="rounded-3xl bg-zinc-950 border border-zinc-800/80 p-4 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur">
-                  <DapflixReelsShowcase hideHeader={true} />
+                  {dapflixMode === 'REELS' ? (
+                    <DapflixReelsShowcase hideHeader={true} />
+                  ) : (
+                    <DapflixCinemaSlider hideHeader={true} />
+                  )}
                 </div>
               </div>
             )}
@@ -321,15 +361,15 @@ export const PortfolioPage: React.FC = () => {
 
       {/* 4. NEWS WEBSITES SPOTLIGHT (When News filter is active) */}
       {filter === 'NEWS' && (
-        <div className="relative rounded-3xl bg-gradient-to-b from-zinc-900 via-zinc-950 to-black border border-red-500/30 overflow-hidden shadow-2xl backdrop-blur p-6 sm:p-10 space-y-8">
-          {/* Subtle Ambient Red Glow */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative rounded-3xl bg-gradient-to-b from-zinc-900 via-zinc-950 to-black border border-amber-400/30 overflow-hidden shadow-2xl backdrop-blur p-6 sm:p-10 space-y-8">
+          {/* Subtle Ambient Amber Glow */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Column: Editorial Info & Live Links */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-red-950/80 text-red-400 border border-red-800/50 backdrop-blur">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Live Regional News Networks
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-amber-400/10 text-amber-400 border border-amber-400/30 backdrop-blur">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" /> Live Regional News Networks
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-black text-white font-display uppercase tracking-tight leading-tight">
@@ -343,7 +383,7 @@ export const PortfolioPage: React.FC = () => {
               {/* High-Impact Stat Chips */}
               <div className="grid grid-cols-3 gap-3 pt-1">
                 <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
-                  <div className="text-lg sm:text-2xl font-black text-red-500 font-mono">9.8M+</div>
+                  <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono">9.8M+</div>
                   <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">Reader Surges</div>
                 </div>
                 <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
@@ -351,7 +391,7 @@ export const PortfolioPage: React.FC = () => {
                   <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">AMP Mobile Speed</div>
                 </div>
                 <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 text-center">
-                  <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">99.99%</div>
+                  <div className="text-lg sm:text-2xl font-black text-white font-mono">99.99%</div>
                   <div className="text-[10px] uppercase font-bold text-zinc-400 font-mono">Live Uptime</div>
                 </div>
               </div>
@@ -359,32 +399,32 @@ export const PortfolioPage: React.FC = () => {
               {/* 3 Live Client Portal Links */}
               <div className="space-y-2.5 pt-2">
                 <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-red-500" /> Live Production Media Deployments:
+                  <Globe className="w-3.5 h-3.5 text-amber-400" /> Live Production Media Deployments:
                 </div>
                 <div className="flex flex-wrap gap-2.5">
                   <a
                     href="https://lokjanexpress.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-amber-400 hover:text-amber-400 transition-all shadow-lg hover:scale-105"
                   >
-                    <span className="w-2 h-2 rounded-full bg-red-500" /> 1. lokjanexpress.com ↗
+                    <span className="w-2 h-2 rounded-full bg-amber-400" /> 1. lokjanexpress.com ↗
                   </a>
                   <a
                     href="https://gangakhabar.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-amber-400 hover:text-amber-400 transition-all shadow-lg hover:scale-105"
                   >
-                    <span className="w-2 h-2 rounded-full bg-red-500" /> 2. gangakhabar.com ↗
+                    <span className="w-2 h-2 rounded-full bg-amber-400" /> 2. gangakhabar.com ↗
                   </a>
                   <a
                     href="https://52garhsamachar.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-red-500 hover:text-red-400 transition-all shadow-lg hover:scale-105"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold hover:border-amber-400 hover:text-amber-400 transition-all shadow-lg hover:scale-105"
                   >
-                    <span className="w-2 h-2 rounded-full bg-red-500" /> 3. 52garhsamachar.com ↗
+                    <span className="w-2 h-2 rounded-full bg-amber-400" /> 3. 52garhsamachar.com ↗
                   </a>
                 </div>
               </div>
@@ -403,7 +443,7 @@ export const PortfolioPage: React.FC = () => {
                 {/* Live Floating Status Overlay */}
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-xl bg-zinc-950/90 border border-zinc-800 backdrop-blur-md">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping" />
                     <span className="text-xs font-mono font-bold text-white uppercase">Real-Time Editorial Engine</span>
                   </div>
                   <span className="text-[11px] font-mono text-amber-400 font-bold">Cloudflare Edge CDN</span>
@@ -548,20 +588,19 @@ export const PortfolioPage: React.FC = () => {
         </div>
       )}
 
-      {/* 5. WORK SHOWCASE CARDS GRID */}
-      <div className="space-y-6">
-        <div className="flex justify-between items-center px-1">
-          <h3 className="text-xl font-bold text-white font-display uppercase tracking-tight">
-            {filter === 'VIDEO' ? 'Video Production & Commercial Deliverables' :
-             filter === 'NEWS' ? 'Live News Websites & Media Portals' :
-             filter === 'CRM' ? 'Enterprise CRM & SaaS Systems' :
-             filter === 'EVENTS' ? 'Live Events & Arena Production' :
-             'Complete Work Portfolio & Case Studies'}
-          </h3>
-          <span className="text-xs font-mono text-zinc-400">
-            Showing {filteredProjects.length} Projects
-          </span>
-        </div>
+      {/* 5. WORK SHOWCASE CARDS GRID (Displayed for News, CRM, and Events) */}
+      {filter !== 'VIDEO' && (
+        <div className="space-y-6">
+          <div className="flex justify-between items-center px-1">
+            <h3 className="text-xl font-bold text-white font-display uppercase tracking-tight">
+              {filter === 'NEWS' ? 'Live News Websites & Media Portals' :
+               filter === 'CRM' ? 'Enterprise CRM & SaaS Systems' :
+               'Live Events & Arena Production'}
+            </h3>
+            <span className="text-xs font-mono text-zinc-400">
+              Showing {filteredProjects.length} Projects
+            </span>
+          </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((proj) => {
@@ -591,17 +630,17 @@ export const PortfolioPage: React.FC = () => {
                     <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
                     
                     {/* Client Tag */}
-                    <span className="hidden sm:inline-block absolute top-4 left-4 text-[10px] font-extrabold px-3 py-1 bg-zinc-950/90 text-white rounded-full border border-zinc-700 backdrop-blur">
+                    <span className="hidden sm:inline-block absolute top-4 left-4 max-w-[58%] truncate text-[10px] font-extrabold px-3 py-1 bg-zinc-950/90 text-white rounded-full border border-zinc-700 backdrop-blur" title={proj.client}>
                       {proj.client}
                     </span>
 
                     {/* Type / Category Badge */}
                     {isNews ? (
-                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-red-600 text-white rounded-full font-mono items-center gap-1 shadow-lg">
+                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-white text-black rounded-full font-mono items-center gap-1 shadow-lg">
                         <Newspaper className="w-3 h-3" /> NEWS PORTAL ↗
                       </span>
                     ) : isVideo ? (
-                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-purple-500 text-white rounded-full font-mono items-center gap-1 shadow-lg">
+                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-amber-400 text-black rounded-full font-mono items-center gap-1 shadow-lg">
                         <Video className="w-3 h-3" /> VIDEO REELS ↗
                       </span>
                     ) : isEvent ? (
@@ -609,7 +648,7 @@ export const PortfolioPage: React.FC = () => {
                         <Calendar className="w-3 h-3" /> EVENT CINEMA ↗
                       </span>
                     ) : (
-                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-emerald-400 text-black rounded-full font-mono items-center gap-1 shadow-lg">
+                      <span className="hidden sm:inline-flex absolute top-4 right-4 text-[10px] font-extrabold px-3 py-1 bg-white text-black rounded-full font-mono items-center gap-1 shadow-lg">
                         <Server className="w-3 h-3" /> LIVE HOSTED ↗
                       </span>
                     )}
@@ -661,7 +700,7 @@ export const PortfolioPage: React.FC = () => {
                             {proj.client === 'Ekraahee Films' ? 'YouTube Client Films (Click to Play)' : 'Featured Video Reels'}
                           </span>
                           {proj.client === 'Ekraahee Films' && (
-                            <span className="text-[9px] font-bold text-red-400 flex items-center gap-1 font-mono">
+                            <span className="text-[9px] font-bold text-amber-400 flex items-center gap-1 font-mono">
                               <Youtube className="w-3 h-3" /> YouTube 4K
                             </span>
                           )}
@@ -753,9 +792,9 @@ export const PortfolioPage: React.FC = () => {
                         href={proj.youtube_url || "https://www.youtube.com/@EkRaaheefilms"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-red-600 hover:bg-red-500 text-white font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-red-600/25"
+                        className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-amber-400/25"
                       >
-                        <Youtube className="w-4 h-4" /> Watch on YouTube (@EkRaaheefilms) ↗
+                        <Youtube className="w-4 h-4 text-black" /> Watch on YouTube (@EkRaaheefilms) ↗
                       </a>
                       {proj.instagram_url && (
                         <a
@@ -764,7 +803,7 @@ export const PortfolioPage: React.FC = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-zinc-950 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 text-[11px] font-bold tracking-wider transition-all"
                         >
-                          <Instagram className="w-3.5 h-3.5 text-pink-400" /> Ekraahee on Instagram ↗
+                          <Instagram className="w-3.5 h-3.5 text-amber-400" /> Ekraahee on Instagram ↗
                         </a>
                       )}
                     </div>
@@ -773,7 +812,7 @@ export const PortfolioPage: React.FC = () => {
                       href={proj.instagram_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-extrabold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-xl shadow-pink-500/10"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-xl shadow-amber-400/10"
                     >
                       <Instagram className="w-4 h-4" /> OUR WORK ↗
                     </a>
@@ -782,7 +821,7 @@ export const PortfolioPage: React.FC = () => {
                       href={proj.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gradient-to-r from-red-600 to-amber-600 text-white font-black text-xs uppercase tracking-wider hover:from-red-500 hover:to-amber-500 transition-all shadow-xl shadow-red-600/20"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-white hover:bg-zinc-200 text-black font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-white/20"
                     >
                       <Globe className="w-4 h-4" /> Visit Live News Website <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -822,7 +861,7 @@ export const PortfolioPage: React.FC = () => {
                         rel={proj.live_url.startsWith('http') ? "noopener noreferrer" : undefined}
                         className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10"
                       >
-                        <Server className="w-4 h-4 text-emerald-600" /> {proj.admin_url ? 'Guest Booking Engine' : proj.live_url.startsWith('http') ? 'Visit Live Demo' : 'Explore Platform Overview'} <ExternalLink className="w-3.5 h-3.5" />
+                        <Server className="w-4 h-4 text-amber-500" /> {proj.live_button_label || (proj.id.includes('admit') ? 'Student Admission Portal' : proj.admin_url ? 'Guest Booking Engine' : proj.live_url.startsWith('http') ? 'Visit Live Demo' : 'Explore Platform Overview')} <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       {proj.admin_url && (
                         <a
@@ -831,7 +870,7 @@ export const PortfolioPage: React.FC = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all"
                         >
-                          <Layers className="w-3.5 h-3.5 text-amber-400" /> Host & CRM Admin Console <ExternalLink className="w-3.5 h-3.5" />
+                          <Layers className="w-3.5 h-3.5 text-amber-400" /> {proj.admin_button_label || (proj.id.includes('admit') ? 'Host & CRM Admin Counsellor' : 'Host & CRM Admin Console')} <ExternalLink className="w-3.5 h-3.5" />
                         </a>
                       )}
                     </div>
@@ -851,6 +890,7 @@ export const PortfolioPage: React.FC = () => {
           })}
         </div>
       </div>
+      )}
 
       {/* 6. INTERACTIVE EMBEDDED VIDEO MODAL PLAYER */}
       {activeReelModal && (

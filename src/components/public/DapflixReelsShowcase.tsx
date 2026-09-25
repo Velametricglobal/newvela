@@ -272,11 +272,11 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
       {/* 1. INSTAGRAM PROFILE CARD & INTRO */}
       {!hideHeader && (
         <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-zinc-950 via-zinc-900 to-black border border-zinc-800 shadow-2xl overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-pink-600/20 via-purple-600/20 to-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
           
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-              <div className="p-1 rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 shadow-xl shrink-0">
+              <div className="p-1 rounded-full bg-amber-400 shadow-xl shrink-0">
                 <div className="p-1 rounded-full bg-zinc-950">
                   <img
                     src="https://dapflix.com/wp-content/uploads/sb-instagram-feed-images/dapflix.webp"
@@ -293,11 +293,11 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
                 <div className="flex items-center gap-2">
                   <h3 className="text-xl sm:text-2xl font-black text-white font-display tracking-tight flex items-center gap-2">
                     @dapflix
-                    <span className="w-4 h-4 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black" title="Verified Creator">
+                    <span className="w-4 h-4 rounded-full bg-amber-400 text-black flex items-center justify-center text-[10px] font-black" title="Verified Creator">
                       ✓
                     </span>
                   </h3>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-pink-500/10 text-pink-400 border border-pink-500/30">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-400/10 text-amber-400 border border-amber-400/30">
                     Instagram Creator
                   </span>
                 </div>
@@ -311,7 +311,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
                     <Film className="w-3.5 h-3.5 text-amber-400" /> 1,850+ Reels & Videos
                   </span>
                   <span className="flex items-center gap-1.5 font-bold text-white">
-                    <Eye className="w-3.5 h-3.5 text-pink-400" /> 100K+ Reel Reach
+                    <Eye className="w-3.5 h-3.5 text-amber-400" /> 100K+ Reel Reach
                   </span>
                   <span className="text-zinc-500 font-mono">📍 Uttarkashi & Dehradun</span>
                 </div>
@@ -323,7 +323,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
                 href="https://www.instagram.com/dapflix/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-lg shadow-pink-500/20 transition-all hover:scale-105"
+                className="px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-lg shadow-amber-400/20 transition-all hover:scale-105"
               >
                 <Instagram className="w-4 h-4" /> Follow @dapflix ↗
               </a>
@@ -469,7 +469,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
             } inset-x-0 items-center justify-between z-30 pointer-events-none`}>
               <div className="flex items-center gap-2 pointer-events-auto">
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-black/70 backdrop-blur-md text-white border border-white/15 flex items-center gap-1 shadow-md">
-                  <Instagram className="w-3 h-3 text-pink-400" /> Reels
+                  <Instagram className="w-3 h-3 text-amber-400" /> Reels
                 </span>
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/70 backdrop-blur-md text-amber-400 border border-white/15 hidden sm:inline shadow-md font-mono">
                   {isLandscape ? '16:9 Landscape' : '9:16 Vertical'}
@@ -519,7 +519,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
               >
                 <div className={`p-2.5 rounded-full backdrop-blur-md border shadow-lg transition-transform active:scale-125 ${
                   likedReels[activeReel.id]
-                    ? 'bg-rose-600/90 text-white border-rose-500'
+                    ? 'bg-amber-400 text-black border-amber-400'
                     : 'bg-black/70 text-white border-white/20 group-hover/like:bg-black/90'
                 }`}>
                   <Heart className={`w-4 sm:w-5 h-4 sm:h-5 ${likedReels[activeReel.id] ? 'fill-white' : ''}`} />
@@ -561,7 +561,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
                 className="flex flex-col items-center gap-1"
                 title="Watch on Instagram"
               >
-                <div className="p-2.5 rounded-full bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 text-white shadow-lg hover:scale-110 transition-transform">
+                <div className="p-2.5 rounded-full bg-amber-400 text-black shadow-lg hover:scale-110 transition-transform">
                   <ExternalLink className="w-4 sm:w-5 h-4 sm:h-5" />
                 </div>
                 <span className="text-[9px] font-black text-amber-300 drop-shadow uppercase font-mono">
@@ -597,7 +597,7 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
                     className="text-xs font-black text-white hover:text-amber-400 transition-colors flex items-center gap-1"
                   >
                     dapflix
-                    <span className="text-sky-400 text-[10px]">✓</span>
+                    <span className="text-amber-400 text-[10px]">✓</span>
                   </a>
                   <a
                     href="https://www.instagram.com/dapflix/"
@@ -641,11 +641,11 @@ export const DapflixReelsShowcase: React.FC<DapflixReelsShowcaseProps> = ({
             </h4>
             <div className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
               <span className="flex items-center gap-1">
-                <Eye className="w-3.5 h-3.5 text-pink-400" /> {activeReel.views} Views
+                <Eye className="w-3.5 h-3.5 text-amber-400" /> {activeReel.views} Views
               </span>
               <span className="text-zinc-600">•</span>
               <span className="flex items-center gap-1">
-                <Heart className="w-3.5 h-3.5 text-rose-400" /> {activeReel.likes} Likes
+                <Heart className="w-3.5 h-3.5 text-amber-400" /> {activeReel.likes} Likes
               </span>
             </div>
           </div>

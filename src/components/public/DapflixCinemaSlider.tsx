@@ -118,7 +118,7 @@ export const DapflixCinemaSlider: React.FC<DapflixCinemaSliderProps> = ({
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const activeVideo = DAPFLIX_VIDEOS[currentIndex];
+  const activeVideo = DAPFLIX_VIDEOS[currentIndex] || DAPFLIX_VIDEOS[0] || {};
 
   const handleNext = () => {
     setIsPlaying(false);
@@ -366,7 +366,7 @@ export const DapflixCinemaSlider: React.FC<DapflixCinemaSliderProps> = ({
               href={activeVideo.instagram_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-[10px] uppercase flex items-center gap-1 shadow-md hover:opacity-90 transition-opacity backdrop-blur-md"
+              className="px-3 py-1.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-[10px] uppercase flex items-center gap-1 shadow-md transition-all backdrop-blur-md"
             >
               <Instagram className="w-3.5 h-3.5" /> Instagram ↗
             </a>
@@ -412,7 +412,7 @@ export const DapflixCinemaSlider: React.FC<DapflixCinemaSliderProps> = ({
               href={activeVideo.instagram_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-[10px] uppercase flex items-center gap-1 shadow"
+              className="px-2.5 py-1.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-[10px] uppercase flex items-center gap-1 shadow"
             >
               <Instagram className="w-3 h-3" /> Instagram ↗
             </a>

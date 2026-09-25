@@ -258,7 +258,7 @@ export const CaseStudyDetailPage: React.FC = () => {
 
           {/* Section 2: The Impact (Volumetric Growth) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-zinc-900/60 border border-zinc-800/80 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
               <TrendingUp className="w-4 h-4" /> The Impact & Volumetric Growth
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white font-display">
@@ -271,7 +271,7 @@ export const CaseStudyDetailPage: React.FC = () => {
 
           {/* Section 3: Key Performance Metrics & Keywords */}
           <div className="p-6 sm:p-8 rounded-3xl bg-zinc-900/60 border border-zinc-800/80 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
               <CheckCircle2 className="w-4 h-4" /> Key Performance Outcomes
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white font-display">

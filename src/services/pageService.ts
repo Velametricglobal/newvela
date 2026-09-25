@@ -272,7 +272,7 @@ export const defaultHomeSections: PageSection[] = [
           company: 'Apex Wealth Management',
           youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
           thumbnail: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
-          quote: 'Velametric transformed our entire digital acquisition funnel and secured our $2M government subsidy loan.'
+          quote: 'Velametric transformed our entire digital acquisition funnel and secured our ₹15 Cr government subsidy loan.'
         },
         {
           id: 'vt-2',

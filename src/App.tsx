@@ -5,6 +5,7 @@ import { AudioProvider } from './context/AudioContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
 import { LightDotCursor } from './components/common/LightDotCursor';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 import { PublicLayout } from './components/public/PublicLayout';
 import { HomePage } from './pages/public/HomePage';
@@ -24,6 +25,7 @@ import { DocumentGeneratorPage } from './pages/public/DocumentGeneratorPage';
 import { EventRegistrationPage } from './pages/public/EventRegistrationPage';
 import { SponsorRegistrationPage } from './pages/public/SponsorRegistrationPage';
 import { PartnerShowcasePage } from './pages/public/PartnerShowcasePage';
+import { CreatorPortfolioPage } from './pages/public/CreatorPortfolioPage';
 import { LegalPages } from './pages/public/LegalPages';
 
 import { AdminLayout } from './components/admin/AdminLayout';
@@ -51,6 +53,10 @@ import { DocumentStudioAdmin } from './pages/admin/DocumentStudioAdmin';
 import { DelegationAdmin } from './pages/admin/DelegationAdmin';
 import { BlogCMS } from './pages/admin/BlogCMS';
 import { InternalCommunicationAdmin } from './pages/admin/InternalCommunicationAdmin';
+import { TalentPortfolioPage } from './pages/public/TalentPortfolioPage';
+import { TalentProfilePage } from './pages/public/TalentProfilePage';
+import { TalentDashboardPage } from './pages/talent/TalentDashboardPage';
+import { TalentManagementAdmin } from './pages/admin/TalentManagementAdmin';
 
 // ScrollToTop Component: Always scroll to top of page upon route or anchor button click
 const ScrollToTop = () => {
@@ -64,7 +70,7 @@ const ScrollToTop = () => {
         return;
       }
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [pathname, hash]);
 
   return null;
@@ -72,13 +78,14 @@ const ScrollToTop = () => {
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <CurrencyProvider>
-          <AudioProvider>
-            <LightDotCursor />
-            <ScrollToTop />
-            <Routes>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <CurrencyProvider>
+            <AudioProvider>
+              <LightDotCursor />
+              <ScrollToTop />
+              <Routes>
               {/* PUBLIC WEBSITE ROUTES (NO LOGIN REQUIRED) */}
               <Route path="/" element={<PublicLayout />}>
                 <Route index element={<HomePage />} />
@@ -109,6 +116,24 @@ export const App: React.FC = () => {
                 <Route path="event-registration" element={<EventRegistrationPage />} />
                 <Route path="sponsor-registration" element={<SponsorRegistrationPage />} />
                 <Route path="become-a-sponsor" element={<SponsorRegistrationPage />} />
+                {/* MODEL & CREATOR SHOWCASE SYSTEM ROUTES */}
+                <Route path="models" element={<TalentPortfolioPage defaultCategory="model" isModelFocused={true} defaultTitle="Elite Models & Fashion Roster" />} />
+                <Route path="models/:id" element={<TalentProfilePage />} />
+                <Route path="model/:id" element={<TalentProfilePage />} />
+                <Route path="model-portfolio" element={<CreatorPortfolioPage />} />
+                <Route path="talent-showcase" element={<CreatorPortfolioPage />} />
+                <Route path="creator-portfolio" element={<CreatorPortfolioPage />} />
+                <Route path="work-showcase" element={<CreatorPortfolioPage />} />
+                
+                {/* TALENT PORTFOLIO SYSTEM ROUTES */}
+                <Route path="talent-portfolio" element={<TalentPortfolioPage />} />
+                <Route path="talents" element={<TalentPortfolioPage />} />
+                <Route path="talent" element={<TalentPortfolioPage />} />
+                <Route path="talent/:id" element={<TalentProfilePage />} />
+                <Route path="talent-dashboard" element={<TalentDashboardPage />} />
+                <Route path="talent-login" element={<TalentDashboardPage defaultTab="login" />} />
+                <Route path="talent-register" element={<TalentDashboardPage defaultTab="register" />} />
+                
                 <Route path="privacy-policy" element={<LegalPages />} />
                 <Route path="terms-and-conditions" element={<LegalPages />} />
                 <Route path="payment-terms" element={<LegalPages />} />
@@ -117,6 +142,11 @@ export const App: React.FC = () => {
               {/* PUBLIC LOGIN ROUTES */}
               <Route path="/admin/login" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
+              
+              {/* DIRECT TALENT DASHBOARD & AUTH ROUTES */}
+              <Route path="/talent-dashboard" element={<TalentDashboardPage />} />
+              <Route path="/talent-login" element={<TalentDashboardPage defaultTab="login" />} />
+              <Route path="/talent-register" element={<TalentDashboardPage defaultTab="register" />} />
 
               {/* MANDATORY AUTHENTICATED PRIVATE ADMIN & DASHBOARD ROUTES */}
               <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
@@ -131,6 +161,10 @@ export const App: React.FC = () => {
                 <Route path="events" element={<EventsAdmin />} />
                 <Route path="delegation" element={<DelegationAdmin />} />
                 <Route path="task-delegation" element={<DelegationAdmin />} />
+                
+                {/* TALENT MANAGEMENT ADMIN */}
+                <Route path="talents" element={<TalentManagementAdmin />} />
+                <Route path="talent-management" element={<TalentManagementAdmin />} />
                 
                 {/* LEADS & CRM ROUTES */}
                 <Route path="leads" element={<LeadsCRM />} />
@@ -178,12 +212,13 @@ export const App: React.FC = () => {
               </Route>
 
               {/* FALLBACK CATCH-ALL ROUTE */}
-              <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AudioProvider>
         </CurrencyProvider>
       </AuthProvider>
     </BrowserRouter>
+    </ErrorBoundary>
   );
 };
 export default App;

@@ -99,7 +99,7 @@ export const EkraaheeCinemaSlider: React.FC<EkraaheeCinemaSliderProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const activeVideo = EKRAAHEE_VIDEOS[currentIndex];
+  const activeVideo = EKRAAHEE_VIDEOS[currentIndex] || EKRAAHEE_VIDEOS[0] || {};
 
   const handleNext = () => {
     setIsPlaying(false);

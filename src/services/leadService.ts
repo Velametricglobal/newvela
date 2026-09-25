@@ -19,7 +19,7 @@ export const INITIAL_LEADS: Lead[] = [
     service_interest: 'Government Subsidy Loans Consultancy',
     package_name: 'Enterprise Consultancy Case',
     budget_range: '₹5 Lakh+',
-    message: 'Looking for DPR documentation and government subsidy loan guidance for our $2M manufacturing expansion.',
+    message: 'Looking for DPR documentation and government subsidy loan guidance for our ₹15 Cr manufacturing expansion.',
     status: 'QUALIFIED',
     priority: 'HIGH',
     source_name: 'Website Package System',

@@ -38,6 +38,7 @@ export const INITIAL_SETUP_AGENT_USERS: Record<string, InitialSetupUserRecord> =
     department: 'Operations',
     permissions: [
       '/admin/dashboard', '/admin/analytics', '/admin/security',
+      '/admin/talents', '/admin/talent-management',
       '/admin/services', '/admin/homepage-builder', '/admin/portfolio', '/admin/case-studies', '/admin/testimonials', '/admin/pages',
       '/admin/leads', '/admin/pipeline', '/admin/follow-ups', '/admin/clients',
       '/admin/proposals', '/admin/invoices', '/admin/payments', '/admin/documents',
@@ -89,6 +90,7 @@ export const INITIAL_SETUP_AGENT_USERS: Record<string, InitialSetupUserRecord> =
     department: 'Digital Marketing',
     permissions: [
       '/admin/dashboard',
+      '/admin/talents', '/admin/talent-management',
       '/admin/campaigns', '/admin/marketing/reels', '/admin/communication',
       '/admin/blog', '/admin/pages', '/admin/homepage-builder',
       '/admin/case-studies', '/admin/testimonials'
@@ -106,6 +108,7 @@ export const INITIAL_SETUP_AGENT_USERS: Record<string, InitialSetupUserRecord> =
     department: 'Web & Content',
     permissions: [
       '/admin/dashboard',
+      '/admin/talents', '/admin/talent-management',
       '/admin/services', '/admin/homepage-builder', '/admin/portfolio', '/admin/case-studies', '/admin/testimonials', '/admin/pages',
       '/admin/blog', '/admin/media', '/admin/notifications'
     ],
@@ -122,6 +125,7 @@ export const INITIAL_SETUP_AGENT_USERS: Record<string, InitialSetupUserRecord> =
     department: 'Events & Culture',
     permissions: [
       '/admin/dashboard',
+      '/admin/talents', '/admin/talent-management',
       '/admin/events', '/admin/services', '/admin/portfolio', '/admin/media'
     ],
     must_change_password: true,

@@ -35,7 +35,7 @@ export const ConsultationBookingPage: React.FC = () => {
 
   // Navigation & Scroll
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   // Calendar State
@@ -303,10 +303,10 @@ export const ConsultationBookingPage: React.FC = () => {
               <Clock className="w-3.5 h-3.5 text-amber-400" /> 30-Min Deep Dive
             </span>
             <span className="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" /> NDA & Privacy Protected
+              <Shield className="w-3.5 h-3.5 text-amber-400" /> NDA & Privacy Protected
             </span>
             <span className="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
-              <Check className="w-3.5 h-3.5 text-cyan-400" /> Actionable Project Blueprint
+              <Check className="w-3.5 h-3.5 text-amber-400" /> Actionable Project Blueprint
             </span>
           </div>
         </div>
@@ -315,7 +315,7 @@ export const ConsultationBookingPage: React.FC = () => {
         {bookingConfirmed ? (
           <div className="max-w-2xl mx-auto bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl animate-in zoom-in-95 duration-300 space-y-8">
             <div className="text-center space-y-3">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-xl">
+              <div className="w-16 h-16 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center justify-center mx-auto shadow-xl">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
@@ -347,13 +347,13 @@ export const ConsultationBookingPage: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-zinc-500">MEETING CHANNEL</span>
-                <span className="text-cyan-400 font-bold">
+                <span className="text-amber-400 font-bold">
                   {MEETING_MODES.find(m => m.id === selectedMode)?.label}
                 </span>
               </div>
               <div className="flex justify-between items-center pt-2 border-t border-zinc-800/80">
                 <span className="text-zinc-500">PRIMARY TOPIC</span>
-                <span className="text-emerald-400 font-bold truncate max-w-[200px]">
+                <span className="text-white font-bold truncate max-w-[200px]">
                   {TOPICS.find(t => t.id === selectedTopic)?.label}
                 </span>
               </div>
@@ -368,13 +368,13 @@ export const ConsultationBookingPage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="py-3 px-4 rounded-xl bg-white text-black font-extrabold text-xs flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all shadow-lg"
                 >
-                  <CalendarIcon className="w-4 h-4 text-amber-600" /> Add to Google Calendar
+                  <CalendarIcon className="w-4 h-4 text-black" /> Add to Google Calendar
                 </a>
                 <button
                   onClick={downloadIcsFile}
                   className="py-3 px-4 rounded-xl bg-zinc-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 hover:bg-zinc-700 transition-all border border-zinc-700"
                 >
-                  <Download className="w-4 h-4 text-cyan-400" /> Download iCal / Outlook
+                  <Download className="w-4 h-4 text-amber-400" /> Download iCal / Outlook
                 </button>
               </div>
 
@@ -384,9 +384,9 @@ export const ConsultationBookingPage: React.FC = () => {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-emerald-500/25 transition-all"
+                className="w-full py-3 px-4 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-amber-400/25 transition-all"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-400" /> Confirm Directly On WhatsApp (+91 98765 43210)
+                <MessageCircle className="w-4 h-4 text-amber-400" /> Confirm Directly On WhatsApp (+91 98765 43210)
               </a>
             </div>
 
@@ -426,7 +426,7 @@ export const ConsultationBookingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 uppercase font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/25 uppercase font-bold">
                   Live Slots Open
                 </span>
               </div>
@@ -604,8 +604,8 @@ export const ConsultationBookingPage: React.FC = () => {
               </div>
 
               {errorMessage && (
-                <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
+                <div className="p-3.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-amber-400" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -615,7 +615,7 @@ export const ConsultationBookingPage: React.FC = () => {
                 {/* TOPIC SELECTOR */}
                 <div>
                   <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                    Primary Consultation Topic <span className="text-rose-400">*</span>
+                    Primary Consultation Topic <span className="text-amber-400">*</span>
                   </label>
                   <select
                     value={selectedTopic}
@@ -636,7 +636,7 @@ export const ConsultationBookingPage: React.FC = () => {
                 {/* NAME & EMAIL */}
                 <div>
                   <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                    Full Name <span className="text-rose-400">*</span>
+                    Full Name <span className="text-amber-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -650,7 +650,7 @@ export const ConsultationBookingPage: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                    Business Email Address <span className="text-rose-400">*</span>
+                    Business Email Address <span className="text-amber-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -669,7 +669,7 @@ export const ConsultationBookingPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                      WhatsApp / Phone <span className="text-rose-400">*</span>
+                      WhatsApp / Phone <span className="text-amber-400">*</span>
                     </label>
                     <input
                       type="tel"

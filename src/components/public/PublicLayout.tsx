@@ -4,13 +4,12 @@ import { SiteSettings, Service, ServiceCategory } from '../../types/database.typ
 import { settingsService } from '../../services/settingsService';
 import { serviceService } from '../../services/serviceService';
 import { BackgroundMusicPlayer } from './BackgroundMusicPlayer';
-import { CurrencySelector } from '../common/CurrencySelector';
 import { 
   Laptop, Phone, Mail, ArrowRight, ChevronDown, ChevronRight, Menu, X, User, Video, 
   MessageSquare, Send, Sparkles, Code2, Megaphone, Palette, Newspaper, Landmark, 
   Calendar, School, Building2, ShoppingBag, Layers, ArrowUpRight,
   Building, Briefcase, BookOpen, ShieldCheck, FileText,
-  Compass, LineChart, PenTool, Layout, Cpu, Tv, Users, Shield, Award, FileSpreadsheet, Home, Globe, Film
+  Compass, LineChart, PenTool, Layout, Cpu, Tv, Users, Shield, Award, FileSpreadsheet, Home, Globe, Film, Camera
 } from 'lucide-react';
 
 export const PublicLayout: React.FC = () => {
@@ -119,18 +118,18 @@ export const PublicLayout: React.FC = () => {
 
   const getServiceBadge = (srv: Service) => {
     const s = (srv.slug + ' ' + srv.name).toLowerCase();
-    if (s.includes('subsidy')) return { text: 'Up to 25% Refund', color: 'bg-amber-400/20 text-amber-300 border-amber-400/30' };
-    if (s.includes('crm') || s.includes('erp') || s.includes('custom-web-app')) return { text: 'Custom Architecture', color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' };
-    if (s.includes('shopify')) return { text: 'E-Commerce', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' };
-    if (s.includes('rni')) return { text: 'Govt Reg', color: 'bg-purple-500/20 text-purple-300 border-purple-500/30' };
-    if (s.includes('wire') || s.includes('press')) return { text: '500+ Outlets', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' };
-    if (s.includes('audit')) return { text: '360° Audit', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' };
-    if (s.includes('logo') || s.includes('branding')) return { text: 'Brand Identity', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' };
-    if (s.includes('ui') || s.includes('ux')) return { text: 'Figma System', color: 'bg-violet-500/20 text-violet-300 border-violet-500/30' };
-    if (s.includes('business-loan') || s.includes('cash-credit')) return { text: 'Fast Sanction', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' };
-    if (s.includes('personal-home-loans')) return { text: 'Lowest ROI', color: 'bg-amber-500/20 text-amber-300 border-amber-500/30' };
-    if (s.includes('studio') || s.includes('channel')) return { text: 'Broadcast Setup', color: 'bg-red-500/20 text-red-300 border-red-500/30' };
-    if (s.includes('digital-management')) return { text: 'End-to-End', color: 'bg-teal-500/20 text-teal-300 border-teal-500/30' };
+    if (s.includes('subsidy')) return { text: 'Up to 25% Refund', color: 'bg-amber-400/20 text-amber-300 border-amber-400/40' };
+    if (s.includes('crm') || s.includes('erp') || s.includes('custom-web-app')) return { text: 'Custom Architecture', color: 'bg-amber-400/15 text-amber-300 border-amber-400/30' };
+    if (s.includes('shopify')) return { text: 'E-Commerce', color: 'bg-zinc-800 text-white border-zinc-700' };
+    if (s.includes('rni')) return { text: 'Govt Reg', color: 'bg-amber-400/15 text-amber-300 border-amber-400/30' };
+    if (s.includes('wire') || s.includes('press')) return { text: '500+ Outlets', color: 'bg-white/10 text-white border-white/20' };
+    if (s.includes('audit')) return { text: '360° Audit', color: 'bg-amber-400/15 text-amber-300 border-amber-400/30' };
+    if (s.includes('logo') || s.includes('branding')) return { text: 'Brand Identity', color: 'bg-zinc-800 text-amber-300 border-zinc-700' };
+    if (s.includes('ui') || s.includes('ux')) return { text: 'Figma System', color: 'bg-white/10 text-white border-white/20' };
+    if (s.includes('business-loan') || s.includes('cash-credit')) return { text: 'Fast Sanction', color: 'bg-amber-400/20 text-amber-300 border-amber-400/40' };
+    if (s.includes('personal-home-loans')) return { text: 'Lowest ROI', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' };
+    if (s.includes('studio') || s.includes('channel')) return { text: 'Broadcast Setup', color: 'bg-white/10 text-white border-white/20' };
+    if (s.includes('digital-management')) return { text: 'End-to-End', color: 'bg-amber-400/15 text-amber-300 border-amber-400/30' };
     return null;
   };
 
@@ -195,17 +194,20 @@ export const PublicLayout: React.FC = () => {
         </div>
 
         {/* Header Content Container (Sits strictly at z-20 IN FRONT of the light) */}
-        <div className="relative z-20 max-w-[1360px] mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+        <div className="relative z-20 max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-3 xl:gap-6">
           
           {/* Velametric Signature Logo with Spotlight Backglow */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="font-extrabold text-xl sm:text-2xl tracking-tighter text-white font-display uppercase transition-all duration-200 group-hover:text-amber-300 group-hover:drop-shadow-[0_0_16px_rgba(251,191,36,0.7)]">
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-black text-sm shadow-md shadow-amber-400/25 group-hover:scale-105 group-hover:shadow-amber-400/50 transition-all duration-300">
+              V
+            </div>
+            <span className="font-extrabold text-lg sm:text-xl tracking-wider text-white font-display uppercase transition-all duration-200 group-hover:text-amber-300 group-hover:drop-shadow-[0_0_16px_rgba(251,191,36,0.7)]">
               VELAMETRIC
             </span>
           </Link>
 
           {/* Center Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-9">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {/* Products & Services Dropdown with Category & Sub-Category Organization */}
             <div
               className="relative"
@@ -214,9 +216,10 @@ export const PublicLayout: React.FC = () => {
             >
               <Link
                 to="/services"
-                className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] flex items-center gap-1.5 py-6 transition-all duration-200 hover:scale-105"
+                className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900/80 px-2.5 xl:px-3 py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap"
               >
-                Products & Services <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-amber-400' : ''}`} />
+                <span>Products & Services</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-amber-400' : ''}`} />
               </Link>
 
               {/* Desktop Organized Two-Pane Category & Sub-Category Mega Menu */}
@@ -397,10 +400,23 @@ export const PublicLayout: React.FC = () => {
               )}
             </div>
 
-            <Link to="/portfolio" className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all duration-200 hover:scale-105">
+            <Link
+              to="/portfolio"
+              className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900/80 px-2.5 xl:px-3 py-2 rounded-xl transition-all duration-200 whitespace-nowrap"
+            >
               Our Work
             </Link>
-            <Link to="/case-studies" className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all duration-200 hover:scale-105">
+            <Link
+              to="/talents"
+              className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900/80 px-2.5 xl:px-3 py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Talent Portfolio</span>
+            </Link>
+            <Link
+              to="/case-studies"
+              className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900/80 px-2.5 xl:px-3 py-2 rounded-xl transition-all duration-200 whitespace-nowrap"
+            >
               Case Studies
             </Link>
             {/* Important Links Dropdown */}
@@ -412,9 +428,10 @@ export const PublicLayout: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsImportantLinksOpen(!isImportantLinksOpen)}
-                className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] flex items-center gap-1.5 py-6 transition-all duration-200 hover:scale-105"
+                className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900/80 px-2.5 xl:px-3 py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap"
               >
-                Important Links <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isImportantLinksOpen ? 'rotate-180 text-amber-400' : ''}`} />
+                <span>Important Links</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isImportantLinksOpen ? 'rotate-180 text-amber-400' : ''}`} />
               </button>
 
               {/* Important Links Dropdown Menu */}
@@ -443,16 +460,16 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsImportantLinksOpen(false)}
                     className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
                   >
-                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-emerald-400 group-hover:text-black group-hover:border-emerald-400 transition-all shrink-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
                       <Briefcase className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors font-display">
+                        <span className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
                           Careers & WFH
                         </span>
-                        <span className="px-2 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] font-extrabold uppercase tracking-wider">
-                          🌱 FRESHERS WELCOME
+                        <span className="px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-mono text-[9px] font-extrabold uppercase tracking-wider">
+                          FRESHERS WELCOME
                         </span>
                       </div>
                       <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
@@ -466,15 +483,84 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsImportantLinksOpen(false)}
                     className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
                   >
-                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-cyan-400 group-hover:text-black group-hover:border-cyan-400 transition-all shrink-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
                       <BookOpen className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors font-display">
+                      <div className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
                         Resources & Insights
                       </div>
                       <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
                         Technical guides, agency playbooks & industry growth research
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/talents"
+                    onClick={() => setIsImportantLinksOpen(false)}
+                    className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
+                          Talent Portfolio & Discovery
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-mono text-[9px] font-extrabold uppercase tracking-wider">
+                          ELITE TALENT
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
+                        Discover & hire verified actors, models, singers, creators & athletes
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/models"
+                    onClick={() => setIsImportantLinksOpen(false)}
+                    className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
+                      <Camera className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
+                          Elite Models & Runway Directory
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-mono text-[9px] font-extrabold uppercase tracking-wider">
+                          MODELS
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
+                        Discover top runway models, comp cards, measurements & 8 portfolio templates
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/talent-showcase"
+                    onClick={() => setIsImportantLinksOpen(false)}
+                    className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
+                  >
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
+                      <Film className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
+                          Model & Influencer Showcase
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-mono text-[9px] font-extrabold uppercase tracking-wider">
+                          4 TEMPLATES
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
+                        Create custom comp-card & video portfolio profile with 4 presets
                       </div>
                     </div>
                   </Link>
@@ -502,15 +588,38 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsImportantLinksOpen(false)}
                     className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group"
                   >
-                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-purple-400 group-hover:text-black group-hover:border-purple-400 transition-all shrink-0 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center">
                       <ShieldCheck className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-white group-hover:text-purple-400 transition-colors font-display">
+                      <div className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
                         Legal & Compliance
                       </div>
                       <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
                         Privacy policy, client data security & service terms
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/document-generator"
+                    onClick={() => setIsImportantLinksOpen(false)}
+                    className="p-3 rounded-2xl hover:bg-zinc-900/90 transition-all flex items-start gap-3.5 group border-t border-zinc-800/40"
+                  >
+                    <div className="w-10 h-10 rounded-2xl bg-amber-950/30 border border-amber-400/40 text-amber-300 group-hover:bg-amber-400 group-hover:text-black group-hover:border-amber-400 transition-all shrink-0 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors font-display">
+                          Document Generator
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/15 text-amber-300 font-mono text-[9px] font-extrabold uppercase tracking-wider">
+                          FREE TOOL
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 mt-0.5 leading-snug">
+                        Generate invoices, NDA, agreements, quotes & receipts
                       </div>
                     </div>
                   </Link>
@@ -520,31 +629,33 @@ export const PublicLayout: React.FC = () => {
           </nav>
 
           {/* Right Action CTAs (Desktop) */}
-          <div className="hidden lg:flex items-center gap-2.5">
-            <CurrencySelector compact />
+          <div className="hidden lg:flex items-center gap-2 xl:gap-2.5 shrink-0">
             <Link
-              to="/free-trial"
-              className="text-xs font-bold text-amber-300 hover:text-black hover:bg-amber-400 transition-all duration-200 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/40 hover:border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.25)] hover:shadow-[0_0_25px_rgba(245,158,11,0.75)] hover:scale-105"
+              to="/document-generator"
+              className="text-xs font-bold text-amber-300 hover:text-black hover:bg-amber-400 transition-all duration-200 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400/10 border border-amber-400/30 hover:border-amber-300 shadow-sm whitespace-nowrap hover:scale-105"
+              title="Launch Document Generator"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Free Trial
+              <FileText className="w-3.5 h-3.5 text-amber-400" />
+              <span>Doc Generator</span>
             </Link>
             <Link
               to="/login"
-              className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white hover:border-amber-400/60 hover:shadow-[0_0_15px_rgba(245,158,11,0.35)] transition-all duration-200 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:scale-105"
+              className="text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 flex items-center gap-1.5 px-3 py-1.5 rounded-xl whitespace-nowrap hover:scale-105"
             >
-              <User className="w-3.5 h-3.5 text-amber-400" /> Log In
+              <User className="w-3.5 h-3.5 text-amber-400" />
+              <span>Log In</span>
             </Link>
             <Link
               to="/request-quote"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-extrabold text-black bg-white hover:bg-amber-400 hover:text-black transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-[0_0_25px_rgba(251,191,36,0.85)]"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black text-zinc-950 bg-white hover:bg-amber-400 hover:text-zinc-950 transition-all duration-200 transform hover:scale-105 shadow-md shadow-white/5 hover:shadow-amber-400/20 whitespace-nowrap active:scale-95"
             >
-              Get Started <ArrowRight className="w-3.5 h-3.5" />
+              <span>Get Started</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Mobile Right Bar: Currency Selector + Menu Toggle */}
+          {/* Mobile Right Bar: Menu Toggle */}
           <div className="flex items-center gap-2 lg:hidden">
-            <CurrencySelector compact />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-zinc-300 hover:text-white rounded-xl bg-zinc-900 border border-zinc-800"
@@ -655,6 +766,14 @@ export const PublicLayout: React.FC = () => {
             <Link to="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="block text-white py-2 border-b border-zinc-800/60">
               Our Work
             </Link>
+            <Link to="/talents" onClick={() => setIsMobileMenuOpen(false)} className="block text-amber-400 font-bold py-2 border-b border-zinc-800/60 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-400" /> Talent Portfolio
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-extrabold uppercase">
+                FEATURED
+              </span>
+            </Link>
             <Link to="/case-studies" onClick={() => setIsMobileMenuOpen(false)} className="block text-white py-2 border-b border-zinc-800/60">
               Case Studies
             </Link>
@@ -694,14 +813,14 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2.5 rounded-xl hover:bg-zinc-900/80 transition-colors flex items-start gap-3"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-emerald-400 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 flex items-center justify-center shrink-0">
                       <Briefcase className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-sm font-bold text-white">Careers & WFH</span>
-                        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-extrabold uppercase">
-                          🌱 FRESHERS WELCOME
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-extrabold uppercase">
+                          FRESHERS WELCOME
                         </span>
                       </div>
                       <div className="text-xs text-zinc-400 leading-tight">100% remote project-based contracts & student opportunities</div>
@@ -713,12 +832,50 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2.5 rounded-xl hover:bg-zinc-900/80 transition-colors flex items-start gap-3"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-cyan-400 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 flex items-center justify-center shrink-0">
                       <BookOpen className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="text-sm font-bold text-white">Resources & Insights</div>
                       <div className="text-xs text-zinc-400 leading-tight">Technical guides, agency playbooks & industry growth research</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/models"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2.5 rounded-xl hover:bg-zinc-900/80 transition-colors flex items-start gap-3"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 flex items-center justify-center shrink-0">
+                      <Camera className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-sm font-bold text-white">Elite Models & Casting</span>
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-extrabold uppercase">
+                          MODELS
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 leading-tight">Runway models, comp cards, digitals & 8 templates</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    to="/talent-showcase"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2.5 rounded-xl hover:bg-zinc-900/80 transition-colors flex items-start gap-3"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 flex items-center justify-center shrink-0">
+                      <Film className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-sm font-bold text-white">Model & Influencer Showcase</span>
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300 font-extrabold uppercase">
+                          4 TEMPLATES
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-400 leading-tight">Make custom comp-card & video portfolio profile</div>
                     </div>
                   </Link>
 
@@ -741,7 +898,7 @@ export const PublicLayout: React.FC = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2.5 rounded-xl hover:bg-zinc-900/80 transition-colors flex items-start gap-3"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-purple-400 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 flex items-center justify-center shrink-0">
                       <ShieldCheck className="w-4 h-4" />
                     </div>
                     <div>
@@ -752,6 +909,18 @@ export const PublicLayout: React.FC = () => {
                 </div>
               )}
             </div>
+            <Link
+              to="/document-generator"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3 rounded-xl bg-amber-950/30 border border-amber-400/30 text-amber-300 font-bold text-sm hover:bg-amber-400/20 transition-all shadow-[0_0_15px_rgba(245,158,11,0.15)]"
+            >
+              <span className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-amber-400" /> Document Generator
+              </span>
+              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-bold">
+                FREE TOOL
+              </span>
+            </Link>
             <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block text-amber-400 py-2 border-b border-zinc-800/60 font-mono">
               Log In (Agent Portal)
             </Link>
@@ -778,8 +947,8 @@ export const PublicLayout: React.FC = () => {
         <a href="tel:+919876543210" className="flex items-center gap-1.5 py-1 text-white">
           <Phone className="w-3.5 h-3.5 text-amber-400" /> Call
         </a>
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 py-1 text-emerald-400">
-          <MessageSquare className="w-3.5 h-3.5 text-emerald-400" /> WhatsApp
+        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 py-1 text-amber-400">
+          <MessageSquare className="w-3.5 h-3.5 text-amber-400" /> WhatsApp
         </a>
         <Link to="/login" className="flex items-center gap-1.5 py-1 text-amber-400 font-extrabold">
           <User className="w-3.5 h-3.5 text-amber-400" /> Log In
@@ -827,6 +996,8 @@ export const PublicLayout: React.FC = () => {
             <div>
               <h4 className="text-white font-bold mb-4 text-xs uppercase tracking-widest">Products</h4>
               <ul className="space-y-3 font-medium">
+                <li><Link to="/talents" className="hover:text-amber-400 transition-colors flex items-center gap-1"><span>Talent Directory</span> <span className="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.2 rounded">PRO</span></Link></li>
+                <li><Link to="/talent-dashboard" className="hover:text-amber-400 transition-colors">Talent Dashboard</Link></li>
                 <li><Link to="/services/web-app-development" className="hover:text-white transition-colors">Website Builder</Link></li>
                 <li><Link to="/services/digital-marketing" className="hover:text-white transition-colors">Commerce Tools</Link></li>
                 <li><Link to="/services/government-subsidy-loans" className="hover:text-white transition-colors">Financial Advisory</Link></li>
@@ -871,7 +1042,7 @@ export const PublicLayout: React.FC = () => {
                 <li>
                   <Link to="/careers" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
                     <span>Careers</span>
-                    <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase">We're Hiring</span>
+                    <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase">We're Hiring</span>
                   </Link>
                 </li>
                 <li><Link to="/login" className="hover:text-white transition-colors">Log In (Agent Portal)</Link></li>

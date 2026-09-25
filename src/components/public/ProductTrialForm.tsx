@@ -333,8 +333,8 @@ Trial Preference: ${trialExperience === 'sandbox' ? 'Live News CMS Sandbox' : 'B
 
       {/* 2. Success Banner with Instant Interactive Demo Trigger */}
       {submittedSuccess ? (
-        <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-emerald-500/30 text-center space-y-6 shadow-2xl animate-in fade-in duration-300">
-          <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40">
+        <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-amber-400/30 text-center space-y-6 shadow-2xl animate-in fade-in duration-300">
+          <div className="w-14 h-14 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
@@ -883,7 +883,7 @@ Trial Preference: ${trialExperience === 'sandbox' ? 'Live News CMS Sandbox' : 'B
           {/* Submit Action */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-zinc-800/80">
             <div className="flex items-center gap-2 text-xs text-zinc-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
               <span>No credit card required &bull; 100% Free Sandbox Access</span>
             </div>
 

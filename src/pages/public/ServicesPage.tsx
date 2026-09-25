@@ -176,7 +176,7 @@ export const ServicesPage: React.FC = () => {
           Transparent Packages & Custom Pricing
         </h1>
         <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          Standardized <span className="text-white font-bold">Startup</span>, <span className="text-amber-400 font-bold">Enterprise</span>, and <span className="text-emerald-400 font-bold">Organization</span> tiers designed for Indian startups, growing businesses, and institutions.
+          Standardized <span className="text-white font-bold">Startup</span>, <span className="text-amber-400 font-bold">Enterprise</span>, and <span className="text-amber-300 font-bold">Organization</span> tiers designed for Indian startups, growing businesses, and institutions.
         </p>
       </div>
 
@@ -430,9 +430,9 @@ export const ServicesPage: React.FC = () => {
                             const demoType = srv.slug.includes('education') ? 'education' : srv.slug.includes('property') ? 'property-crm' : 'ecommerce';
                             setActiveDemo({ type: demoType, service: srv });
                           }}
-                          className="w-full sm:w-auto justify-center px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shrink-0 transition-all shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-95"
+                          className="w-full sm:w-auto justify-center px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs sm:text-sm flex items-center gap-2 shrink-0 transition-all shadow-xl shadow-amber-400/20 hover:scale-[1.02] active:scale-95"
                         >
-                          <Play className="w-3.5 h-3.5 fill-current text-white" /> Launch Live Demo
+                          <Play className="w-3.5 h-3.5 fill-current text-black" /> Launch Live Demo
                         </button>
                       )}
                       <Link
@@ -465,9 +465,9 @@ export const ServicesPage: React.FC = () => {
                           const demoType = srv.slug.includes('education') ? 'education' : srv.slug.includes('property') ? 'property-crm' : 'ecommerce';
                           setActiveDemo({ type: demoType, service: srv });
                         }}
-                        className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md"
+                        className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs flex items-center gap-1.5 transition-all shadow-md"
                       >
-                        <Play className="w-3.5 h-3.5 fill-current text-white" /> Launch Live Demo
+                        <Play className="w-3.5 h-3.5 fill-current text-black" /> Launch Live Demo
                       </button>
                     )}
                     <Link
@@ -494,7 +494,7 @@ export const ServicesPage: React.FC = () => {
                           isFeatured
                             ? 'bg-gradient-to-b from-amber-500/10 via-zinc-900 to-zinc-950 border-2 border-amber-500/50 shadow-2xl md:scale-[1.02] z-10'
                             : isCustomQuote
-                            ? 'bg-gradient-to-b from-emerald-500/5 via-zinc-950 to-zinc-950 border border-emerald-500/30 hover:border-emerald-500/60 shadow-xl'
+                            ? 'bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950 border border-zinc-800 hover:border-amber-400/40 shadow-xl'
                             : 'bg-zinc-950 border border-zinc-800/80 hover:border-zinc-700'
                         }`}
                       >
@@ -520,7 +520,7 @@ export const ServicesPage: React.FC = () => {
                             {isCustomQuote ? (
                               <div>
                                 <div className="text-2xl sm:text-3xl font-black text-white font-display">Custom Plan</div>
-                                <div className="text-[11px] text-emerald-400 font-semibold font-mono">Contact for Custom Quote</div>
+                                <div className="text-[11px] text-amber-400 font-semibold font-mono">Contact for Custom Quote</div>
                               </div>
                             ) : (
                               <div>
@@ -545,7 +545,7 @@ export const ServicesPage: React.FC = () => {
                             <ul className="space-y-2">
                               {pkg.inclusions.slice(0, 7).map((inc, idxInc) => (
                                 <li key={idxInc} className="flex items-start gap-2 text-xs text-zinc-300">
-                                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                                   <span>{inc}</span>
                                 </li>
                               ))}
@@ -576,7 +576,7 @@ export const ServicesPage: React.FC = () => {
                               isFeatured
                                 ? 'bg-amber-400 hover:bg-amber-300 text-black'
                                 : isCustomQuote
-                                ? 'bg-emerald-500 hover:bg-emerald-400 text-black'
+                                ? 'bg-amber-400/90 hover:bg-amber-300 text-black'
                                 : 'bg-white hover:bg-zinc-200 text-black'
                             }`}
                           >

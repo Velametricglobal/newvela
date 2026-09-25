@@ -158,7 +158,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                 <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 font-mono bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
                   {isVerified ? 'LIVE SAAS SANDBOX' : 'SECURITY VERIFICATION REQUIRED'}
                 </span>
-                <span className={`w-2 h-2 rounded-full ${isVerified ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+                <span className={`w-2 h-2 rounded-full ${isVerified ? 'bg-amber-400 animate-pulse' : 'bg-amber-400'}`} />
               </div>
               <h2 className="text-base sm:text-lg font-black text-white font-display">
                 {productName}
@@ -197,15 +197,15 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
               
               {/* WhatsApp Notification Simulated Banner */}
               {simulatedWhatsAppBanner && (
-                <div className="bg-emerald-950/70 border border-emerald-500/50 rounded-2xl p-4 space-y-2 animate-in slide-in-from-top-4 duration-300 shadow-xl">
-                  <div className="flex justify-between items-center text-xs text-emerald-400 font-bold">
+                <div className="bg-zinc-900 border border-amber-400/40 rounded-2xl p-4 space-y-2 animate-in slide-in-from-top-4 duration-300 shadow-xl">
+                  <div className="flex justify-between items-center text-xs text-amber-400 font-bold">
                     <span className="flex items-center gap-1.5">
-                      <MessageCircle className="w-4 h-4 text-emerald-400" /> WhatsApp Message Received
+                      <MessageCircle className="w-4 h-4 text-amber-400" /> WhatsApp Message Received
                     </span>
                     <span className="text-[10px] text-zinc-400 font-mono">Just Now</span>
                   </div>
-                  <div className="text-xs text-zinc-200 bg-zinc-950/80 p-3 rounded-xl border border-emerald-500/30">
-                    <p className="font-semibold text-emerald-300 mb-1">Vela Enterprise Platform Verification:</p>
+                  <div className="text-xs text-zinc-200 bg-zinc-950/80 p-3 rounded-xl border border-amber-400/30">
+                    <p className="font-semibold text-amber-300 mb-1">Vela Enterprise Platform Verification:</p>
                     <p>Your verification OTP for <strong>{productName}</strong> is:</p>
                     <div className="flex items-center justify-between mt-2 pt-2 border-t border-zinc-800">
                       <span className="text-2xl font-black font-mono tracking-widest text-amber-400 bg-zinc-900 px-3 py-1 rounded-lg border border-amber-500/30">
@@ -214,7 +214,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setEnteredOtp(simulatedWhatsAppBanner.code)}
-                        className="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-extrabold rounded-lg transition-all"
+                        className="px-3 py-1 bg-amber-400 hover:bg-amber-300 text-black text-xs font-extrabold rounded-lg transition-all"
                       >
                         Auto-Fill OTP
                       </button>
@@ -227,7 +227,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
               {verificationStep === 'details' && (
                 <form onSubmit={handleSendOtp} className="space-y-5">
                   <div className="text-center space-y-2">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center mx-auto">
                       <ShieldCheck className="w-6 h-6" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-white font-display">
@@ -239,7 +239,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                   </div>
 
                   {otpError && (
-                    <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
+                    <div className="p-3 bg-zinc-900 border border-amber-400/30 rounded-xl text-amber-400 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{otpError}</span>
                     </div>
@@ -283,17 +283,17 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                     <div>
                       <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5 font-mono flex items-center justify-between">
                         <span>WhatsApp Mobile Number *</span>
-                        <span className="text-[10px] text-emerald-400 lowercase font-mono">OTP will arrive here</span>
+                        <span className="text-[10px] text-amber-400 lowercase font-mono">OTP will arrive here</span>
                       </label>
                       <div className="relative">
-                        <MessageCircle className="w-4 h-4 text-emerald-400 absolute left-3.5 top-3.5" />
+                        <MessageCircle className="w-4 h-4 text-amber-400 absolute left-3.5 top-3.5" />
                         <input
                           type="tel"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+91 98765 43210"
-                          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                          className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:border-amber-400 focus:outline-none transition-colors"
                         />
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-emerald-500/20 active:scale-95"
+                    className="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-amber-400/20 active:scale-95"
                   >
                     <MessageCircle className="w-4 h-4" /> Send WhatsApp Verification OTP
                   </button>
@@ -333,7 +333,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
               {verificationStep === 'otp' && (
                 <form onSubmit={handleVerifyOtp} className="space-y-5">
                   <div className="text-center space-y-2">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center mx-auto">
                       <KeyRound className="w-6 h-6" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-white font-display">
@@ -345,7 +345,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                   </div>
 
                   {otpError && (
-                    <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
+                    <div className="p-3 bg-zinc-900 border border-amber-400/30 rounded-xl text-amber-400 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{otpError}</span>
                     </div>
@@ -363,7 +363,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                       value={enteredOtp}
                       onChange={(e) => setEnteredOtp(e.target.value.replace(/\D/g, ''))}
                       placeholder="• • • •"
-                      className="w-full bg-zinc-950 border-2 border-emerald-500/50 rounded-2xl py-3.5 text-center text-3xl font-mono font-black text-emerald-400 tracking-[0.5em] focus:outline-none focus:border-emerald-400 transition-all shadow-inner"
+                      className="w-full bg-zinc-950 border-2 border-amber-400/50 rounded-2xl py-3.5 text-center text-3xl font-mono font-black text-amber-400 tracking-[0.5em] focus:outline-none focus:border-amber-400 transition-all shadow-inner"
                     />
                   </div>
 
@@ -463,7 +463,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
               </div>
 
               <div className="flex items-center gap-2 text-[11px] text-zinc-400 font-mono">
-                <span className="hidden lg:inline text-emerald-400 flex items-center gap-1">
+                <span className="hidden lg:inline text-amber-400 flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" /> WhatsApp Verified Session
                 </span>
                 <span className="hidden md:inline">• Interactive Sandbox v2.4</span>
@@ -485,7 +485,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Total Active Students</div>
                           <div className="text-2xl font-black text-white mt-1">2,450</div>
-                          <div className="text-[11px] text-emerald-400 mt-1 font-mono">↑ +14% this semester</div>
+                          <div className="text-[11px] text-amber-400 mt-1 font-mono">↑ +14% this semester</div>
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Fee Collection YTD</div>
@@ -499,7 +499,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Avg Attendance</div>
-                          <div className="text-2xl font-black text-emerald-400 mt-1">94.8%</div>
+                          <div className="text-2xl font-black text-amber-400 mt-1">94.8%</div>
                           <div className="text-[11px] text-zinc-400 mt-1 font-mono">Real-time RFID/App</div>
                         </div>
                       </div>
@@ -524,7 +524,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-emerald-400" /> Automated Fee Engine & Invoicing
+                            <DollarSign className="w-4 h-4 text-amber-400" /> Automated Fee Engine & Invoicing
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Razorpay / UPI integrated parent fee collection with auto-reminders via WhatsApp & SMS, fine calculators, and installment plans.
@@ -540,7 +540,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <Laptop className="w-4 h-4 text-cyan-400" /> Integrated LMS & Online Exams
+                            <Laptop className="w-4 h-4 text-amber-400" /> Integrated LMS & Online Exams
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Host recorded lectures, upload course materials, conduct MCQ-based timed online tests with AI anti-cheat proctoring.
@@ -607,11 +607,11 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                                   <td className="p-3 font-mono text-zinc-400">{st.roll}</td>
                                   <td className="p-3 font-bold text-white">{st.name}</td>
                                   <td className="p-3">{st.class}</td>
-                                  <td className="p-3 font-mono text-emerald-400">{st.att}</td>
+                                  <td className="p-3 font-mono text-amber-400">{st.att}</td>
                                   <td className="p-3 font-bold">{st.fee}</td>
                                   <td className="p-3">
                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                                      st.status === 'Paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                                      st.status === 'Paid' ? 'bg-amber-400/10 text-amber-400 border border-amber-400/20' : 'bg-zinc-800 text-zinc-300 border border-zinc-700'
                                     }`}>
                                       {st.status}
                                     </span>
@@ -621,7 +621,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                                       onClick={() => alert(`Simulated WhatsApp alert notification sent for ${st.name}`)}
                                       className="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[10px] flex items-center gap-1"
                                     >
-                                      <MessageCircle className="w-3 h-3 text-emerald-400" /> WhatsApp Slip
+                                      <MessageCircle className="w-3 h-3 text-amber-400" /> WhatsApp Slip
                                     </button>
                                   </td>
                                 </tr>
@@ -646,7 +646,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div key={idx} className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 space-y-2">
                             <div className="flex justify-between items-center">
                               <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                                cls.status === 'LIVE NOW' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse' : 'bg-zinc-800 text-zinc-400'
+                                cls.status === 'LIVE NOW' ? 'bg-amber-400/20 text-amber-400 border border-amber-400/40 animate-pulse' : 'bg-zinc-800 text-zinc-400'
                               }`}>
                                 {cls.status}
                               </span>
@@ -675,7 +675,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                       <h3 className="text-white font-bold text-base">Institute Growth & Academic Performance</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-emerald-400">98.2%</div>
+                          <div className="text-3xl font-black text-amber-400">98.2%</div>
                           <div className="text-xs text-zinc-400 mt-1">Board / University Pass Rate</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
@@ -683,7 +683,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div className="text-xs text-zinc-400 mt-1">Parent Satisfaction Rating</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-cyan-400">80% Saved</div>
+                          <div className="text-3xl font-black text-amber-400">80% Saved</div>
                           <div className="text-xs text-zinc-400 mt-1">Administrative Time on Paperwork</div>
                         </div>
                       </div>
@@ -704,7 +704,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Active Properties Listed</div>
                           <div className="text-2xl font-black text-white mt-1">142 Units</div>
-                          <div className="text-[11px] text-emerald-400 mt-1 font-mono">₹248 Cr Inventory Value</div>
+                          <div className="text-[11px] text-amber-400 mt-1 font-mono">₹248 Cr Inventory Value</div>
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Buyer Leads Pipeline</div>
@@ -718,7 +718,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Broker Commission YTD</div>
-                          <div className="text-2xl font-black text-emerald-400 mt-1">₹48.6 Lakh</div>
+                          <div className="text-2xl font-black text-amber-400 mt-1">₹48.6 Lakh</div>
                           <div className="text-[11px] text-zinc-400 mt-1 font-mono">2% Avg Realized Fee</div>
                         </div>
                       </div>
@@ -742,7 +742,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <Users className="w-4 h-4 text-emerald-400" /> WhatsApp Lead & Site Visit Dispatcher
+                            <Users className="w-4 h-4 text-amber-400" /> WhatsApp Lead & Site Visit Dispatcher
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Automatic lead capture from 99acres, MagicBricks, Housing.com, and Facebook ads with auto-assignment to sales agents.
@@ -758,7 +758,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-cyan-400" /> Commission & Channel Partner Payouts
+                            <DollarSign className="w-4 h-4 text-amber-400" /> Commission & Channel Partner Payouts
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Manage co-brokers, sub-agents, and team commissions with automated split calculations, agreement generation, and invoices.
@@ -809,7 +809,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                             <div key={idx} className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 space-y-3">
                               <div className="flex justify-between items-center">
                                 <span className="text-[10px] font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">{prop.type}</span>
-                                <span className="text-[10px] text-emerald-400 font-bold">{prop.status}</span>
+                                <span className="text-[10px] text-amber-400 font-bold">{prop.status}</span>
                               </div>
                               <h4 className="text-white font-bold text-sm">{prop.name}</h4>
                               <div className="text-zinc-400 text-xs">{prop.loc}</div>
@@ -819,7 +819,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                                   onClick={() => alert(`Simulating WhatsApp brochure dispatch for ${prop.name}`)}
                                   className="px-2.5 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded text-xs flex items-center gap-1"
                                 >
-                                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" /> Send to Buyer
+                                  <MessageCircle className="w-3.5 h-3.5 text-amber-400" /> Send to Buyer
                                 </button>
                               </div>
                             </div>
@@ -867,11 +867,11 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div className="text-xs text-zinc-400 mt-1">Total Transaction Volume YTD</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-emerald-400">14 Days</div>
+                          <div className="text-3xl font-black text-amber-400">14 Days</div>
                           <div className="text-xs text-zinc-400 mt-1">Average Time from Inquiry to Site Visit</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-cyan-400">99.4%</div>
+                          <div className="text-3xl font-black text-amber-400">99.4%</div>
                           <div className="text-xs text-zinc-400 mt-1">Broker Agreement Compliance Rate</div>
                         </div>
                       </div>
@@ -892,7 +892,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Monthly GMV</div>
                           <div className="text-2xl font-black text-white mt-1">₹42.8 Lakh</div>
-                          <div className="text-[11px] text-emerald-400 mt-1 font-mono">↑ +28% vs last month</div>
+                          <div className="text-[11px] text-amber-400 mt-1 font-mono">↑ +28% vs last month</div>
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Store Conversion Rate</div>
@@ -906,7 +906,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Cart Recovery Rate</div>
-                          <div className="text-2xl font-black text-emerald-400 mt-1">31.5%</div>
+                          <div className="text-2xl font-black text-amber-400 mt-1">31.5%</div>
                           <div className="text-[11px] text-zinc-400 mt-1 font-mono">WhatsApp Auto-Nudge</div>
                         </div>
                       </div>
@@ -930,7 +930,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-emerald-400" /> Multi-Payment & COD Risk Shield
+                            <DollarSign className="w-4 h-4 text-amber-400" /> Multi-Payment & COD Risk Shield
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Razorpay, PhonePe, UPI, Credit Cards, EMI, and AI-powered COD confirmation to eliminate return-to-origin (RTO) losses.
@@ -946,7 +946,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4 text-cyan-400" /> Shiprocket & Inventory Sync
+                            <TrendingUp className="w-4 h-4 text-amber-400" /> Shiprocket & Inventory Sync
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Automated courier assignment (Bluedart, Delhivery, DTDC), barcode shipping label generation, and live WhatsApp tracking notifications.
@@ -1024,13 +1024,13 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                               <span>Subtotal:</span>
                               <span className="font-bold">₹23,498</span>
                             </div>
-                            <div className="flex justify-between text-emerald-400">
+                            <div className="flex justify-between text-amber-400">
                               <span>Coupon (VELA20):</span>
                               <span>-₹4,699</span>
                             </div>
                             <div className="flex justify-between text-zinc-300">
                               <span>Express Shipping:</span>
-                              <span className="text-emerald-400 font-bold">FREE</span>
+                              <span className="text-amber-400 font-bold">FREE</span>
                             </div>
                             <div className="flex justify-between text-white font-black text-sm pt-2 border-t border-zinc-800">
                               <span>Total Payable:</span>
@@ -1057,7 +1057,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                               setOrderSimulated(true);
                               setTimeout(() => setOrderSimulated(false), 4000);
                             }}
-                            className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xs transition-all shadow-xl mt-4"
+                            className="w-full py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-black text-xs transition-all shadow-xl mt-4"
                           >
                             {orderSimulated ? '✓ Order Confirmed! (SMS & WhatsApp Dispatched)' : 'Test Complete Checkout Flow'}
                           </button>
@@ -1076,11 +1076,11 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div className="text-xs text-zinc-400 mt-1">Monthly Gross Merchandise Value</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-emerald-400">4.8x ROAS</div>
+                          <div className="text-3xl font-black text-amber-400">4.8x ROAS</div>
                           <div className="text-xs text-zinc-400 mt-1">Meta & Google Ad Return on Ad Spend</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-cyan-400">1.2s</div>
+                          <div className="text-3xl font-black text-amber-400">1.2s</div>
                           <div className="text-xs text-zinc-400 mt-1">Average Mobile Page Load Speed</div>
                         </div>
                       </div>
@@ -1101,7 +1101,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Active Properties Listed</div>
                           <div className="text-2xl font-black text-white mt-1">142 Units</div>
-                          <div className="text-[11px] text-emerald-400 mt-1 font-mono">₹248 Cr Inventory Value</div>
+                          <div className="text-[11px] text-amber-400 mt-1 font-mono">₹248 Cr Inventory Value</div>
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Buyer Leads Pipeline</div>
@@ -1115,7 +1115,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Broker Commission YTD</div>
-                          <div className="text-2xl font-black text-emerald-400 mt-1">₹48.6 Lakh</div>
+                          <div className="text-2xl font-black text-amber-400 mt-1">₹48.6 Lakh</div>
                           <div className="text-[11px] text-zinc-400 mt-1 font-mono">2% Avg Realized Fee</div>
                         </div>
                       </div>
@@ -1139,7 +1139,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <Users className="w-4 h-4 text-emerald-400" /> WhatsApp Lead & Site Visit Dispatcher
+                            <Users className="w-4 h-4 text-amber-400" /> WhatsApp Lead & Site Visit Dispatcher
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Automatic lead capture from 99acres, MagicBricks, Housing.com, and Facebook ads with auto-assignment to sales agents.
@@ -1155,7 +1155,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-cyan-400" /> Commission & Channel Partner Payouts
+                            <DollarSign className="w-4 h-4 text-amber-400" /> Commission & Channel Partner Payouts
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Manage co-brokers, sub-agents, and team commissions with automated split calculations, agreement generation, and invoices.
@@ -1206,7 +1206,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                             <div key={idx} className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 space-y-3">
                               <div className="flex justify-between items-center">
                                 <span className="text-[10px] font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">{prop.type}</span>
-                                <span className="text-[10px] text-emerald-400 font-bold">{prop.status}</span>
+                                <span className="text-[10px] text-amber-400 font-bold">{prop.status}</span>
                               </div>
                               <h4 className="text-white font-bold text-sm">{prop.name}</h4>
                               <div className="text-zinc-400 text-xs">{prop.loc}</div>
@@ -1216,7 +1216,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                                   onClick={() => alert(`Simulating WhatsApp brochure dispatch for ${prop.name}`)}
                                   className="px-2.5 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded text-xs flex items-center gap-1"
                                 >
-                                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" /> Send to Buyer
+                                  <MessageCircle className="w-3.5 h-3.5 text-amber-400" /> Send to Buyer
                                 </button>
                               </div>
                             </div>
@@ -1264,11 +1264,11 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div className="text-xs text-zinc-400 mt-1">Total Transaction Volume YTD</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-emerald-400">14 Days</div>
+                          <div className="text-3xl font-black text-amber-400">14 Days</div>
                           <div className="text-xs text-zinc-400 mt-1">Average Time from Inquiry to Site Visit</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-cyan-400">99.4%</div>
+                          <div className="text-3xl font-black text-amber-400">99.4%</div>
                           <div className="text-xs text-zinc-400 mt-1">Broker Agreement Compliance Rate</div>
                         </div>
                       </div>
@@ -1289,7 +1289,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Monthly GMV</div>
                           <div className="text-2xl font-black text-white mt-1">₹42.8 Lakh</div>
-                          <div className="text-[11px] text-emerald-400 mt-1 font-mono">↑ +28% vs last month</div>
+                          <div className="text-[11px] text-amber-400 mt-1 font-mono">↑ +28% vs last month</div>
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Store Conversion Rate</div>
@@ -1303,7 +1303,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                         </div>
                         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
                           <div className="text-zinc-400 text-xs">Cart Recovery Rate</div>
-                          <div className="text-2xl font-black text-emerald-400 mt-1">31.5%</div>
+                          <div className="text-2xl font-black text-amber-400 mt-1">31.5%</div>
                           <div className="text-[11px] text-zinc-400 mt-1 font-mono">WhatsApp Auto-Nudge</div>
                         </div>
                       </div>
@@ -1327,7 +1327,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-emerald-400" /> Multi-Payment & COD Risk Shield
+                            <DollarSign className="w-4 h-4 text-amber-400" /> Multi-Payment & COD Risk Shield
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Razorpay, PhonePe, UPI, Credit Cards, EMI, and AI-powered COD confirmation to eliminate return-to-origin (RTO) losses.
@@ -1343,7 +1343,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
                         <div className="bg-zinc-900/60 border border-zinc-800 p-5 rounded-2xl space-y-3">
                           <h4 className="font-bold text-white text-sm flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4 text-cyan-400" /> Shiprocket & Inventory Sync
+                            <TrendingUp className="w-4 h-4 text-amber-400" /> Shiprocket & Inventory Sync
                           </h4>
                           <p className="text-zinc-400 text-xs leading-relaxed">
                             Automated courier assignment (Bluedart, Delhivery, DTDC), barcode shipping label generation, and live WhatsApp tracking notifications.
@@ -1421,13 +1421,13 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                               <span>Subtotal:</span>
                               <span className="font-bold">₹23,498</span>
                             </div>
-                            <div className="flex justify-between text-emerald-400">
+                            <div className="flex justify-between text-amber-400">
                               <span>Coupon (VELA20):</span>
                               <span>-₹4,699</span>
                             </div>
                             <div className="flex justify-between text-zinc-300">
                               <span>Express Shipping:</span>
-                              <span className="text-emerald-400 font-bold">FREE</span>
+                              <span className="text-amber-400 font-bold">FREE</span>
                             </div>
                             <div className="flex justify-between text-white font-black text-sm pt-2 border-t border-zinc-800">
                               <span>Total Payable:</span>
@@ -1454,7 +1454,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                               setOrderSimulated(true);
                               setTimeout(() => setOrderSimulated(false), 4000);
                             }}
-                            className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xs transition-all shadow-xl mt-4"
+                            className="w-full py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-black text-xs transition-all shadow-xl mt-4"
                           >
                             {orderSimulated ? '✓ Order Confirmed! (SMS & WhatsApp Dispatched)' : 'Test Complete Checkout Flow'}
                           </button>
@@ -1473,11 +1473,11 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                           <div className="text-xs text-zinc-400 mt-1">Monthly Gross Merchandise Value</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-emerald-400">4.8x ROAS</div>
+                          <div className="text-3xl font-black text-amber-400">4.8x ROAS</div>
                           <div className="text-xs text-zinc-400 mt-1">Meta & Google Ad Return on Ad Spend</div>
                         </div>
                         <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                          <div className="text-3xl font-black text-cyan-400">1.2s</div>
+                          <div className="text-3xl font-black text-amber-400">1.2s</div>
                           <div className="text-xs text-zinc-400 mt-1">Average Mobile Page Load Speed</div>
                         </div>
                       </div>
@@ -1499,9 +1499,9 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
                   href={`https://wa.me/919876543210?text=${encodeURIComponent(`Hi, I tested the live demo for ${productName} and I would like to order it.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
                 >
-                  <MessageCircle className="w-3.5 h-3.5" /> WhatsApp Consultation
+                  <MessageCircle className="w-3.5 h-3.5 text-amber-400" /> WhatsApp Consultation
                 </a>
                 {onOrderPackage && (
                   <button

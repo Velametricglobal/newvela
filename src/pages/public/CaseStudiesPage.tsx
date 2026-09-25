@@ -80,7 +80,7 @@ export const CaseStudiesPage: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between text-xs text-zinc-400 font-mono pt-1">
-              <span className="flex items-center gap-1.5 text-emerald-400">
+              <span className="flex items-center gap-1.5 text-amber-400">
                 <ShieldCheck className="w-4 h-4" /> Official Google Business Profile Data
               </span>
               <span>Click outside or press X to close</span>
@@ -197,10 +197,10 @@ export const CaseStudiesPage: React.FC = () => {
 
                   {/* Results Highlights */}
                   <div className="space-y-2">
-                    <div className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+                    <div className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold">
                       PERFORMANCE OUTCOMES
                     </div>
-                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed bg-emerald-500/5 border border-emerald-500/15 p-4 rounded-2xl">
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed bg-amber-400/5 border border-amber-400/15 p-4 rounded-2xl">
                       {cs.results}
                     </p>
                   </div>
@@ -336,7 +336,7 @@ export const CaseStudiesPage: React.FC = () => {
       {/* Bottom Conversion CTA Banner */}
       <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-950 to-zinc-900 border border-zinc-800/90 shadow-2xl text-center space-y-6 relative overflow-hidden">
         <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase">
           <TrendingUp className="w-3.5 h-3.5" /> Start Your Local Dominance Journey
