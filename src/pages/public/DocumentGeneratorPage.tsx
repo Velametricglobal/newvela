@@ -780,7 +780,7 @@ ${doc.scope_of_work ? doc.scope_of_work.split('\n').filter(Boolean).slice(0, 3).
 
 💰 *COMMERCIAL CONSIDERATION*
 • *Total Consideration:* ${formattedTotal}
-• *Payment Terms:* ${doc.payment_schedule || 'Milestone-based disbursement'}
+• *Payment Terms:* ${doc.payment_milestone_notes || 'Milestone-based disbursement'}
 • *Jurisdiction:* ${doc.governing_jurisdiction || 'High Court of Jurisdiction'}
 
 🔒 *SECURITY & VERIFICATION*
