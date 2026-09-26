@@ -622,14 +622,14 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
               </div>
 
               <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed">
-                {featEvent.description || 'Featuring headline musical acts, state fashion pageants, underground rap battles, and interactive brand experience zones organized by Hemchandra Purohit (Velametric) & Destiny Productions.'}
+                {featEvent.description || 'Featuring headline musical acts, state fashion pageants, underground rap battles, and interactive brand experience zones organized by Velametric & Destiny Productions.'}
               </p>
               
               {/* ORGANIZERS & MEDIA PARTNERS PILL */}
               <div className="space-y-2 text-xs font-mono">
                 <div className="p-3 rounded-2xl bg-zinc-950 border border-zinc-800/80 space-y-1">
                   <div className="text-zinc-400 text-[11px]">
-                    👑 <strong className="text-white">Presented & Organized by:</strong> <span className="text-amber-300">Hemchandra Purohit (Velametric) & Destiny Productions</span>
+                    👑 <strong className="text-white">Presented & Organized by:</strong> <span className="text-amber-300">Velametric & Destiny Productions</span>
                   </div>
                   <div className="text-zinc-400 text-[11px]">
                     📰 <strong className="text-white">Official Media Partners:</strong> <span className="text-amber-300">Weekly Eye News & 52 Garh Samachar</span> (7M+ Digital Reach)

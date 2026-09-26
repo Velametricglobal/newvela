@@ -195,11 +195,11 @@ export const defaultHomeSections: PageSection[] = [
         category: 'Fashion, Music & Youth Festival',
         date: '2026-10-15T18:00:00',
         venue: 'Arena Ground, Dehradun, Uttarakhand',
-        organizers: 'Hemchandra Purohit (Velametric) & Destiny Productions',
+        organizers: 'Velametric & Destiny Productions',
         media_partners: 'Weekly Eye News & 52 Garh Samachar',
         expected_footfall: '5,000+ Youth & Trendsetters',
         digital_reach: '7M+ Monthly Social Reach (52 Garh) & 10,000 Weekly Print (Weekly Eye)',
-        description: 'Where Culture Meets the Future. Featuring headline musical acts, state fashion pageants, underground rap battles, and interactive brand experience zones organized by Hemchandra Purohit (Velametric) & Destiny Productions.',
+        description: 'Where Culture Meets the Future. Featuring headline musical acts, state fashion pageants, underground rap battles, and interactive brand experience zones organized by Velametric & Destiny Productions.',
         image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
         register_url: '/event-registration',
         sponsor_url: '/sponsor-registration'

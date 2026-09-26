@@ -49,7 +49,7 @@ export const SponsorRegistrationPage: React.FC = () => {
   const handleCopyProposal = () => {
     const proposalText = `# UTTARAKHAND MEGA YOUTH FASHION & MUSIC SUMMIT 2026
 "Where Culture Meets the Future"
-Presented & Organized by: Hemchandra Purohit (Velametric) & Destiny Productions
+Presented & Organized by: Velametric & Destiny Productions
 Official Media Partners: Weekly Eye News & 52 Garh Samachar
 
 1. EVENT SCALE & CORE ATTRACTIONS
@@ -136,7 +136,7 @@ Official Media Partners: Weekly Eye News & 52 Garh Samachar
             <div className="px-4 py-2 rounded-2xl bg-zinc-950/80 border border-zinc-800 flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-zinc-400">Presented & Organized by:</span>
-              <span className="text-white font-bold">Hemchandra Purohit (Velametric) & Destiny Productions</span>
+              <span className="text-white font-bold">Velametric & Destiny Productions</span>
             </div>
 
             <div className="px-4 py-2 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center gap-2">
@@ -163,7 +163,7 @@ Official Media Partners: Weekly Eye News & 52 Garh Samachar
             </button>
 
             <a
-              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hello Hemchandra Purohit & Destiny Productions Team, I am interested in exploring Title/Co-Sponsorship for the Uttarakhand Mega Youth Fashion & Music Summit 2026.')}`}
+              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hello Velametric & Destiny Productions Team, I am interested in exploring Title/Co-Sponsorship for the Uttarakhand Mega Youth Fashion & Music Summit 2026.')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2"
@@ -559,7 +559,7 @@ Official Media Partners: Weekly Eye News & 52 Garh Samachar
                   Thank You, {formData.company_name}!
                 </h2>
                 <p className="text-zinc-300 text-xs max-w-md mx-auto leading-relaxed">
-                  Your corporate sponsorship proposal has been generated. Hemchandra Purohit and the Destiny Productions partnerships desk will review your submission and connect within 24 hours.
+                  Your corporate sponsorship proposal has been generated. The Velametric & Destiny Productions partnerships desk will review your submission and connect within 24 hours.
                 </p>
               </div>
 
@@ -591,7 +591,7 @@ Official Media Partners: Weekly Eye News & 52 Garh Samachar
                   <Download className="w-4 h-4" /> Download Sponsorship Pass
                 </button>
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello Hemchandra Purohit, I submitted Sponsorship Application ${sponsorId} for ${formData.company_name} under tier: ${formData.sponsorship_tier}.`)}`}
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello Velametric & Destiny Productions Desk, I submitted Sponsorship Application ${sponsorId} for ${formData.company_name} under tier: ${formData.sponsorship_tier}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 font-bold text-xs inline-flex items-center gap-2"
@@ -820,7 +820,7 @@ Official Media Partners: Weekly Eye News & 52 Garh Samachar
                 {/* SUBMIT ACTION */}
                 <div className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="text-zinc-400 text-[11px] font-mono">
-                    ⚡ Directed to Hemchandra Purohit & Destiny Productions Desk
+                    ⚡ Directed to Velametric & Destiny Productions Desk
                   </div>
 
                   <button

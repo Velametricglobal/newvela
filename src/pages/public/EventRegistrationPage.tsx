@@ -79,7 +79,7 @@ export const EventRegistrationPage: React.FC = () => {
           "Where Culture Meets the Future"
         </p>
         <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl mx-auto">
-          Presented & Organized by <strong className="text-white">Hemchandra Purohit (Velametric) & Destiny Productions</strong> at <strong className="text-amber-400">Arena Ground, Dehradun</strong>. Official Media Partners: <span className="text-amber-300">Weekly Eye News & 52 Garh Samachar</span>.
+          Presented & Organized by <strong className="text-white">Velametric & Destiny Productions</strong> at <strong className="text-amber-400">Arena Ground, Dehradun</strong>. Official Media Partners: <span className="text-amber-300">Weekly Eye News & 52 Garh Samachar</span>.
         </p>
       </div>
 
