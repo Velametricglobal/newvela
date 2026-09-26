@@ -188,20 +188,26 @@ export const defaultHomeSections: PageSection[] = [
     visibility: { desktop: true, tablet: true, mobile: true },
     content: {
       heading: 'Experience What We Create.',
-      subheading: 'Join our mega cultural events, fashion pageants, music festivals, and corporate summits.',
+      subheading: 'Join Uttarakhand’s premier cultural mega-events, fashion pageants, rap battles, and music festivals.',
       featured_event: {
         title: 'Uttarakhand Mega Youth Fashion & Music Summit 2026',
+        tagline: 'Where Culture Meets the Future',
         category: 'Fashion, Music & Youth Festival',
         date: '2026-10-15T18:00:00',
         venue: 'Arena Ground, Dehradun, Uttarakhand',
-        description: 'Featuring top musical acts, fashion pageants, rap battles, and creative youth showcases organized by Velametric & Destiny Productions.',
+        organizers: 'Hemchandra Purohit (Velametric) & Destiny Productions',
+        media_partners: 'Weekly Eye News & 52 Garh Samachar',
+        expected_footfall: '5,000+ Youth & Trendsetters',
+        digital_reach: '7M+ Monthly Social Reach (52 Garh) & 10,000 Weekly Print (Weekly Eye)',
+        description: 'Where Culture Meets the Future. Featuring headline musical acts, state fashion pageants, underground rap battles, and interactive brand experience zones organized by Hemchandra Purohit (Velametric) & Destiny Productions.',
         image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
         register_url: '/event-registration',
         sponsor_url: '/sponsor-registration'
       },
       upcoming_events: [
+        { name: 'State Fashion Pageant & Modeling Championship', date: 'Oct 15, 2026', category: 'Fashion & Pageant', location: 'Arena Ground, Dehradun' },
+        { name: 'Underground Rap Battle & Hip-Hop Cyphers', date: 'Oct 15, 2026', category: 'Rap & Music', location: 'Arena Ground, Dehradun' },
         { name: 'National Dance & Music Championship', date: 'Nov 20, 2026', category: 'Dance & Music', location: 'Dehradun' },
-        { name: 'Himalayan Rap Battle & Hip-Hop League', date: 'Dec 05, 2026', category: 'Rap & Music', location: 'Uttarkashi' },
         { name: 'Corporate Leadership & FinTech Expo 2026', date: 'Dec 18, 2026', category: 'Corporate & Finance', location: 'Dehradun' }
       ]
     },

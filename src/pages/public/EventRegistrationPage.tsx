@@ -67,13 +67,19 @@ export const EventRegistrationPage: React.FC = () => {
       {/* HEADER BANNER */}
       <div className="text-center space-y-4 mb-12 sm:mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono">
-          <Calendar className="w-3.5 h-3.5" /> Official Event Participant Entry 2026
+          <Calendar className="w-3.5 h-3.5" /> Official Participant & Artist Entry 2026
         </div>
         <h1 className="text-3xl sm:text-6xl font-black text-white font-display uppercase tracking-tight leading-tight">
-          Register For Upcoming Events
+          UTTARAKHAND MEGA YOUTH <br className="hidden sm:inline" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
+            FASHION & MUSIC SUMMIT 2026
+          </span>
         </h1>
-        <p className="text-zinc-400 text-xs sm:text-base max-w-2xl mx-auto">
-          Participate in Uttarakhand’s premier fashion pageants, dance championships, rap battles, music festivals, and corporate summits powered by Velametric & Destiny Productions.
+        <p className="text-sm sm:text-base font-bold italic text-zinc-300 font-display">
+          "Where Culture Meets the Future"
+        </p>
+        <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl mx-auto">
+          Presented & Organized by <strong className="text-white">Hemchandra Purohit (Velametric) & Destiny Productions</strong> at <strong className="text-amber-400">Arena Ground, Dehradun</strong>. Official Media Partners: <span className="text-amber-300">Weekly Eye News & 52 Garh Samachar</span>.
         </p>
       </div>
 
