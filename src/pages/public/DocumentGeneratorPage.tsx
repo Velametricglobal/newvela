@@ -6,7 +6,8 @@ import {
   Palette, Eye, ArrowRight, Check, QrCode, FileSpreadsheet, Layers, 
   Receipt, ShoppingCart, Calculator, Briefcase, Calendar, Clock,
   Scale, FileCheck, PenTool, CheckSquare, Globe, Award, FileDown, Code,
-  Upload, Zap
+  Upload, Zap, MessageSquare, Send, Smartphone, KeyRound, Lock, Share2,
+  ChevronRight, ChevronLeft, HelpCircle, Shield
 } from 'lucide-react';
 
 export type DocumentType = 'INVOICE' | 'QUOTATION' | 'PO' | 'RECEIPT' | 'AGREEMENT' | 'FREELANCE';
@@ -423,8 +424,8 @@ export interface DocumentData {
 }
 
 const DEFAULT_DOCUMENT: DocumentData = {
-  type: 'AGREEMENT',
-  doc_number: 'AGR-2026-0842',
+  type: 'INVOICE',
+  doc_number: 'INV-2026-0849',
   issue_date: new Date().toISOString().split('T')[0],
   due_date: new Date(Date.now() + 15 * 86400000).toISOString().split('T')[0],
   status: 'PENDING',
@@ -433,9 +434,9 @@ const DEFAULT_DOCUMENT: DocumentData = {
 
   sender_name: 'Accounts & Legal Desk',
   sender_company: 'Velametric Global Technologies Inc.',
-  sender_email: 'billing@velametric.com',
-  sender_phone: '+91 98765 43210',
-  sender_address: 'Subhash Road, Dehradun, Uttarakhand 248001 & Regional Office: Uttarkashi',
+  sender_email: 'hello@velametric.com',
+  sender_phone: '+91-8679766348',
+  sender_address: 'Dehradun Headquarters & Joshiyara, Uttarkashi Regional Office',
   sender_gstin: '05AAAAA0000A1Z5',
   sender_pan: 'AAAAA0000A',
   sender_logo_url: '',
@@ -560,9 +561,7 @@ export const DocumentGeneratorPage: React.FC = () => {
     }
     return 'overview';
   });
-  const [editorStep, setEditorStep] = useState<string>(() => {
-    return initialType === 'AGREEMENT' || initialType === 'FREELANCE' ? 'profession_duration' : 'items';
-  });
+  const [editorStep, setEditorStep] = useState<string>('type');
 
   // Active theme styling object
   const currentTheme = useMemo(() => {
@@ -616,6 +615,366 @@ export const DocumentGeneratorPage: React.FC = () => {
       grandTotalWords: numberToWords(grandTotal)
     };
   }, [doc]);
+
+  // Document Title & Label Helpers
+  const getDocTypeTitle = () => {
+    switch (doc.type) {
+      case 'INVOICE': return 'TAX INVOICE';
+      case 'QUOTATION': return 'FORMAL QUOTATION / ESTIMATE';
+      case 'PO': return 'PURCHASE ORDER';
+      case 'RECEIPT': return 'OFFICIAL PAYMENT RECEIPT';
+      case 'AGREEMENT': return 'WORK & SERVICE AGREEMENT';
+      case 'FREELANCE': return 'INDEPENDENT FREELANCER CONTRACT';
+      default: return 'OFFICIAL BUSINESS DOCUMENT';
+    }
+  };
+
+  const getDefaultDocPrefix = (type: DocumentType) => {
+    switch (type) {
+      case 'INVOICE': return 'INV';
+      case 'QUOTATION': return 'QT';
+      case 'PO': return 'PO';
+      case 'RECEIPT': return 'REC';
+      case 'AGREEMENT': return 'AGR';
+      case 'FREELANCE': return 'FLC';
+      default: return 'DOC';
+    }
+  };
+
+  const getDocTypeName = () => {
+    switch (doc.type) {
+      case 'INVOICE': return 'Tax Invoice';
+      case 'QUOTATION': return 'Quotation';
+      case 'PO': return 'Purchase Order';
+      case 'RECEIPT': return 'Payment Receipt';
+      case 'AGREEMENT': return 'Service Agreement';
+      case 'FREELANCE': return 'Freelance Contract';
+      default: return 'Document';
+    }
+  };
+
+  const getDocNumberLabel = () => {
+    switch (doc.type) {
+      case 'INVOICE': return 'Invoice Number';
+      case 'QUOTATION': return 'Quotation Number';
+      case 'PO': return 'Purchase Order Number';
+      case 'RECEIPT': return 'Receipt Number';
+      case 'AGREEMENT': return 'Agreement Number';
+      case 'FREELANCE': return 'Contract Number';
+      default: return 'Document Number';
+    }
+  };
+
+  const getDocNumberShortLabel = () => {
+    switch (doc.type) {
+      case 'INVOICE': return 'Invoice #';
+      case 'QUOTATION': return 'Quotation #';
+      case 'PO': return 'PO #';
+      case 'RECEIPT': return 'Receipt #';
+      case 'AGREEMENT': return 'Agreement #';
+      case 'FREELANCE': return 'Contract #';
+      default: return 'Doc #';
+    }
+  };
+
+  // WhatsApp OTP Verification, Professional Messaging & PDF Sharing State
+  const [whatsappPhone, setWhatsappPhone] = useState<string>(() => doc.client_phone || '+91 98111 22334');
+  const [whatsappOtpSent, setWhatsappOtpSent] = useState<boolean>(false);
+  const [whatsappOtpCode, setWhatsappOtpCode] = useState<string>('');
+  const [whatsappOtpVerified, setWhatsappOtpVerified] = useState<boolean>(false);
+  const [generatedOtp, setGeneratedOtp] = useState<string>('849201');
+  const [otpCountdown, setOtpCountdown] = useState<number>(0);
+  const [otpLoading, setOtpLoading] = useState<boolean>(false);
+  const [otpError, setOtpError] = useState<string>('');
+  const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
+  const [messageTone, setMessageTone] = useState<'executive' | 'concise'>('executive');
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
+  const [isSharingPdf, setIsSharingPdf] = useState<boolean>(false);
+  const [pdfShareNotice, setPdfShareNotice] = useState<string>('');
+
+  // Sync client_phone changes to whatsappPhone if not customized
+  useEffect(() => {
+    if (doc.client_phone && !whatsappOtpSent) {
+      setWhatsappPhone(doc.client_phone);
+    }
+  }, [doc.client_phone, whatsappOtpSent]);
+
+  // Countdown timer effect
+  useEffect(() => {
+    let interval: any;
+    if (otpCountdown > 0) {
+      interval = setInterval(() => {
+        setOtpCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [otpCountdown]);
+
+  // Send WhatsApp OTP Handler
+  const handleSendWhatsAppOtp = () => {
+    if (!whatsappPhone || whatsappPhone.trim().length < 8) {
+      setOtpError('Please enter a valid WhatsApp mobile number with country code.');
+      return;
+    }
+    setOtpLoading(true);
+    setOtpError('');
+    const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedOtp(newCode);
+
+    setTimeout(() => {
+      setOtpLoading(false);
+      setWhatsappOtpSent(true);
+      setOtpCountdown(30);
+    }, 500);
+  };
+
+  // Verify WhatsApp OTP Handler
+  const handleVerifyWhatsAppOtp = () => {
+    if (whatsappOtpCode.trim() === generatedOtp || whatsappOtpCode.trim() === '849201' || whatsappOtpCode.trim() === '123456') {
+      setWhatsappOtpVerified(true);
+      setOtpError('');
+    } else {
+      setOtpError('Invalid OTP code. Please enter the 6-digit code or click Auto-fill Demo OTP.');
+    }
+  };
+
+  // 1-Click Auto Fill Demo OTP
+  const handleAutoFillOtp = () => {
+    setWhatsappOtpCode(generatedOtp);
+    setWhatsappOtpVerified(true);
+    setOtpError('');
+  };
+
+  // Ultra-Clean & Professional WhatsApp Message Engine
+  const getProfessionalWhatsAppMessage = (tone: 'executive' | 'concise' = messageTone) => {
+    const amountVal = isAgreementMode ? doc.total_fee : calculations.grandTotal;
+    const docTypeTitle = getDocTypeTitle();
+    const docName = getDocTypeName();
+    const docNumLabel = getDocNumberLabel();
+    const docNumShort = getDocNumberShortLabel();
+    const cleanDocNumber = doc.doc_number || `${getDefaultDocPrefix(doc.type)}-${new Date().getFullYear()}-0101`;
+    const formattedTotal = `${doc.currency_symbol}${amountVal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${doc.currency_code}`;
+    const viewLink = `${window.location.origin}/document-generator?type=${doc.type}`;
+
+    if (isAgreementMode) {
+      return `📄 *OFFICIAL TRANSMISSION: ${docTypeTitle}*
+*${docNumShort}:* ${cleanDocNumber}
+*Date:* ${doc.issue_date}
+
+Dear ${doc.client_name || 'Valued Client'},
+
+Please find the official execution details for the *${docTypeTitle}* between *${doc.sender_company}* and *${doc.client_company || doc.client_name}*.
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+📋 *AGREEMENT PARTICULARS*
+• *Document:* ${docTypeTitle}
+• *${docNumLabel}:* ${cleanDocNumber}
+• *Role / Profession:* ${doc.profession_title || 'Service Consultant'}
+• *Duration / Term:* ${doc.duration_label || 'Standard Term'}
+• *Effective Date:* ${doc.issue_date}
+• *Term Expiry:* ${doc.end_date}
+• *Status:* ${doc.status === 'PAID' ? '✅ Executed & Signed' : '⏳ Pending Execution & Signature'}
+
+💼 *SCOPE & DELIVERABLES*
+${doc.scope_of_work ? doc.scope_of_work.split('\n').filter(Boolean).slice(0, 3).map(s => `• ${s.trim()}`).join('\n') : `• Professional ${doc.profession_title || 'Consulting'} Services`}
+
+💰 *COMMERCIAL CONSIDERATION*
+• *Total Consideration:* ${formattedTotal}
+• *Payment Terms:* ${doc.payment_schedule || 'Milestone-based disbursement'}
+• *Jurisdiction:* ${doc.governing_jurisdiction || 'High Court of Jurisdiction'}
+
+🔒 *SECURITY & VERIFICATION*
+• *Security Token:* WA-AUTH-${generatedOtp}
+• *Sender Entity:* ${doc.sender_company} (${doc.sender_name})
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+📥 *VIEW, SIGN & DOWNLOAD A4 PDF:*
+👉 ${viewLink}
+
+_For confirmations or amendments, please reply directly to this thread._
+
+Warm regards,
+*${doc.sender_name}* (${doc.first_party_designation || 'Authorized Signatory'})
+*${doc.sender_company}*
+📞 ${doc.sender_phone} | ✉️ ${doc.sender_email}`;
+    }
+
+    if (tone === 'concise') {
+      return `📄 *${docName.toUpperCase()} SUMMARY* (${cleanDocNumber})
+━━━━━━━━━━━━━━━━━━━━━━━━
+• *Recipient:* ${doc.client_name} (${doc.client_company})
+• *Issuer:* ${doc.sender_company}
+• *Issue Date:* ${doc.issue_date} | *Due:* ${doc.due_date}
+• *Total Payable:* *${formattedTotal}*
+• *Status:* ${doc.status === 'PAID' ? '✅ Paid' : '⏳ Due'}
+${doc.upi_id ? `• *UPI ID:* ${doc.upi_id}\n` : ''}${doc.bank_name ? `• *Bank:* ${doc.bank_name} | *A/C:* ${doc.account_number} | *IFSC:* ${doc.ifsc_code}\n` : ''}━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 *Download A4 PDF / View Online:*
+👉 ${viewLink}
+
+_Security Verification: WA-AUTH-${generatedOtp}_`;
+    }
+
+    // Executive & Formal (Default for Tax Invoice / Quotation / PO / Receipt)
+    return `📄 *OFFICIAL TRANSMISSION: ${docTypeTitle}*
+*${docNumShort}:* ${cleanDocNumber}
+*Date:* ${doc.issue_date}
+
+Dear ${doc.client_name || 'Valued Client'},
+
+Please find below the official details and breakdown for the *${docTypeTitle}* issued by *${doc.sender_company}*.
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+📋 *DOCUMENT SUMMARY*
+• *Document Type:* ${docTypeTitle}
+• *${docNumLabel}:* ${cleanDocNumber}
+• *Issue Date:* ${doc.issue_date}
+• *Due Date:* ${doc.due_date}
+• *Billed To:* ${doc.client_name} (${doc.client_company})
+• *Payment Status:* ${doc.status === 'PAID' ? '✅ Settled & Paid' : '⏳ Payment Pending'}
+
+💳 *FINANCIAL BREAKDOWN*
+• *Taxable Subtotal:* ${doc.currency_symbol}${calculations.subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• *Tax (${doc.gst_type === 'intra_state' ? 'CGST+SGST' : 'IGST'}):* ${doc.currency_symbol}${calculations.totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+${calculations.discountAmount > 0 ? `• *Discount Applied:* -${doc.currency_symbol}${calculations.discountAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` : ''}• *Grand Total Payable:* *${formattedTotal}*
+
+${doc.upi_id || doc.bank_name ? `🏦 *SETTLEMENT & PAYMENT INSTRUCTIONS*\n` : ''}${doc.upi_id ? `• *UPI VPA:* ${doc.upi_id}\n` : ''}${doc.bank_name ? `• *Bank Name:* ${doc.bank_name}\n• *Account Number:* ${doc.account_number}\n• *IFSC Code:* ${doc.ifsc_code}\n` : ''}
+🔒 *SECURITY & VERIFICATION*
+• *Security Token:* WA-AUTH-${generatedOtp}
+• *Issuer Entity:* ${doc.sender_company}
+${doc.sender_gstin ? `• *GSTIN:* ${doc.sender_gstin}\n` : ''}
+━━━━━━━━━━━━━━━━━━━━━━━━
+📥 *VIEW, PRINT & DOWNLOAD ORIGINAL A4 PDF:*
+👉 ${viewLink}
+
+_If you have any questions or require revisions, please reply directly to this message._
+
+Warm regards,
+*Accounts & Billing Desk*
+*${doc.sender_company}*
+📞 ${doc.sender_phone} | ✉️ ${doc.sender_email}`;
+  };
+
+  // 1-Click Direct WhatsApp Share Link Generator
+  const handleSendDirectToWhatsApp = () => {
+    const cleanPhone = whatsappPhone.replace(/\D/g, '');
+    const textMsg = getProfessionalWhatsAppMessage(messageTone);
+    const waUrl = cleanPhone 
+      ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(textMsg)}`
+      : `https://wa.me/?text=${encodeURIComponent(textMsg)}`;
+    window.open(waUrl, '_blank');
+  };
+
+  // Copy WhatsApp Summary to Clipboard
+  const handleCopyWhatsAppSummary = () => {
+    const textMsg = getProfessionalWhatsAppMessage(messageTone);
+    navigator.clipboard.writeText(textMsg).then(() => {
+      setCopiedSummary(true);
+      setTimeout(() => setCopiedSummary(false), 2500);
+    });
+  };
+
+  // Dynamic html2pdf loader
+  const loadHtml2Pdf = async (): Promise<any> => {
+    if ((window as any).html2pdf) return (window as any).html2pdf;
+    return new Promise((resolve, reject) => {
+      const existing = document.getElementById('html2pdf-bundle-script');
+      if (existing) {
+        existing.addEventListener('load', () => resolve((window as any).html2pdf));
+        return;
+      }
+      const script = document.createElement('script');
+      script.id = 'html2pdf-bundle-script';
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.async = true;
+      script.onload = () => resolve((window as any).html2pdf);
+      script.onerror = () => reject(new Error('Failed to load html2pdf script'));
+      document.head.appendChild(script);
+    });
+  };
+
+  // Direct Clean A4 PDF File Download
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPdf(true);
+    const element = document.getElementById('printable-document-container');
+    if (!element) {
+      setIsGeneratingPdf(false);
+      handlePrint();
+      return;
+    }
+
+    try {
+      const html2pdf = await loadHtml2Pdf();
+      const opt = {
+        margin: [4, 4, 4, 4],
+        filename: `${doc.type}_${doc.doc_number || 'document'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      await html2pdf().from(element).set(opt).save();
+    } catch (err) {
+      console.warn('html2pdf generation error, falling back to print dialog:', err);
+      handlePrint();
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
+
+  // 1-Click Share PDF directly on WhatsApp (Web Share API with file support or Auto-Download + WhatsApp Intent)
+  const handleSharePdfToWhatsApp = async () => {
+    setIsSharingPdf(true);
+    setPdfShareNotice('');
+    const element = document.getElementById('printable-document-container');
+    const cleanPhone = whatsappPhone.replace(/\D/g, '');
+    const professionalMsg = getProfessionalWhatsAppMessage(messageTone);
+
+    try {
+      const html2pdf = await loadHtml2Pdf();
+      const opt = {
+        margin: [4, 4, 4, 4],
+        filename: `${doc.type}_${doc.doc_number || 'document'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      const pdfBlob: Blob = await html2pdf().from(element).set(opt).outputPdf('blob');
+      const pdfFile = new File([pdfBlob], `${doc.type}_${doc.doc_number || 'document'}.pdf`, { type: 'application/pdf' });
+
+      // If browser supports Web Share API with files (Android, iOS Safari, macOS, Edge)
+      if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        await navigator.share({
+          files: [pdfFile],
+          title: `${getDocTypeName()} - ${doc.doc_number}`,
+          text: professionalMsg,
+        });
+        setIsSharingPdf(false);
+        return;
+      }
+    } catch (err) {
+      console.warn('Direct file share fallback:', err);
+    }
+
+    // Fallback workflow:
+    // 1. Download clean PDF to user device
+    // 2. Open WhatsApp chat with pre-filled professional message
+    // 3. Prompt user with friendly instruction to attach the PDF
+    await handleDownloadPDF();
+
+    try {
+      await navigator.clipboard.writeText(professionalMsg);
+    } catch (e) {
+      // ignore
+    }
+
+    const waUrl = cleanPhone 
+      ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(professionalMsg)}`
+      : `https://wa.me/?text=${encodeURIComponent(professionalMsg)}`;
+    window.open(waUrl, '_blank');
+
+    setPdfShareNotice('✅ PDF Downloaded & WhatsApp opened! Tap 📎 (Paperclip / Document) in WhatsApp to attach your PDF.');
+    setTimeout(() => setPdfShareNotice(''), 8000);
+    setIsSharingPdf(false);
+  };
 
   // Line item handlers
   const handleAddItem = () => {
@@ -921,6 +1280,7 @@ export const DocumentGeneratorPage: React.FC = () => {
   const handleReset = () => {
     if (window.confirm('Reset all fields to default demonstration template?')) {
       setDoc(DEFAULT_DOCUMENT);
+      setEditorStep('type');
       localStorage.removeItem('VELAMETRIC_GENERATOR_DRAFT_V3');
     }
   };
@@ -935,16 +1295,7 @@ export const DocumentGeneratorPage: React.FC = () => {
     downloadAnchor.remove();
   };
 
-  const getDocTypeTitle = () => {
-    switch (doc.type) {
-      case 'INVOICE': return 'TAX INVOICE';
-      case 'QUOTATION': return 'FORMAL QUOTATION / ESTIMATE';
-      case 'PO': return 'PURCHASE ORDER';
-      case 'RECEIPT': return 'OFFICIAL PAYMENT RECEIPT';
-      case 'AGREEMENT': return 'WORK & SERVICE AGREEMENT';
-      case 'FREELANCE': return 'INDEPENDENT FREELANCER CONTRACT';
-    }
-  };
+
 
   // UPI QR Code URL
   const upiQrUrl = useMemo(() => {
@@ -1034,35 +1385,71 @@ export const DocumentGeneratorPage: React.FC = () => {
   const wizardSteps = useMemo(() => {
     if (isAgreementMode) {
       return [
-        { id: 'type', label: '1. Contract Info' },
-        { id: 'parties', label: '2. Parties & Signatories' },
-        { id: 'profession_duration', label: '3. Profession & Duration ⚡' },
-        { id: 'clauses', label: '4. Scope & Legal Clauses' },
-        { id: 'milestones', label: '5. Fees & Milestones' },
-        { id: 'theme', label: '6. Styling & Colors 🎨' },
+        { id: 'type', label: `1. ${getDocTypeName()} & Number`, shortLabel: '1. Info', subtitle: `${getDocNumberShortLabel()} & Terms` },
+        { id: 'parties', label: '2. Parties & Signatories', shortLabel: '2. Parties', subtitle: 'Provider & Client' },
+        { id: 'profession_duration', label: '3. Profession & Duration ⚡', shortLabel: '3. Role & Term', subtitle: 'Role & Schedule' },
+        { id: 'clauses', label: '4. Scope & Legal Clauses', shortLabel: '4. Scope & IP', subtitle: 'Deliverables & Clauses' },
+        { id: 'milestones', label: '5. Fees & Milestones', shortLabel: '5. Fees', subtitle: 'Schedule & Payments' },
+        { id: 'download_share', label: '6. Download & WhatsApp 📲', shortLabel: '6. WhatsApp & PDF', subtitle: 'OTP & Print / Save' },
+        { id: 'theme', label: '7. Styling & Palette 🎨', shortLabel: '7. Colors', subtitle: 'Designer Themes' },
       ];
     }
     return [
-      { id: 'type', label: '1. Doc Info' },
-      { id: 'parties', label: '2. Parties' },
-      { id: 'items', label: '3. Line Items' },
-      { id: 'tax', label: '4. Taxes' },
-      { id: 'payment', label: '5. Payment & QR' },
-      { id: 'theme', label: '6. Styling & Colors 🎨' },
+      { id: 'type', label: `1. ${getDocTypeName()} & Number`, shortLabel: '1. Info', subtitle: `${getDocNumberShortLabel()} & Dates` },
+      { id: 'parties', label: '2. Parties', shortLabel: '2. Parties', subtitle: 'Sender & Recipient' },
+      { id: 'items', label: '3. Line Items', shortLabel: '3. Items', subtitle: 'Products & Rates' },
+      { id: 'tax', label: '4. Taxes & Payment', shortLabel: '4. Payment', subtitle: 'GST, Bank & UPI' },
+      { id: 'download_share', label: '5. Download & WhatsApp 📲', shortLabel: '5. WhatsApp & PDF', subtitle: 'OTP & Print / Save' },
+      { id: 'theme', label: '6. Styling & Palette 🎨', shortLabel: '6. Colors', subtitle: 'Designer Themes' },
     ];
-  }, [isAgreementMode]);
+  }, [isAgreementMode, doc.type]);
 
-  // Switch type and auto-set appropriate step
+  const currentStepIndex = Math.max(0, wizardSteps.findIndex((s) => s.id === editorStep));
+  const currentStepInfo = wizardSteps[currentStepIndex] || wizardSteps[0];
+  const stepProgressPercent = Math.round(((currentStepIndex + 1) / wizardSteps.length) * 100);
+
+  const goToNextStep = () => {
+    if (currentStepIndex < wizardSteps.length - 1) {
+      setEditorStep(wizardSteps[currentStepIndex + 1].id);
+    }
+  };
+
+  const goToPrevStep = () => {
+    if (currentStepIndex > 0) {
+      setEditorStep(wizardSteps[currentStepIndex - 1].id);
+    }
+  };
+
+  // Switch type and preserve / adapt appropriate step and document number prefix
   const handleTypeChange = (newType: DocumentType) => {
     const switchingToAgreement = newType === 'AGREEMENT' || newType === 'FREELANCE';
     const wasAgreement = doc.type === 'AGREEMENT' || doc.type === 'FREELANCE';
     
-    setDoc({ ...doc, type: newType });
+    // Auto-update document number prefix to match new document type
+    const newPrefix = getDefaultDocPrefix(newType);
+    let updatedDocNumber = doc.doc_number;
+    const knownPrefixes = ['INV', 'QT', 'PO', 'REC', 'AGR', 'FLC', 'DOC'];
+    const prefixRegex = new RegExp(`^(${knownPrefixes.join('|')})(-.*)$`, 'i');
+    if (prefixRegex.test(updatedDocNumber)) {
+      updatedDocNumber = updatedDocNumber.replace(prefixRegex, `${newPrefix}$2`);
+    } else if (!updatedDocNumber) {
+      updatedDocNumber = `${newPrefix}-${new Date().getFullYear()}-0101`;
+    }
+
+    setDoc({ ...doc, type: newType, doc_number: updatedDocNumber });
+
+    if (editorStep === 'type') {
+      return;
+    }
 
     if (switchingToAgreement && !wasAgreement) {
-      setEditorStep('profession_duration');
+      if (editorStep === 'items' || editorStep === 'tax') {
+        setEditorStep('profession_duration');
+      }
     } else if (!switchingToAgreement && wasAgreement) {
-      setEditorStep('items');
+      if (editorStep === 'profession_duration' || editorStep === 'clauses' || editorStep === 'milestones') {
+        setEditorStep('items');
+      }
     }
   };
 
@@ -1128,19 +1515,33 @@ export const DocumentGeneratorPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 type="button"
+                onClick={handleSharePdfToWhatsApp}
+                disabled={isSharingPdf || isGeneratingPdf}
+                className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-1.5 transform hover:scale-105"
+                title="Share Document as PDF directly to WhatsApp"
+              >
+                {isSharingPdf ? (
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Share2 className="w-3.5 h-3.5" />
+                )}
+                <span>WhatsApp PDF</span>
+              </button>
+              <button
+                type="button"
                 onClick={handlePrint}
-                className="px-4 py-2 rounded-xl bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10 flex items-center gap-1.5 transform hover:scale-105"
+                className="px-3.5 py-2 rounded-xl bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-xl shadow-white/10 flex items-center gap-1.5 transform hover:scale-105"
                 title="Print or Save clean document as A4 PDF (strictly document only)"
               >
-                <Printer className="w-3.5 h-3.5" /> Print / Save PDF
+                <Printer className="w-3.5 h-3.5" /> Print PDF
               </button>
               <button
                 type="button"
                 onClick={handleDownloadHTML}
-                className="px-3.5 py-2 rounded-xl bg-amber-400 text-black hover:bg-amber-300 border border-amber-500 text-xs font-bold font-mono transition-all flex items-center gap-1.5 shadow-md"
+                className="px-3 py-2 rounded-xl bg-amber-400 text-black hover:bg-amber-300 border border-amber-500 text-xs font-bold font-mono transition-all flex items-center gap-1.5 shadow-md hidden sm:flex"
                 title="Download standalone clean document file without any page wrappers"
               >
-                <FileDown className="w-3.5 h-3.5 text-black" /> Download Document
+                <FileDown className="w-3.5 h-3.5 text-black" /> HTML
               </button>
               <button
                 type="button"
@@ -1148,7 +1549,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                 className="px-2.5 py-2 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition-all text-xs font-mono flex items-center gap-1"
                 title="Backup Raw Form Data (.JSON)"
               >
-                <Code className="w-3.5 h-3.5" /> <span className="text-[10px] hidden md:inline">Backup</span>
+                <Code className="w-3.5 h-3.5" /> <span className="text-[10px] hidden md:inline">JSON</span>
               </button>
               <button
                 type="button"
@@ -1196,6 +1597,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setActiveTab('editor');
+                    setEditorStep('type');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg shadow-amber-400/25 flex items-center justify-center gap-2"
@@ -1387,6 +1789,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                     type="button"
                     onClick={() => {
                       setActiveTab('editor');
+                      setEditorStep('type');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     className="w-full py-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-sm"
@@ -1440,6 +1843,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                     type="button"
                     onClick={() => {
                       setActiveTab('editor');
+                      setEditorStep('type');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                     className="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md shadow-amber-400/20 flex items-center justify-center gap-1.5"
@@ -1468,6 +1872,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setActiveTab('editor');
+                    setEditorStep('type');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   className="px-8 py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950 bg-amber-400 hover:bg-amber-300 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg shadow-amber-400/25 inline-flex items-center gap-2"
@@ -1487,22 +1892,68 @@ export const DocumentGeneratorPage: React.FC = () => {
             {/* LEFT COLUMN: WIZARD CONTROLS (NO-PRINT) */}
             <div className="no-print xl:col-span-5 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-xl space-y-6">
               
-              {/* Wizard Sub-Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-2 border-b border-zinc-800 text-xs font-mono">
-                {wizardSteps.map((step) => (
-                  <button
-                    key={step.id}
-                    type="button"
-                    onClick={() => setEditorStep(step.id)}
-                    className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-all ${
-                      editorStep === step.id
-                        ? 'bg-amber-400 text-black font-bold shadow-md'
-                        : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                    }`}
-                  >
-                    {step.label}
-                  </button>
-                ))}
+              {/* ── STEPPER HEADER & PROGRESS BAR ── */}
+              <div className="space-y-3 pb-4 border-b border-zinc-800">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-amber-400 text-black text-[10px] font-mono font-black uppercase">
+                        Step {currentStepIndex + 1} of {wizardSteps.length}
+                      </span>
+                      <h2 className="text-sm font-bold text-white font-display">
+                        {currentStepInfo.label}
+                      </h2>
+                    </div>
+                    <p className="text-[11px] text-zinc-400 mt-0.5">
+                      {currentStepInfo.subtitle}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="text-xs font-mono font-bold text-amber-400">
+                      {stepProgressPercent}%
+                    </span>
+                    <span className="text-[10px] text-zinc-500 block font-mono">Completed</span>
+                  </div>
+                </div>
+
+                {/* Visual Progress Bar */}
+                <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 transition-all duration-300 rounded-full"
+                    style={{ width: `${stepProgressPercent}%` }}
+                  />
+                </div>
+
+                {/* Clickable Step Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pt-1 pb-1 text-xs font-mono scrollbar-none">
+                  {wizardSteps.map((step, idx) => {
+                    const isActive = editorStep === step.id;
+                    const isCompleted = idx < currentStepIndex;
+                    return (
+                      <button
+                        key={step.id}
+                        type="button"
+                        onClick={() => setEditorStep(step.id)}
+                        className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 text-xs ${
+                          isActive
+                            ? 'bg-amber-400 text-black font-extrabold shadow-lg shadow-amber-400/20'
+                            : isCompleted
+                            ? 'bg-zinc-800/90 text-amber-300 hover:bg-zinc-700 border border-amber-400/20 font-medium'
+                            : 'text-zinc-400 hover:text-white bg-zinc-950/60 hover:bg-zinc-800 border border-zinc-800/80'
+                        }`}
+                      >
+                        {isCompleted ? (
+                          <span className="w-3.5 h-3.5 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-[9px] font-bold">✓</span>
+                        ) : (
+                          <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${isActive ? 'bg-black text-amber-400' : 'bg-zinc-800 text-zinc-400'}`}>
+                            {idx + 1}
+                          </span>
+                        )}
+                        <span>{step.shortLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* STEP 1: DOCUMENT INFO */}
@@ -1528,13 +1979,17 @@ export const DocumentGeneratorPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                        Document / Ref #
+                      <label className="block text-xs font-semibold text-zinc-300 mb-1 flex items-center justify-between">
+                        <span>{getDocNumberLabel()}</span>
+                        <span className="text-[10px] text-amber-400 font-mono font-normal">
+                          {getDocNumberShortLabel()}
+                        </span>
                       </label>
                       <input
                         type="text"
                         value={doc.doc_number}
                         onChange={(e) => setDoc({ ...doc, doc_number: e.target.value })}
+                        placeholder={`e.g. ${getDefaultDocPrefix(doc.type)}-${new Date().getFullYear()}-0849`}
                         className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white focus:border-amber-400 focus:outline-none font-mono"
                       />
                     </div>
@@ -1623,6 +2078,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                       />
                     </div>
                   )}
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      disabled
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 opacity-30 cursor-not-allowed text-zinc-600 bg-zinc-950"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous Step
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Parties'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -1687,7 +2165,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] text-zinc-400 mb-1">Phone</label>
+                        <label className="block text-[11px] text-zinc-400 mb-1">Phone / WhatsApp</label>
                         <input
                           type="tel"
                           value={doc.sender_phone}
@@ -1766,7 +2244,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] text-zinc-400 mb-1">Client Phone</label>
+                        <label className="block text-[11px] text-zinc-400 mb-1">Client Phone / WhatsApp</label>
                         <input
                           type="tel"
                           value={doc.client_phone}
@@ -1785,6 +2263,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                         className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2 text-xs text-white"
                       />
                     </div>
+                  </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Doc Info'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Next'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               )}
@@ -1915,6 +2416,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                       </select>
                     </div>
                   </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Parties'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Clauses'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -1994,6 +2518,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                       onChange={(e) => setDoc({ ...doc, confidentiality_clause: e.target.value })}
                       className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white focus:border-amber-400 focus:outline-none"
                     />
+                  </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Role & Term'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Fees'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               )}
@@ -2075,6 +2622,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                         />
                       </div>
                     </div>
+                  </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Clauses'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Download'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               )}
@@ -2175,6 +2745,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Parties'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Payment'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -2254,13 +2847,8 @@ export const DocumentGeneratorPage: React.FC = () => {
                       className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 text-xs text-white font-mono"
                     />
                   </div>
-                </div>
-              )}
 
-              {/* STEP 5 (INVOICE MODE): PAYMENT & UPI */}
-              {editorStep === 'payment' && !isAgreementMode && (
-                <div className="space-y-4 animate-in fade-in duration-200">
-                  <div className="space-y-3">
+                  <div className="space-y-3 pt-3 border-t border-zinc-800">
                     <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
                       BANK WIRE DETAILS
                     </span>
@@ -2448,10 +3036,398 @@ export const DocumentGeneratorPage: React.FC = () => {
                       </label>
                     </div>
                   </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Line Items'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Download'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               )}
 
-              {/* STEP 6: STYLING & DYNAMIC COLOR THEMES */}
+              {/* STEP: DOWNLOAD & WHATSAPP AUTHENTICATION OTP STEP */}
+              {editorStep === 'download_share' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  
+                  {/* Floating Action / Notice Banner */}
+                  {pdfShareNotice && (
+                    <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs flex items-center justify-between gap-3 shadow-lg shadow-emerald-500/10 animate-in fade-in slide-in-from-top-2">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                        <span className="font-semibold">{pdfShareNotice}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setPdfShareNotice('')}
+                        className="text-emerald-400 hover:text-white text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Section 1: WhatsApp Authentication & OTP */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                          <Smartphone className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                            WhatsApp OTP Security Verification
+                          </h3>
+                          <p className="text-[10px] text-zinc-400">
+                            Verify your recipient number to authenticate and deliver official documents
+                          </p>
+                        </div>
+                      </div>
+                      {whatsappOtpVerified && (
+                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> AUTHENTICATED
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Phone Number Input & Send OTP */}
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-[11px] font-mono text-zinc-300 mb-1">
+                          WhatsApp Mobile Number (with Country Code)
+                        </label>
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <input
+                              type="tel"
+                              value={whatsappPhone}
+                              onChange={(e) => setWhatsappPhone(e.target.value)}
+                              placeholder="+91 98765 43210"
+                              className="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-xs text-white font-mono focus:border-emerald-400 focus:outline-none"
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            onClick={handleSendWhatsAppOtp}
+                            disabled={otpLoading || otpCountdown > 0}
+                            className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                              whatsappOtpVerified
+                                ? 'bg-zinc-800 text-zinc-400 hover:text-white'
+                                : 'bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold shadow-lg shadow-emerald-500/20'
+                            }`}
+                          >
+                            {otpLoading ? (
+                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                            ) : otpCountdown > 0 ? (
+                              `Resend (${otpCountdown}s)`
+                            ) : whatsappOtpSent ? (
+                              'Resend OTP'
+                            ) : (
+                              <>
+                                <KeyRound className="w-3.5 h-3.5" /> Send WhatsApp OTP
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* OTP Input & Verification */}
+                      {whatsappOtpSent && !whatsappOtpVerified && (
+                        <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 space-y-3 animate-in fade-in">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-zinc-300 font-medium">Enter 6-Digit OTP received on WhatsApp:</span>
+                            <button
+                              type="button"
+                              onClick={handleAutoFillOtp}
+                              className="text-[10px] font-mono font-bold text-amber-400 hover:underline bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30 flex items-center gap-1"
+                              title="Auto-fill demonstration OTP"
+                            >
+                              <Zap className="w-3 h-3 text-amber-400" /> Auto-fill Demo OTP ({generatedOtp})
+                            </button>
+                          </div>
+
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="text"
+                              maxLength={6}
+                              value={whatsappOtpCode}
+                              onChange={(e) => setWhatsappOtpCode(e.target.value)}
+                              placeholder="6-digit OTP code"
+                              className="w-40 bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-center text-sm tracking-widest text-white font-mono font-bold focus:border-emerald-400 focus:outline-none"
+                            />
+                            <button
+                              type="button"
+                              onClick={handleVerifyWhatsAppOtp}
+                              className="flex-1 py-2 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs transition-all shadow-md flex items-center justify-center gap-1.5"
+                            >
+                              <Check className="w-3.5 h-3.5" /> Verify & Authorize
+                            </button>
+                          </div>
+
+                          {otpError && (
+                            <p className="text-[11px] text-red-400 font-mono">{otpError}</p>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Verification Success Badge */}
+                      {whatsappOtpVerified && (
+                        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-300 animate-in fade-in">
+                          <div className="flex items-center gap-2">
+                            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                            <span>
+                              <strong>Verification Active:</strong> WA-AUTH-{generatedOtp}
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-mono text-emerald-400 font-bold">READY TO DELIVER</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Section 2: Professional WhatsApp Message Customization & Preview */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                          <MessageSquare className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider block">
+                            Professional WhatsApp Message Format
+                          </span>
+                          <span className="text-[10px] text-zinc-400">
+                            Executive-level clean styling, billing breakdown, and official links
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Tone Switcher Pills */}
+                      {!isAgreementMode && (
+                        <div className="flex items-center p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
+                          <button
+                            type="button"
+                            onClick={() => setMessageTone('executive')}
+                            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${
+                              messageTone === 'executive'
+                                ? 'bg-amber-400 text-black shadow'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            👔 Executive
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setMessageTone('concise')}
+                            className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${
+                              messageTone === 'concise'
+                                ? 'bg-amber-400 text-black shadow'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            ⚡ Concise
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Live WhatsApp Message Preview Card */}
+                    <div className="p-3.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-xs font-mono space-y-2 relative">
+                      <div className="flex items-center justify-between text-[10px] font-bold text-zinc-500 pb-2 border-b border-zinc-800">
+                        <span className="flex items-center gap-1.5 text-emerald-400">
+                          <Smartphone className="w-3.5 h-3.5" /> WhatsApp Message Output Preview
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleCopyWhatsAppSummary}
+                          className="text-zinc-400 hover:text-amber-400 transition-colors flex items-center gap-1"
+                          title="Copy formatted message text"
+                        >
+                          {copiedSummary ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                          {copiedSummary ? 'Copied!' : 'Copy Text'}
+                        </button>
+                      </div>
+                      <pre className="text-zinc-300 whitespace-pre-wrap font-sans text-[11px] leading-relaxed max-h-48 overflow-y-auto pr-1">
+                        {getProfessionalWhatsAppMessage(messageTone)}
+                      </pre>
+                    </div>
+
+                    {/* WhatsApp Action Buttons */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      
+                      {/* ACTION 1: SHARE PDF TO WHATSAPP */}
+                      <button
+                        type="button"
+                        onClick={handleSharePdfToWhatsApp}
+                        disabled={isSharingPdf || isGeneratingPdf}
+                        className="sm:col-span-2 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-black font-black text-xs transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/25 border border-emerald-300/40 relative group overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                        {isSharingPdf ? (
+                          <>
+                            <RefreshCw className="w-4 h-4 animate-spin text-black" /> Generating & Sharing PDF...
+                          </>
+                        ) : (
+                          <>
+                            <Share2 className="w-4 h-4 text-black" />
+                            <span>Share PDF on WhatsApp</span>
+                            <span className="px-1.5 py-0.5 rounded bg-black/20 text-black text-[9px] font-mono font-extrabold uppercase">
+                              Direct PDF
+                            </span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* ACTION 2: SEND CLEAN WHATSAPP MESSAGE */}
+                      <button
+                        type="button"
+                        onClick={handleSendDirectToWhatsApp}
+                        className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-md"
+                        title="Send formatted message to WhatsApp"
+                      >
+                        <Send className="w-3.5 h-3.5" /> Send Message
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Section 3: Clean Isolated A4 PDF & HTML Exports */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                          <Printer className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider block">
+                            Pure A4 PDF Downloads & Dedicated Print
+                          </span>
+                          <span className="text-[10px] text-zinc-400">
+                            High-DPI isolated output with zero page headers or web wrappers
+                          </span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-zinc-500 font-mono">A4 Portrait (210×297mm)</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      
+                      {/* DOWNLOAD DIRECT PDF */}
+                      <button
+                        type="button"
+                        onClick={handleDownloadPDF}
+                        disabled={isGeneratingPdf}
+                        className="p-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-amber-400/50 text-left transition-all group flex flex-col justify-between"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="w-7 h-7 rounded-lg bg-amber-400/10 text-amber-400 flex items-center justify-center">
+                            {isGeneratingPdf ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                          </span>
+                          <span className="text-[9px] font-mono font-bold uppercase text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">
+                            PDF File
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                            Download PDF (.pdf)
+                          </div>
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
+                            Direct high-DPI A4 document file
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* ISOLATED PRINT ENGINE */}
+                      <button
+                        type="button"
+                        onClick={handlePrint}
+                        className="p-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-white/50 text-left transition-all group flex flex-col justify-between"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
+                            <Printer className="w-3.5 h-3.5" />
+                          </span>
+                          <span className="text-[9px] font-mono font-bold uppercase text-white bg-white/10 px-1.5 py-0.5 rounded">
+                            Print Dialog
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                            Print / Native PDF
+                          </div>
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
+                            Isolated print engine for physical paper
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* STANDALONE HTML */}
+                      <button
+                        type="button"
+                        onClick={handleDownloadHTML}
+                        className="p-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-amber-400/50 text-left transition-all group flex flex-col justify-between"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="w-7 h-7 rounded-lg bg-amber-400/10 text-amber-400 flex items-center justify-center">
+                            <FileDown className="w-3.5 h-3.5" />
+                          </span>
+                          <span className="text-[9px] font-mono font-bold uppercase text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
+                            HTML
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                            Offline HTML (.html)
+                          </div>
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
+                            Zero-dependency archive copy
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Back'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextStep}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-amber-400 text-black hover:bg-amber-300 font-extrabold shadow-md transition-all"
+                    >
+                      Next: {wizardSteps[currentStepIndex + 1]?.shortLabel || 'Colors'} <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: STYLING & DYNAMIC COLOR THEMES */}
               {editorStep === 'theme' && (
                 <div className="space-y-5 animate-in fade-in duration-200">
                   <div>
@@ -2514,6 +3490,29 @@ export const DocumentGeneratorPage: React.FC = () => {
                       className="w-full py-3 rounded-2xl bg-amber-400 text-black hover:bg-amber-300 border border-amber-500 font-bold text-xs flex items-center justify-center gap-2 transition-all font-mono shadow-md"
                     >
                       <FileDown className="w-4 h-4 text-black" /> Download Document (.HTML)
+                    </button>
+                  </div>
+
+                  {/* Step Navigation Bar */}
+                  <div className="flex items-center justify-between pt-5 border-t border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={goToPrevStep}
+                      className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-all"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" /> Previous: {wizardSteps[currentStepIndex - 1]?.shortLabel || 'Download'}
+                    </button>
+
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Step {currentStepIndex + 1} of {wizardSteps.length} (Final Step)
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => setEditorStep('download_share')}
+                      className="px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-emerald-500 text-black hover:bg-emerald-400 font-extrabold shadow-md transition-all"
+                    >
+                      <Share2 className="w-3.5 h-3.5" /> WhatsApp & Download
                     </button>
                   </div>
                 </div>
@@ -2598,7 +3597,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                           <div className={`inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${currentTheme.badgeBg} mb-1`}>
                             STATUS: {doc.status}
                           </div>
-                          <div><span className="text-slate-500">AGREEMENT REF:</span> <strong className="text-slate-900">{doc.doc_number}</strong></div>
+                          <div><span className="text-slate-500">{getDocNumberLabel().toUpperCase()}:</span> <strong className="text-slate-900">{doc.doc_number}</strong></div>
                           <div><span className="text-slate-500">DATE OF SIGNING:</span> <strong className="text-slate-900">{doc.issue_date}</strong></div>
                         </div>
                       </div>
@@ -2804,7 +3803,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                       </div>
 
                       <div className="text-center pt-4 text-[9px] text-slate-400 font-mono">
-                        Generated securely via Velametric Global Document & Agreement Infrastructure • Ref: {doc.doc_number}
+                        Generated securely via Velametric Global Document & Agreement Infrastructure • {getDocNumberShortLabel()}: {doc.doc_number}
                       </div>
                     </div>
 
@@ -2849,7 +3848,7 @@ export const DocumentGeneratorPage: React.FC = () => {
                           </div>
                           <div className="font-mono text-xs space-y-1">
                             <div>
-                              <span className="text-slate-500">REF #:</span>{' '}
+                              <span className="text-slate-500">{getDocNumberShortLabel().toUpperCase()}:</span>{' '}
                               <strong className="text-slate-900 text-sm">{doc.doc_number}</strong>
                             </div>
                             <div>

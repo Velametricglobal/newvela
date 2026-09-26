@@ -106,7 +106,14 @@ export const ResourcesPage: React.FC = () => {
       setAllArticles(fromService.length > 0 ? (fromService as BlogOrResourceArticle[]) : ARTICLES);
     };
     window.addEventListener('vela-blog-updated', handleUpdate);
-    return () => window.removeEventListener('vela-blog-updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    window.addEventListener('focus', handleUpdate);
+
+    return () => {
+      window.removeEventListener('vela-blog-updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+      window.removeEventListener('focus', handleUpdate);
+    };
   }, []);
 
   const featuredArticle = allArticles[0] || ARTICLES[0];

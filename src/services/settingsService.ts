@@ -1,5 +1,6 @@
 import { SiteSettings, ThemeSettings, BackgroundMusicSettings, BackgroundMusicTrack } from '../types/database.types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { useState, useEffect } from 'react';
 
 const SETTINGS_STORAGE_KEY = 'VELAMETRIC_SITE_SETTINGS';
 const THEME_STORAGE_KEY = 'VELAMETRIC_THEME_SETTINGS';
@@ -10,14 +11,14 @@ let localMusicSettings: BackgroundMusicSettings = {
   audio_url: 'https://assets.mixkit.co/music/preview/mixkit-relaxing-in-nature-522.mp3',
   track_title: 'Corporate Ambient Space Soundscape',
   artist_name: 'Velametric Sound Studio',
-  default_volume: 20, // 20% conservative default volume
+  default_volume: 20,
   loop: true,
   autoplay: true,
   start_delay: 0,
   fade_in_enabled: true,
-  fade_in_duration: 2, // 2 seconds fade in
+  fade_in_duration: 2,
   fade_out_enabled: true,
-  fade_out_duration: 0.5, // 500ms fade out
+  fade_out_duration: 0.5,
   remember_user_preference: true
 };
 
@@ -56,8 +57,8 @@ let localSiteSettings: SiteSettings = {
   company_name: 'Velametric Global',
   description: 'Everything to build your website, run your CRM, manage financial loan advisory, and produce high-impact video reels.',
   contact_email: 'hello@velametric.com',
-  contact_phone: '+1 (800) 555-VELA',
-  contact_whatsapp: '+1 (800) 555-8352',
+  contact_phone: '+91-8679766348',
+  contact_whatsapp: '+91-8679766348',
   contact_address: 'Dehradun Headquarters & Joshiyara, Uttarkashi Regional Office',
   google_maps_url: 'https://maps.google.com',
   social_links: {
@@ -109,49 +110,69 @@ let localThemeSettings: ThemeSettings = {
 };
 
 export const settingsService = {
+  // Synchronous getter for instant non-blocking initial renders
+  getSiteSettingsSync(): SiteSettings {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(SETTINGS_STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          localSiteSettings = { ...localSiteSettings, ...parsed };
+          return JSON.parse(JSON.stringify(localSiteSettings));
+        } catch (e) {}
+      }
+    }
+    return JSON.parse(JSON.stringify(localSiteSettings));
+  },
+
   async getSiteSettings(): Promise<SiteSettings> {
+    // 1. First get whatever is locally cached
+    let current = this.getSiteSettingsSync();
+
+    // 2. Query Supabase if configured
     if (isSupabaseConfigured()) {
       try {
         const { data, error } = await supabase.from('website_settings').select('*').limit(1).maybeSingle();
         if (!error && data) {
           const social = typeof data.social_links === 'object' && data.social_links !== null ? data.social_links : {};
-          return {
-            company_name: data.site_name || 'Velametric Global',
-            logo_url: data.logo_url || undefined,
-            favicon_url: data.favicon_url || undefined,
-            description: data.tagline || localSiteSettings.description,
-            contact_email: data.contact_email || localSiteSettings.contact_email,
-            contact_phone: data.contact_phone || localSiteSettings.contact_phone,
-            contact_whatsapp: localSiteSettings.contact_whatsapp,
-            contact_address: data.address || localSiteSettings.contact_address,
-            google_maps_url: localSiteSettings.google_maps_url,
+          
+          current = {
+            ...current,
+            company_name: data.site_name || data.company_name || current.company_name,
+            logo_url: data.logo_url || current.logo_url,
+            favicon_url: data.favicon_url || current.favicon_url,
+            description: data.tagline || data.description || current.description,
+            contact_email: data.contact_email || current.contact_email,
+            contact_phone: data.contact_phone || data.phone || current.contact_phone,
+            contact_whatsapp: data.contact_whatsapp || data.whatsapp || data.whatsapp_number || current.contact_whatsapp,
+            contact_address: data.address || data.contact_address || current.contact_address,
+            google_maps_url: data.google_maps_url || current.google_maps_url,
             social_links: {
-              ...localSiteSettings.social_links,
+              ...current.social_links,
               ...social
-            },
-            analytics_ids: localSiteSettings.analytics_ids,
-            header_scripts: localSiteSettings.header_scripts,
-            footer_scripts: localSiteSettings.footer_scripts,
-            background_music: localMusicSettings
+            }
           };
+
+          localSiteSettings = { ...current };
+          if (typeof window !== 'undefined') {
+            localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(localSiteSettings));
+          }
         }
       } catch (e) {
-        console.warn('Supabase website_settings query failed, falling back:', e);
+        console.warn('Supabase website_settings query failed, using local:', e);
       }
     }
 
-    const saved = localStorage.getItem(SETTINGS_STORAGE_KEY);
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {}
-    }
-    return JSON.parse(JSON.stringify(localSiteSettings));
+    return JSON.parse(JSON.stringify(current));
   },
 
   async updateSiteSettings(settings: Partial<SiteSettings>): Promise<SiteSettings> {
-    localSiteSettings = { ...localSiteSettings, ...settings };
-    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(localSiteSettings));
+    const current = this.getSiteSettingsSync();
+    localSiteSettings = { ...current, ...settings };
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(localSiteSettings));
+    }
 
     if (isSupabaseConfigured()) {
       try {
@@ -160,16 +181,17 @@ export const settingsService = {
           tagline: localSiteSettings.description,
           contact_email: localSiteSettings.contact_email,
           contact_phone: localSiteSettings.contact_phone,
+          contact_whatsapp: localSiteSettings.contact_whatsapp,
           address: localSiteSettings.contact_address,
           social_links: localSiteSettings.social_links
         });
       } catch (err) {
-        console.warn('Supabase website_settings upsert error:', err);
+        console.warn('Supabase website_settings upsert error (saved locally):', err);
       }
     }
 
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('velametric_settings_updated'));
+      window.dispatchEvent(new CustomEvent('velametric_settings_updated', { detail: localSiteSettings }));
       window.dispatchEvent(new Event('storage'));
     }
 
@@ -250,4 +272,41 @@ export const settingsService = {
   async deleteMusicTrack(trackId: string): Promise<void> {
     localMusicTracks = localMusicTracks.filter(t => t.id !== trackId);
   }
+};
+
+// React hook for instant, real-time sync across public and admin pages
+export const useSiteSettings = () => {
+  const [settings, setSettings] = useState<SiteSettings>(() => settingsService.getSiteSettingsSync());
+
+  useEffect(() => {
+    let mounted = true;
+    const reload = () => {
+      settingsService.getSiteSettings().then((s) => {
+        if (mounted) setSettings(s);
+      });
+    };
+
+    reload();
+
+    const handleCustomUpdate = (e: any) => {
+      if (e?.detail) {
+        setSettings(e.detail);
+      } else {
+        reload();
+      }
+    };
+
+    window.addEventListener('velametric_settings_updated', handleCustomUpdate);
+    window.addEventListener('storage', reload);
+    window.addEventListener('focus', reload);
+
+    return () => {
+      mounted = false;
+      window.removeEventListener('velametric_settings_updated', handleCustomUpdate);
+      window.removeEventListener('storage', reload);
+      window.removeEventListener('focus', reload);
+    };
+  }, []);
+
+  return settings;
 };

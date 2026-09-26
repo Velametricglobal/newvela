@@ -19,16 +19,30 @@ export const CaseStudiesPage: React.FC = () => {
   const [zoomImage, setZoomImage] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
 
   useEffect(() => {
-    portfolioService.getCaseStudies().then((res) => {
-      setCaseStudies(res);
-      // Initialize active chart index to 0 for each case study
-      const initialIndices: Record<string, number> = {};
-      res.forEach(cs => {
-        initialIndices[cs.id] = 0;
+    const loadCaseStudies = () => {
+      portfolioService.getCaseStudies().then((res) => {
+        setCaseStudies(res);
+        // Initialize active chart index to 0 for each case study
+        const initialIndices: Record<string, number> = {};
+        res.forEach(cs => {
+          initialIndices[cs.id] = 0;
+        });
+        setActiveChartIndices(initialIndices);
+        setLoading(false);
       });
-      setActiveChartIndices(initialIndices);
-      setLoading(false);
-    });
+    };
+
+    loadCaseStudies();
+
+    window.addEventListener('velametric_portfolio_updated', loadCaseStudies);
+    window.addEventListener('storage', loadCaseStudies);
+    window.addEventListener('focus', loadCaseStudies);
+
+    return () => {
+      window.removeEventListener('velametric_portfolio_updated', loadCaseStudies);
+      window.removeEventListener('storage', loadCaseStudies);
+      window.removeEventListener('focus', loadCaseStudies);
+    };
   }, []);
 
   const handleSelectChart = (caseStudyId: string, chartIndex: number) => {

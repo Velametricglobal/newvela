@@ -28,15 +28,29 @@ export const PartnerShowcasePage: React.FC = () => {
   const [allPartners, setAllPartners] = useState<ProductionPartner[]>([]);
 
   useEffect(() => {
-    const partners = portfolioService.getPartners();
-    setAllPartners(partners);
+    const loadPartners = () => {
+      const partners = portfolioService.getPartners();
+      setAllPartners(partners);
 
-    if (partnerSlug) {
-      const resolved = portfolioService.getPartnerBySlug(partnerSlug);
-      setPartner(resolved);
-    } else if (partners.length > 0) {
-      setPartner(partners[0]);
-    }
+      if (partnerSlug) {
+        const resolved = portfolioService.getPartnerBySlug(partnerSlug);
+        setPartner(resolved);
+      } else if (partners.length > 0) {
+        setPartner(partners[0]);
+      }
+    };
+
+    loadPartners();
+
+    window.addEventListener('velametric_portfolio_updated', loadPartners);
+    window.addEventListener('storage', loadPartners);
+    window.addEventListener('focus', loadPartners);
+
+    return () => {
+      window.removeEventListener('velametric_portfolio_updated', loadPartners);
+      window.removeEventListener('storage', loadPartners);
+      window.removeEventListener('focus', loadPartners);
+    };
   }, [partnerSlug]);
 
   if (!partner) {

@@ -627,37 +627,6 @@ const TalentCard: React.FC<{
             onError={(e) => { e.currentTarget.src = `https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&h=400&fit=crop`; }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
-
-          {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-            {talent.isFeatured && (
-              <span className="px-2 py-0.5 bg-amber-400 text-zinc-950 text-[10px] font-black rounded-full flex items-center gap-1 shadow-md">
-                <Crown size={10} /> FEATURED
-              </span>
-            )}
-            {talent.isVerified && (
-              <span className="px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full flex items-center gap-1 shadow-md">
-                <BadgeCheck size={10} /> VERIFIED
-              </span>
-            )}
-          </div>
-
-          {/* Availability */}
-          <div className="absolute top-3 right-3">
-            <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${
-              talent.isAvailable ? 'bg-emerald-500 text-white' : 'bg-zinc-800/90 text-zinc-400'
-            }`}>
-              {talent.isAvailable ? '● Available' : '● Booked'}
-            </span>
-          </div>
-
-          {/* Like button */}
-          <button
-            onClick={handleLike}
-            className="absolute bottom-3 right-3 p-2 bg-zinc-900/80 backdrop-blur-sm rounded-full border border-zinc-700 hover:border-rose-400 transition-all group/like"
-          >
-            <Heart size={14} className={liked ? 'text-rose-400 fill-rose-400' : 'text-zinc-400 group-hover/like:text-rose-400'} />
-          </button>
         </div>
 
         {/* Avatar + Info */}
@@ -682,8 +651,8 @@ const TalentCard: React.FC<{
 
           {/* Category & Location */}
           <div className="flex items-center justify-between mb-2">
-            <span className={`px-2.5 py-0.5 bg-gradient-to-r ${catInfo?.color || 'from-zinc-600 to-zinc-700'} text-white text-[11px] font-bold rounded-full shadow-sm`}>
-              {catInfo?.icon} {CATEGORY_LABEL_MAP[talent.category]}
+            <span className="px-2.5 py-0.5 bg-zinc-800/90 border border-zinc-700/70 text-zinc-200 text-[11px] font-semibold rounded-full uppercase tracking-wider">
+              {CATEGORY_LABEL_MAP[talent.category]}
             </span>
             <span className="text-zinc-400 text-xs flex items-center gap-1">
               <MapPin size={11} className="text-zinc-500" /> {talent.location}
@@ -706,15 +675,19 @@ const TalentCard: React.FC<{
             </div>
           )}
 
-          {/* Template Theme Badge & Metric Stats */}
+          {/* Metric Stats Bar */}
           <div className="flex items-center justify-between py-2 border-t border-zinc-800 text-xs text-zinc-400">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <Eye size={12} className="text-zinc-500" />
                 <span>{(talent.views || 0).toLocaleString()}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Heart size={12} className="text-zinc-500" />
+              <div
+                className="flex items-center gap-1 cursor-pointer hover:text-rose-400 transition-colors"
+                onClick={handleLike}
+                title="Appreciate profile"
+              >
+                <Heart size={12} className={liked ? 'text-rose-400 fill-rose-400' : 'text-zinc-500'} />
                 <span>{(liked ? (talent.likes || 0) + 1 : (talent.likes || 0)).toLocaleString()}</span>
               </div>
             </div>
@@ -730,36 +703,25 @@ const TalentCard: React.FC<{
       </div>
 
       {/* Action Buttons */}
-      <div className="p-4 pt-0 grid grid-cols-3 gap-1.5">
+      <div className="p-4 pt-0 grid grid-cols-2 gap-2">
         <button
-          className="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-bold rounded-xl transition-all flex items-center justify-center gap-1"
+          className="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 text-xs font-bold rounded-xl transition-all flex items-center justify-center"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/talent/${talent.id}`);
           }}
         >
-          Portfolio <ArrowRight size={11} />
+          View Profile
         </button>
 
         <button
-          className="py-2.5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700/80 text-amber-400 text-[11px] font-bold rounded-xl transition-all flex items-center justify-center gap-1"
-          onClick={(e) => {
-            e.stopPropagation();
-            onOpenCompCard(talent);
-          }}
-          title="View Model Comp Card / Zed Card"
-        >
-          <Camera size={11} /> Comp Card
-        </button>
-
-        <button
-          className="py-2.5 bg-amber-400 hover:bg-amber-300 text-zinc-950 text-[11px] font-black rounded-xl transition-all flex items-center justify-center gap-1 shadow-md shadow-amber-400/15"
+          className="py-2.5 bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-bold rounded-xl transition-all flex items-center justify-center shadow-md shadow-amber-400/15"
           onClick={(e) => {
             e.stopPropagation();
             onContact(talent);
           }}
         >
-          <Send size={11} /> Book
+          Book Talent
         </button>
       </div>
     </div>
@@ -791,9 +753,23 @@ export const TalentPortfolioPage: React.FC<TalentPortfolioPageProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    const all = talentService.getPublic();
-    setFeatured(all.filter(t => t.isFeatured));
-    setTalents(talentService.getPublic(filter));
+    const loadData = () => {
+      const all = talentService.getPublic();
+      setFeatured(all.filter(t => t.isFeatured));
+      setTalents(talentService.getPublic(filter));
+    };
+
+    loadData();
+
+    window.addEventListener('velametric_talents_updated', loadData);
+    window.addEventListener('storage', loadData);
+    window.addEventListener('focus', loadData);
+
+    return () => {
+      window.removeEventListener('velametric_talents_updated', loadData);
+      window.removeEventListener('storage', loadData);
+      window.removeEventListener('focus', loadData);
+    };
   }, []);
 
   useEffect(() => {
@@ -943,22 +919,22 @@ export const TalentPortfolioPage: React.FC<TalentPortfolioPageProps> = ({
               className={`flex-shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeCategory === 'all'
                   ? 'bg-amber-400 text-zinc-950 shadow-md'
-                  : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-amber-400/40'
+                  : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-700 hover:text-white'
               }`}
             >
-              ✨ All Talent Roster
+              All Talents
             </button>
             {TALENT_CATEGORIES.map(cat => (
               <button
                 key={cat.value}
                 onClick={() => { setActiveCategory(cat.value); setActiveModelSubtag('all'); }}
-                className={`flex-shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`flex-shrink-0 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                   activeCategory === cat.value
-                    ? 'bg-amber-400 text-zinc-950 shadow-md'
-                    : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-amber-400/40'
+                    ? 'bg-amber-400 text-zinc-950 font-bold shadow-md'
+                    : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-700 hover:text-white'
                 }`}
               >
-                {cat.icon} {cat.label}
+                {cat.label}
               </button>
             ))}
           </div>
@@ -1018,10 +994,10 @@ export const TalentPortfolioPage: React.FC<TalentPortfolioPageProps> = ({
               onChange={e => setFilter(f => ({ ...f, sortBy: e.target.value as TalentFilter['sortBy'] }))}
               className="bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-amber-400"
             >
-              <option value="featured">⭐ Featured First</option>
-              <option value="popular">❤️ Most Popular</option>
-              <option value="views">👁️ Most Viewed</option>
-              <option value="newest">🆕 Newest</option>
+              <option value="featured">Featured First</option>
+              <option value="popular">Most Popular</option>
+              <option value="views">Most Viewed</option>
+              <option value="newest">Newest Added</option>
             </select>
 
             <span className="text-zinc-500 text-xs font-mono">

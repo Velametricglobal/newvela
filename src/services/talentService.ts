@@ -623,6 +623,10 @@ function loadTalents(): TalentProfile[] {
 
 function saveTalents(talents: TalentProfile[]) {
   localStorage.setItem(TALENT_KEY, JSON.stringify(talents.map(sanitizeTalent)));
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('velametric_talents_updated'));
+    window.dispatchEvent(new Event('storage'));
+  }
 }
 
 function loadInquiries(): TalentInquiry[] {

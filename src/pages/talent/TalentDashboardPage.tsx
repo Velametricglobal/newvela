@@ -615,7 +615,7 @@ export const TalentDashboardPage: React.FC<{ defaultTab?: string }> = ({ default
                       className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-xs focus:border-amber-400 outline-none capitalize"
                     >
                       {TALENT_CATEGORIES.map(c => (
-                        <option key={c.value} value={c.value}>{c.icon} {c.label}</option>
+                        <option key={c.value} value={c.value}>{c.label}</option>
                       ))}
                     </select>
                   </div>

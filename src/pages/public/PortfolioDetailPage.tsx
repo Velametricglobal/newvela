@@ -92,12 +92,26 @@ export const PortfolioDetailPage: React.FC = () => {
   const [lightboxPhoto, setLightboxPhoto] = useState<EventPhotoItem | null>(null);
 
   useEffect(() => {
-    if (slug) {
-      portfolioService.getProjectBySlug(slug).then(proj => {
-        setProject(proj);
-        setLoading(false);
-      });
-    }
+    const loadProject = () => {
+      if (slug) {
+        portfolioService.getProjectBySlug(slug).then(proj => {
+          setProject(proj);
+          setLoading(false);
+        });
+      }
+    };
+
+    loadProject();
+
+    window.addEventListener('velametric_portfolio_updated', loadProject);
+    window.addEventListener('storage', loadProject);
+    window.addEventListener('focus', loadProject);
+
+    return () => {
+      window.removeEventListener('velametric_portfolio_updated', loadProject);
+      window.removeEventListener('storage', loadProject);
+      window.removeEventListener('focus', loadProject);
+    };
   }, [slug]);
 
   if (loading) {

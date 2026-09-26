@@ -669,15 +669,29 @@ export const TalentProfilePage: React.FC = () => {
 
   useEffect(() => {
     if (!id) return;
-    const profile = talentService.getById(id);
-    if (profile) {
-      setTalent(profile);
-      setProfileLikesCount(profile.likes || 0);
-      if (profile.portfolioTheme?.templateId) {
-        setActiveTemplateId(profile.portfolioTheme.templateId);
+    const loadProfile = () => {
+      const profile = talentService.getById(id);
+      if (profile) {
+        setTalent(profile);
+        setProfileLikesCount(profile.likes || 0);
+        if (profile.portfolioTheme?.templateId) {
+          setActiveTemplateId(profile.portfolioTheme.templateId);
+        }
       }
-      talentService.incrementViews(profile.id);
-    }
+    };
+
+    loadProfile();
+    talentService.incrementViews(id);
+
+    window.addEventListener('velametric_talents_updated', loadProfile);
+    window.addEventListener('storage', loadProfile);
+    window.addEventListener('focus', loadProfile);
+
+    return () => {
+      window.removeEventListener('velametric_talents_updated', loadProfile);
+      window.removeEventListener('storage', loadProfile);
+      window.removeEventListener('focus', loadProfile);
+    };
   }, [id]);
 
   if (!talent) {
@@ -874,7 +888,7 @@ export const TalentProfilePage: React.FC = () => {
                 <div className="space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${accentBg}`}>
-                      {catInfo?.icon} {CATEGORY_LABEL_MAP[talent.category] || talent.category}
+                      {CATEGORY_LABEL_MAP[talent.category] || talent.category}
                     </span>
                     {talent.isFeatured && (
                       <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400/15 border border-amber-400/30 text-amber-300 flex items-center gap-1">
@@ -1004,7 +1018,7 @@ export const TalentProfilePage: React.FC = () => {
               <div className="flex flex-wrap items-center gap-2">
                 {subCategoriesList.map((tag, i) => (
                   <span key={i} className="px-3 py-1 bg-zinc-950 text-zinc-300 text-xs font-semibold rounded-xl border border-zinc-800 capitalize">
-                    🏷️ {tag}
+                    {tag}
                   </span>
                 ))}
               </div>

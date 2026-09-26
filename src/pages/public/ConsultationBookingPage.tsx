@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { leadService } from '../../services/leadService';
+import { useSiteSettings } from '../../services/settingsService';
 import { 
   Calendar as CalendarIcon, Clock, Video, Phone, Building2, 
   ChevronLeft, ChevronRight, CheckCircle2, Shield, Sparkles, 
@@ -31,6 +32,7 @@ const MEETING_MODES = [
 
 export const ConsultationBookingPage: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const siteSettings = useSiteSettings();
   const initialTopic = searchParams.get('topic') || searchParams.get('service') || 'web-app';
 
   // Navigation & Scroll
@@ -379,14 +381,14 @@ export const ConsultationBookingPage: React.FC = () => {
               </div>
 
               <a
-                href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                  `Hi Velametric Team, I just scheduled a free consultation call on ${selectedDate.toDateString()} at ${selectedSlot} (Ref: ${confirmedLeadCode}). Looking forward to our session!`
+                href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(
+                  `Hi ${siteSettings?.company_name || 'Velametric Team'}, I just scheduled a free consultation call on ${selectedDate.toDateString()} at ${selectedSlot} (Ref: ${confirmedLeadCode}). Looking forward to our session!`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-amber-400/25 transition-all"
+                className="w-full py-3 px-4 rounded-xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-emerald-500/25 transition-all shadow-md"
               >
-                <MessageCircle className="w-4 h-4 text-amber-400" /> Confirm Directly On WhatsApp (+91 98765 43210)
+                <MessageCircle className="w-4 h-4 text-emerald-400" /> Confirm Directly On WhatsApp ({siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+91-8679766348'})
               </a>
             </div>
 

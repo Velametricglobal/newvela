@@ -16,12 +16,26 @@ export const CaseStudyDetailPage: React.FC = () => {
   const [zoomImage, setZoomImage] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
 
   useEffect(() => {
-    if (slug) {
-      portfolioService.getCaseStudyBySlug(slug).then((res) => {
-        setCs(res);
-        setLoading(false);
-      });
-    }
+    const loadDetail = () => {
+      if (slug) {
+        portfolioService.getCaseStudyBySlug(slug).then((res) => {
+          setCs(res);
+          setLoading(false);
+        });
+      }
+    };
+
+    loadDetail();
+
+    window.addEventListener('velametric_portfolio_updated', loadDetail);
+    window.addEventListener('storage', loadDetail);
+    window.addEventListener('focus', loadDetail);
+
+    return () => {
+      window.removeEventListener('velametric_portfolio_updated', loadDetail);
+      window.removeEventListener('storage', loadDetail);
+      window.removeEventListener('focus', loadDetail);
+    };
   }, [slug]);
 
   if (loading) {

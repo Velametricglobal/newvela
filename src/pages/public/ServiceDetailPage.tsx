@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Service, ServicePackage } from '../../types/database.types';
 import { serviceService } from '../../services/serviceService';
+import { useSiteSettings } from '../../services/settingsService';
 import { CurrencySelector } from '../../components/common/CurrencySelector';
 import { PackageEnquiryModal } from '../../components/public/PackageEnquiryModal';
 import { SaaSProductDemoModal, SaaSProductType } from '../../components/public/SaaSProductDemoModal';
@@ -12,6 +13,7 @@ import { DapflixCinemaSlider } from '../../components/public/DapflixCinemaSlider
 
 export const ServiceDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const siteSettings = useSiteSettings();
   const { formatAmount } = useCurrency();
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,12 +31,25 @@ export const ServiceDetailPage: React.FC = () => {
   const [selectedPartner, setSelectedPartner] = useState<'ekraahee' | 'dapflix'>('ekraahee');
 
   useEffect(() => {
-    if (slug) {
+    if (!slug) return;
+    const loadService = () => {
       serviceService.getServiceBySlug(slug).then(srv => {
         setService(srv);
         setLoading(false);
       });
-    }
+    };
+
+    loadService();
+
+    window.addEventListener('velametric_services_updated', loadService);
+    window.addEventListener('storage', loadService);
+    window.addEventListener('focus', loadService);
+
+    return () => {
+      window.removeEventListener('velametric_services_updated', loadService);
+      window.removeEventListener('storage', loadService);
+      window.removeEventListener('focus', loadService);
+    };
   }, [slug]);
 
   if (loading) {
@@ -117,7 +132,7 @@ export const ServiceDetailPage: React.FC = () => {
               Get Started / Order Package <ArrowRight className="w-4 h-4" />
             </button>
             <a
-              href="https://wa.me/919876543210"
+              href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi ${siteSettings?.company_name || 'Velametric'}, I would like to enquire about the ${service.name} package.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs flex items-center gap-2 transition-all shadow-xl"

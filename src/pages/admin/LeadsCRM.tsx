@@ -92,8 +92,15 @@ export const LeadsCRM: React.FC = () => {
       setEmployees(delegationService.getEmployees());
     };
     window.addEventListener('vela-lead-assigned', handleAssigned);
+    window.addEventListener('velametric_leads_updated', fetchLeads);
+    window.addEventListener('storage', fetchLeads);
+    window.addEventListener('focus', fetchLeads);
+
     return () => {
       window.removeEventListener('vela-lead-assigned', handleAssigned);
+      window.removeEventListener('velametric_leads_updated', fetchLeads);
+      window.removeEventListener('storage', fetchLeads);
+      window.removeEventListener('focus', fetchLeads);
     };
   }, []);
 

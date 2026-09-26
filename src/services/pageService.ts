@@ -389,8 +389,8 @@ export const defaultHomeSections: PageSection[] = [
     visibility: { desktop: true, tablet: true, mobile: true },
     content: {
       heading: "Let's Talk.",
-      phone: '+1 (800) 555-VELA',
-      whatsapp: '+1 (800) 555-8352',
+      phone: '+91-8679766348',
+      whatsapp: '+91-8679766348',
       email: 'hello@velametric.com',
       office_dehradun: 'Headquarters: Dehradun, Uttarakhand',
       office_uttarkashi: 'Regional Office: Joshiyara, Uttarkashi',

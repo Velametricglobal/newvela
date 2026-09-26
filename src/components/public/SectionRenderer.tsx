@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageSection, Service, PortfolioProject, CaseStudy, VideoReel } from '../../types/database.types';
 import { leadService } from '../../services/leadService';
+import { useSiteSettings } from '../../services/settingsService';
 import {
   Sparkles, ArrowRight, Play, CheckCircle2, Calculator, Building, Award, Users,
   Globe, Laptop, Video, Film, Instagram, ChevronDown, MapPin, Phone, Mail, Clock, Send,
@@ -68,6 +69,7 @@ export const SmartLink: React.FC<SmartLinkProps> = ({ to, href, openInNewTab, cl
 };
 
 export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, services = [], projects = [], caseStudies = [] }) => {
+  const siteSettings = useSiteSettings();
   const content = section.content || {};
 
   // Form State for Enquiry Section
@@ -966,27 +968,46 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, servi
             </h2>
 
             <div className="space-y-3 sm:space-y-4 text-xs font-mono">
-              <div className="flex items-center gap-3 p-4 bg-zinc-900 rounded-2xl border border-zinc-800">
+              <a 
+                href={`tel:${content.phone || siteSettings.contact_phone || '+918679766348'}`}
+                className="flex items-center gap-3 p-4 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-amber-400/50 transition-all block"
+              >
                 <Phone className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
                   <div className="text-zinc-400 text-[10px]">Phone Support</div>
-                  <div className="text-white font-bold">{content.phone || '+1 (800) 555-VELA'}</div>
+                  <div className="text-white font-bold">{content.phone || siteSettings.contact_phone || '+91-8679766348'}</div>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-3 p-4 bg-zinc-900 rounded-2xl border border-zinc-800">
+              <a 
+                href={`https://wa.me/${(content.whatsapp || siteSettings.contact_whatsapp || siteSettings.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${siteSettings.company_name || 'Velametric'}, I would like to connect with your team.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 hover:border-emerald-400 transition-all block"
+              >
+                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
+                <div>
+                  <div className="text-emerald-400 text-[10px] font-bold">Direct WhatsApp Chat</div>
+                  <div className="text-white font-bold">{content.whatsapp || siteSettings.contact_whatsapp || siteSettings.contact_phone || '+91-8679766348'}</div>
+                </div>
+              </a>
+
+              <a 
+                href={`mailto:${content.email || siteSettings.contact_email || 'hello@velametric.com'}`}
+                className="flex items-center gap-3 p-4 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-amber-400/50 transition-all block"
+              >
                 <Mail className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
                   <div className="text-zinc-400 text-[10px]">Email Address</div>
-                  <div className="text-white font-bold">{content.email || 'hello@velametric.com'}</div>
+                  <div className="text-white font-bold">{content.email || siteSettings.contact_email || 'hello@velametric.com'}</div>
                 </div>
-              </div>
+              </a>
 
               <div className="flex items-center gap-3 p-4 bg-zinc-900 rounded-2xl border border-zinc-800">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
-                  <div className="text-zinc-400 text-[10px]">Uttarakhand Headquarters</div>
-                  <div className="text-white font-bold">{content.office_dehradun || 'Dehradun, Uttarakhand'}</div>
+                  <div className="text-zinc-400 text-[10px]">Headquarters & Offices</div>
+                  <div className="text-white font-bold">{content.office_dehradun || siteSettings.contact_address || 'Dehradun Headquarters & Joshiyara, Uttarkashi Regional Office'}</div>
                 </div>
               </div>
             </div>

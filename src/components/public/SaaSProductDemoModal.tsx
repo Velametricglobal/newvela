@@ -8,6 +8,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { leadService } from '../../services/leadService';
+import { useSiteSettings } from '../../services/settingsService';
 
 export type SaaSProductType = 'education' | 'property-crm' | 'ecommerce';
 
@@ -24,6 +25,7 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
   onClose,
   onOrderPackage
 }) => {
+  const siteSettings = useSiteSettings();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'feature1' | 'feature2' | 'analytics'>('dashboard');
   
   // Verification Gate States
@@ -1496,12 +1498,12 @@ export const SaaSProductDemoModal: React.FC<SaaSProductDemoModalProps> = ({
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={`https://wa.me/919876543210?text=${encodeURIComponent(`Hi, I tested the live demo for ${productName} and I would like to order it.`)}`}
+                  href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi ${siteSettings?.company_name || 'Velametric'}, I tested the live demo for ${productName} and I would like to order it.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-amber-400" /> WhatsApp Consultation
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" /> WhatsApp Consultation
                 </a>
                 {onOrderPackage && (
                   <button

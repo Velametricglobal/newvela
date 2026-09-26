@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { leadService } from '../../services/leadService';
+import { settingsService } from '../../services/settingsService';
+import { SiteSettings } from '../../types/database.types';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Calendar, Sparkles, Laptop, MessageSquare } from 'lucide-react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { ProductTrialForm, TrialProductId } from '../../components/public/ProductTrialForm';
 
 export const ContactPage: React.FC = () => {
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
   const [searchParams] = useSearchParams();
   const initialService = searchParams.get('service') || searchParams.get('subject') || 'Website & App Development';
   const initialMode = (searchParams.get('mode') === 'general' || searchParams.get('type') === 'general') ? 'general' : 'trial';
@@ -31,6 +34,20 @@ export const ContactPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const loadSettings = () => {
+      settingsService.getSiteSettings().then(setSiteSettings);
+    };
+    loadSettings();
+
+    window.addEventListener('velametric_settings_updated', loadSettings);
+    window.addEventListener('storage', loadSettings);
+    window.addEventListener('focus', loadSettings);
+
+    return () => {
+      window.removeEventListener('velametric_settings_updated', loadSettings);
+      window.removeEventListener('storage', loadSettings);
+      window.removeEventListener('focus', loadSettings);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,33 +115,65 @@ export const ContactPage: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
+            <a 
+              href={`mailto:${siteSettings?.contact_email || 'hello@velametric.com'}`}
+              className="flex items-start gap-4 p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-400/50 transition-all group block"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0 group-hover:bg-amber-400 group-hover:text-black transition-all">
                 <Mail className="w-5 h-5" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="text-xs font-semibold text-zinc-400 uppercase font-mono">Email Support</div>
-                <div className="text-base font-bold text-white">hello@velametric.com</div>
+                <div className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate">
+                  {siteSettings?.contact_email || 'hello@velametric.com'}
+                </div>
               </div>
-            </div>
+            </a>
 
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
+            <a 
+              href={`tel:${siteSettings?.contact_phone || '+918679766348'}`}
+              className="flex items-start gap-4 p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-400/50 transition-all group block"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0 group-hover:bg-amber-400 group-hover:text-black transition-all">
                 <Phone className="w-5 h-5" />
               </div>
-              <div>
-                <div className="text-xs font-semibold text-zinc-400 uppercase font-mono">Direct Line / WhatsApp</div>
-                <div className="text-base font-bold text-white">+1 (800) 555-VELA</div>
+              <div className="min-w-0">
+                <div className="text-xs font-semibold text-zinc-400 uppercase font-mono">Direct Phone Call</div>
+                <div className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                  {siteSettings?.contact_phone || '+91-8679766348'}
+                </div>
               </div>
-            </div>
+            </a>
+
+            <a 
+              href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${siteSettings?.company_name || 'Velametric'}, I would like to inquire about your software and enterprise solutions.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-400 transition-all group block"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-black transition-all">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-semibold text-emerald-400 uppercase font-mono flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Instant WhatsApp Chat
+                </div>
+                <div className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+                  {siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+91-8679766348'}
+                </div>
+              </div>
+            </a>
 
             <div className="flex items-start gap-4 p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
                 <MapPin className="w-5 h-5" />
               </div>
-              <div>
-                <div className="text-xs font-semibold text-zinc-400 uppercase font-mono">Headquarters</div>
-                <div className="text-base font-bold text-white">Dehradun, Uttarakhand & Regional Office: Joshiyara, Uttarkashi</div>
+              <div className="min-w-0">
+                <div className="text-xs font-semibold text-zinc-400 uppercase font-mono">Headquarters & Offices</div>
+                <div className="text-xs sm:text-sm font-bold text-white leading-snug">
+                  {siteSettings?.contact_address || 'Dehradun Headquarters & Joshiyara, Uttarkashi Regional Office'}
+                </div>
               </div>
             </div>
           </div>

@@ -198,11 +198,15 @@ export const PublicLayout: React.FC = () => {
           
           {/* Velametric Signature Logo with Spotlight Backglow */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-black text-sm shadow-md shadow-amber-400/25 group-hover:scale-105 group-hover:shadow-amber-400/50 transition-all duration-300">
-              V
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-black text-sm shadow-md shadow-amber-400/25 group-hover:scale-105 group-hover:shadow-amber-400/50 transition-all duration-300 overflow-hidden">
+              {siteSettings?.logo_url ? (
+                <img src={siteSettings.logo_url} alt="Logo" className="w-full h-full object-cover" />
+              ) : (
+                (siteSettings?.company_name?.[0] || 'V')
+              )}
             </div>
             <span className="font-extrabold text-lg sm:text-xl tracking-wider text-white font-display uppercase transition-all duration-200 group-hover:text-amber-300 group-hover:drop-shadow-[0_0_16px_rgba(251,191,36,0.7)]">
-              VELAMETRIC
+              {siteSettings?.company_name || 'VELAMETRIC'}
             </span>
           </Link>
 
@@ -943,12 +947,17 @@ export const PublicLayout: React.FC = () => {
       </main>
 
       {/* STICKY MOBILE ACTION BAR (CALL | WHATSAPP | ENQUIRE) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-zinc-900/95 border-t border-zinc-800 backdrop-blur-xl px-4 py-2.5 flex items-center justify-around text-[10px] font-bold uppercase tracking-wider text-zinc-300">
-        <a href="tel:+919876543210" className="flex items-center gap-1.5 py-1 text-white">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-zinc-900/95 border-t border-zinc-800 backdrop-blur-xl px-4 py-2.5 flex items-center justify-around text-[10px] font-bold uppercase tracking-wider text-zinc-300 shadow-2xl">
+        <a href={`tel:${siteSettings?.contact_phone || '+918679766348'}`} className="flex items-center gap-1.5 py-1 text-white">
           <Phone className="w-3.5 h-3.5 text-amber-400" /> Call
         </a>
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 py-1 text-amber-400">
-          <MessageSquare className="w-3.5 h-3.5 text-amber-400" /> WhatsApp
+        <a 
+          href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${siteSettings?.company_name || 'Velametric'}, I would like to enquire about your software & commercial services.`)}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-1.5 py-1 text-emerald-400"
+        >
+          <MessageSquare className="w-3.5 h-3.5 text-emerald-400" /> WhatsApp
         </a>
         <Link to="/login" className="flex items-center gap-1.5 py-1 text-amber-400 font-extrabold">
           <User className="w-3.5 h-3.5 text-amber-400" /> Log In
@@ -970,6 +979,21 @@ export const PublicLayout: React.FC = () => {
         </Link>
       </div>
 
+      {/* FLOATING LIVE WHATSAPP CHAT BUTTON (BOTTOM RIGHT) */}
+      <div className="fixed bottom-16 lg:bottom-6 right-4 sm:right-6 z-40 no-print">
+        <a
+          href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${siteSettings?.company_name || 'Velametric'}, I would like to chat with your team regarding your services.`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-black shadow-xl shadow-emerald-500/25 border border-emerald-300/40 transition-all duration-200 hover:scale-105 group"
+          title="Chat directly on WhatsApp"
+        >
+          <MessageSquare className="w-4 h-4 fill-current text-black" />
+          <span className="hidden sm:inline">WhatsApp Us</span>
+          <span className="inline sm:hidden">Chat</span>
+        </a>
+      </div>
+
       {/* Squarespace-Inspired Editorial Footer */}
       <footer className="bg-zinc-950 border-t border-zinc-800/80 text-zinc-400 text-xs pt-16 sm:pt-20 pb-12">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
@@ -978,10 +1002,10 @@ export const PublicLayout: React.FC = () => {
           <div className="border-b border-zinc-800 pb-12 mb-12 sm:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
               <h2 className="text-3xl sm:text-6xl font-black text-white tracking-tighter font-display uppercase">
-                VELAMETRIC
+                {siteSettings?.company_name || 'VELAMETRIC'}
               </h2>
               <p className="text-zinc-400 text-xs sm:text-sm max-w-md mt-3">
-                Everything to build your website, run your CRM, manage financial loan advisory, and produce high-impact video reels with Destiny, Dapflix & Ekraahee Films.
+                {siteSettings?.description || 'Everything to build your website, run your CRM, manage financial loan advisory, and produce high-impact video reels with Destiny, Dapflix & Ekraahee Films.'}
               </p>
             </div>
             <Link
@@ -992,7 +1016,7 @@ export const PublicLayout: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-10 mb-12 sm:mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 sm:gap-10 mb-12 sm:mb-16">
             <div>
               <h4 className="text-white font-bold mb-4 text-xs uppercase tracking-widest">Products</h4>
               <ul className="space-y-3 font-medium">
@@ -1057,10 +1081,51 @@ export const PublicLayout: React.FC = () => {
                 <li><Link to="/payment-terms" className="hover:text-white transition-colors">Security & SLA</Link></li>
               </ul>
             </div>
+
+            {/* DIRECT CONTACT & HEADQUARTERS BLOCK */}
+            <div>
+              <h4 className="text-white font-bold mb-4 text-xs uppercase tracking-widest flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Official Contact
+              </h4>
+              <div className="space-y-3 font-medium text-[11px] leading-relaxed">
+                <div>
+                  <span className="text-zinc-500 block text-[10px] font-mono uppercase">Call / Phone</span>
+                  <a href={`tel:${siteSettings?.contact_phone || '+918679766348'}`} className="text-zinc-200 hover:text-white font-bold">
+                    {siteSettings?.contact_phone || '+91-8679766348'}
+                  </a>
+                </div>
+                <div>
+                  <span className="text-zinc-500 block text-[10px] font-mono uppercase">WhatsApp Support</span>
+                  <a 
+                    href={`https://wa.me/${(siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+918679766348').replace(/\D/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1"
+                  >
+                    <span>{siteSettings?.contact_whatsapp || siteSettings?.contact_phone || '+91-8679766348'}</span>
+                  </a>
+                </div>
+                <div>
+                  <span className="text-zinc-500 block text-[10px] font-mono uppercase">Email Desk</span>
+                  <a href={`mailto:${siteSettings?.contact_email || 'hello@velametric.com'}`} className="text-zinc-300 hover:text-white truncate block">
+                    {siteSettings?.contact_email || 'hello@velametric.com'}
+                  </a>
+                </div>
+                {siteSettings?.contact_address && (
+                  <div>
+                    <span className="text-zinc-500 block text-[10px] font-mono uppercase">Offices</span>
+                    <p className="text-zinc-400 text-[10px] leading-snug">
+                      {siteSettings.contact_address}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className="border-t border-zinc-800/80 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-zinc-500">
-            <p>© {new Date().getFullYear()} Velametric Inc. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {siteSettings?.company_name || 'Velametric Global'}. All rights reserved.</p>
             <p className="mt-4 sm:mt-0 font-mono text-[11px]">Sub-Second Performance & Video Production Infrastructure</p>
           </div>
         </div>

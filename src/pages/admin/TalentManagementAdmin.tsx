@@ -237,7 +237,7 @@ export const TalentManagementAdmin: React.FC = () => {
             >
               <option value="all">Category: All</option>
               {TALENT_CATEGORIES.map(c => (
-                <option key={c.value} value={c.value}>{c.icon} {c.label}</option>
+                <option key={c.value} value={c.value}>{c.label}</option>
               ))}
             </select>
 
@@ -303,8 +303,8 @@ export const TalentManagementAdmin: React.FC = () => {
                         {/* Category & Title */}
                         <td className="px-4 py-4">
                           <div className="space-y-1">
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-flex items-center gap-1">
-                              {cat?.icon} {CATEGORY_LABEL_MAP[t.category]}
+                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-flex items-center">
+                              {CATEGORY_LABEL_MAP[t.category]}
                             </span>
                             <div className="text-slate-300 font-medium truncate max-w-[180px]">{t.title}</div>
                           </div>

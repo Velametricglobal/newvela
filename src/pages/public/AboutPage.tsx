@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, MapPin, Award, Users, Laptop, Megaphone, Video, Calendar, CreditCard, ArrowRight, ShieldCheck, Camera, Newspaper, Film, Globe } from 'lucide-react';
+import { settingsService } from '../../services/settingsService';
+import { SiteSettings } from '../../types/database.types';
 
 export const AboutPage: React.FC = () => {
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    const loadSettings = () => {
+      settingsService.getSiteSettings().then(setSiteSettings);
+    };
+
+    loadSettings();
+
+    window.addEventListener('velametric_settings_updated', loadSettings);
+    window.addEventListener('storage', loadSettings);
+    window.addEventListener('focus', loadSettings);
+
+    return () => {
+      window.removeEventListener('velametric_settings_updated', loadSettings);
+      window.removeEventListener('storage', loadSettings);
+      window.removeEventListener('focus', loadSettings);
+    };
+  }, []);
+
+  const companyName = siteSettings?.company_name || 'Velametric Global';
   return (
     <div className="bg-zinc-950 text-zinc-100 font-sans selection:bg-white selection:text-black">
       
@@ -16,11 +39,11 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <h1 className="text-4xl sm:text-7xl font-black tracking-tight text-white font-display uppercase leading-tight max-w-4xl mx-auto mb-8">
-            ABOUT VELAMETRIC GLOBAL
+            ABOUT {companyName.toUpperCase()}
           </h1>
 
           <p className="text-lg sm:text-2xl text-zinc-300 max-w-4xl mx-auto font-normal leading-relaxed font-sans">
-            Established in 2015, <strong className="text-white font-semibold">Velametric Global</strong> is a dynamic, multi-disciplinary agency dedicated to transforming ideas into impactful realities. Proudly rooted in Uttarakhand, we blend technical innovation with creative storytelling to deliver comprehensive solutions across the digital, marketing, production, and financial sectors. Our goal is to help businesses and individuals grow, connect, and thrive in an ever-evolving market.
+            Established in 2015, <strong className="text-white font-semibold">{companyName}</strong> is a dynamic, multi-disciplinary agency dedicated to transforming ideas into impactful realities. Proudly rooted in Uttarakhand, we blend technical innovation with creative storytelling to deliver comprehensive solutions across the digital, marketing, production, and financial sectors. Our goal is to help businesses and individuals grow, connect, and thrive in an ever-evolving market.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center mt-10">
@@ -310,7 +333,7 @@ export const AboutPage: React.FC = () => {
       <section className="py-24 bg-zinc-950 text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10 space-y-8">
           <h2 className="text-4xl sm:text-6xl font-black text-white font-display uppercase tracking-tight leading-tight">
-            READY TO TRANSFORM YOUR IDEAS WITH VELAMETRIC?
+            READY TO TRANSFORM YOUR IDEAS WITH {companyName.toUpperCase()}?
           </h2>
           <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto">
             Get in touch with our leadership and agency specialists today to build, scale, or produce your next project.
